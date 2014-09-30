@@ -41,4 +41,4 @@ npm install
 ```bash
 node app.js
 ```
-5. Go on browser by link http://127.0.0.1
+5. Go on browser by link http://127.0.0.1:3000
