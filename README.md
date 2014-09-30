@@ -30,11 +30,13 @@ Install
 1. you have to install node
 2. npm
 3. make command
-'''
+```bash
 npm install
-'''
+```
+
 4. start process
-'''
+
+```bash
 node app.js
-'''
+```
 5. Go on browser by link http://127.0.0.1
