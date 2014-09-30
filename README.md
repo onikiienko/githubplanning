@@ -24,3 +24,17 @@ RoadMap
 3. Login throw gmail
 4. Chat 1 December
 5. Roles in game 31 December 
+
+Install
+=============
+1. you have to install node
+2. npm
+3. make command
+'''
+npm install
+'''
+4. start process
+'''
+node app.js
+'''
+5. Go on browser by link http://127.0.0.1
