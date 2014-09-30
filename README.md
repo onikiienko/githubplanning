@@ -27,8 +27,10 @@ RoadMap
 
 Install
 =============
-1. install [node][http://nodejs.org/]
-2. install [npm][https://www.npmjs.org/]
+1. install [node]
+[node]: http://nodejs.org/
+2. install [npm]
+[npm]: https://www.npmjs.org/
 3. make command
 ```bash
 npm install
