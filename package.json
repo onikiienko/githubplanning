@@ -1,0 +1,31 @@
+{
+  "name": "planningpoker",
+  "version": "0.0.0",
+  "description": "Planning poker for scrum",
+  "main": "app.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/onikiienko/planningpoker.git"
+  },
+  "keywords": [
+    "scrum",
+    "planning",
+    "poker",
+    "socket.io",
+    "agile"
+  ],
+  "author": "onikiienko (https://github.com/onikiienko)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/onikiienko/planningpoker/issues"
+  },
+  "homepage": "https://github.com/onikiienko/planningpoker",
+  "dependencies": {
+    "socket.io": "~1.1.0",
+    "express": "4.3.1",
+    "backbone": "~1.1.2"
+  }
+}
