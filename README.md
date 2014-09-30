@@ -27,8 +27,8 @@ RoadMap
 
 Install
 =============
-1. you have to install node
-2. npm
+1. install [node][http://nodejs.org/]
+2. install [npm][https://www.npmjs.org/]
 3. make command
 ```bash
 npm install
