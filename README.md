@@ -3,19 +3,19 @@ planningpoker
 
 Basic
 =============
-1. Creat game(DONE)
-1.1. create model with hash(DONE)
-1.2. return model(DONE)
-2. enter with hash(DONE)
-3. choose card, change local model(DONE)
-3.1. submit(DONE)
-3.2. send model(DONE)
-3.3. update model(DONE)
-3.4. send new model to all clients(DONE)
-3.5. "open results"
-3.6. choose middle, lowest, highest
-3.7. send new model
-3.8. update model, flip cards(render)
+1 Creat game(DONE)
+1.1 create model with hash(DONE)
+1.2 return model(DONE)
+2 enter with hash(DONE)
+3 choose card, change local model(DONE)
+3.1 submit(DONE)
+3.2 send model(DONE)
+3.3 update model(DONE)
+3.4 send new model to all clients(DONE)
+3.5 "open results"
+3.6 choose middle, lowest, highest
+3.7 send new model
+3.8 update model, flip cards(render)
 
 RoadMap
 =============
