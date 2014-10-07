@@ -32,18 +32,20 @@ RoadMap
 
 Install
 =============
-1. install [node]
-[node]: http://nodejs.org/
-2. install [npm]
-[npm]: https://www.npmjs.org/
-3. make command
+<ol>
+<li>install [node]
+[node]: http://nodejs.org/</li>
+<li>install [npm]
+[npm]: https://www.npmjs.org/</li>
+<li>make command
 ```bash
 npm install
-```
-
-4. start process
+```</li>
+<li>start process
 
 ```bash
 node app.js
-```
-5. Go on browser by link http://127.0.0.1:3000
+```</li>
+<li>Go on browser by link http://127.0.0.1:3000</li>
+</ol>
+
