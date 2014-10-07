@@ -10,20 +10,28 @@ app.get('/', function(req, res){
 var Game = bb.Model.extend();
 
 io.on('connection', function(socket){
-	console.log('connected to io: ', io.sockets.sockets.length);
+	// console.log('connected to io: ', io.sockets.sockets.length);
 	socket.on('create room', function(room){
-		var newGame = io.of(room),
-		game;
+		
+		var newGame = io.of(room);
+		var game;
+		
 		newGame.on('connection', function(socket){
-			console.log('connected to '+ room +': ', io.sockets.sockets.length);
-			console.log('someone connected');
+			
 			socket.emit('room created');
-			socket.on('poker load', function(name){
-				game = new Game;
-				game.set(name, 0)
+
+			socket.on('poker load', function(login){
+				if (!game){
+					game = new Game;
+				}
+				game.set(login, 0)
 				newGame.emit('poker load', game);
 			})
-			socket.on('disconnect', function(){console.log('disconnected!!!');})
+			
+			socket.on('vote', function(login, points){
+				game.set(login, points)
+				newGame.emit('vote', game);
+			})
 		});
 	})
 })

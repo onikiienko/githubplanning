@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Planning Poker</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -12,54 +12,55 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
     </style>
-    <!--  
-    <script src=""></script>
-    -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
   </head>
   <body>
     <ul id="messages"></ul>
     <input type="button" value="Create Room" onclick="createRoom()">
     <input type="text" class="room">
     <input type="button" value="Join Room"  onclick="joinRoom()">
+    <input type="text" class="points" value="1">
+    <input type="button" value="Vote"  onclick="vote()">
     <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-		var room,
-		socket;
-
-		socket = io();
+		var room;
+		var socket = io();
+		var loaclGameModel = new Backbone.Model.extend();
 
 		function createRoom(){
 			room = '/' + makeid();
 			socket.emit('create room', room);
 			socket = io(room);
 			socket.on('room created', function(){
-				window.login = prompt('your name?');
-				socket.emit('poker load', login);
-				socket.on('poker load', function(game){
-					console.log(game);
-					for(player in game){
-						console.log(player);
-						console.log(game[player]);
-					}
-				});
+				socketInit()
 			})
 			$('.room').val(room);	
 		}	
 
 		function joinRoom(){
 			room = $('.room').val();
-			// socket.emit('create room', room);
 			socket = io(room);
+			socketInit()
+		}
+
+		function socketInit(){
 			window.login = prompt('your name?');
 			socket.emit('poker load', login);
 			socket.on('poker load', function(game){
-				console.log(game);
-				for(player in game){
-					console.log(player);
-					console.log(game[player]);
-				}
+				loaclGameModel = game;
+				console.log(loaclGameModel);
 			});
+			socket.on('vote', function(game){
+				loaclGameModel = game;
+				console.log(loaclGameModel);
+			});
+		}
+
+		function vote(){
+			var points = $('.points').val();
+			socket.emit('vote', login, points);
 		}
 
 		function makeid(){
