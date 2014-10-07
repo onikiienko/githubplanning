@@ -3,27 +3,32 @@ planningpoker
 
 Basic
 =============
-1 Creat game(DONE)
-1.1 create model with hash(DONE)
-1.2 return model(DONE)
-2 enter with hash(DONE)
-3 choose card, change local model(DONE)
-3.1 submit(DONE)
-3.2 send model(DONE)
-3.3 update model(DONE)
-3.4 send new model to all clients(DONE)
-3.5 "open results"
-3.6 choose middle, lowest, highest
-3.7 send new model
-3.8 update model, flip cards(render)
+<ol>
+<li>Creat game(DONE)</li>
+<li>create model with hash(DONE)</li>
+<li>return model(DONE)</li>
+<li>enter with hash(DONE)</li>
+<li>choose card, change local model(DONE)</li>
+<li>submit(DONE)</li>
+<li>send model(DONE)</li>
+<li>update model(DONE)</li>
+<li>send new model to all clients(DONE)</li>
+<li>"open results"</li>
+<li>choose middle, lowest, highest</li>
+<li>send new model</li>
+<li>update model, flip cards(render)</li>
+</ol>
 
 RoadMap
 =============
-1. Basic. Till 1 November
-2. Design(desktop/mobile) 15 November
-3. Login throw gmail
-4. Chat 1 December
-5. Roles in game 31 December 
+<ol>
+<li>Basic. Till 1 November</li>
+<li>Design(desktop/mobile) 15 November</li>
+<li>Login throw gmail</li>
+<li>Chat 1 December</li>
+<li>Roles in game 31 December </li>
+</ol>
+ 
 
 Install
 =============
