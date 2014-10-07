@@ -33,8 +33,10 @@ RoadMap
 Install
 =============
 <ol>
-<li>install [node] [node]: http://nodejs.org/</li>
-<li>install [npm] [npm]: https://www.npmjs.org/</li>
+<li>install [node] 
+[node]: http://nodejs.org/</li>
+<li>install [npm] 
+[npm]: https://www.npmjs.org/</li>
 <li>make command "npm install"</li>
 <li>start process "node app.js"</li>
 <li>Go on browser by link http://127.0.0.1:3000</li>
