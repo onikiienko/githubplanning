@@ -40,12 +40,14 @@ Install
 <li>make command
 ```bash
 npm install
-```</li>
+```
+</li>
 <li>start process
 
 ```bash
 node app.js
-```</li>
+```
+</li>
 <li>Go on browser by link http://127.0.0.1:3000</li>
 </ol>
 
