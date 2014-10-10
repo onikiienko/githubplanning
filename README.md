@@ -13,6 +13,7 @@ Basic
 <li>send model(DONE)</li>
 <li>update model(DONE)</li>
 <li>send new model to all clients(DONE)</li>
+<li>delete row if someone disconnected(DONE)</li>
 <li>"open results"</li>
 <li>choose middle, lowest, highest</li>
 <li>send new model</li>
