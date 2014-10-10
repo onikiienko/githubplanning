@@ -10,14 +10,12 @@ Basic
 <li>enter with hash(DONE)</li>
 <li>choose card, change local model(DONE)</li>
 <li>submit(DONE)</li>
-<li>send model(DONE)</li>
 <li>update model(DONE)</li>
 <li>send new model to all clients(DONE)</li>
 <li>delete row if someone disconnected(DONE)</li>
-<li>"open results"</li>
 <li>choose middle, lowest, highest</li>
-<li>send new model</li>
 <li>update model, flip cards(render)</li>
+<li>"open results"</li>
 </ol>
 
 RoadMap
@@ -27,7 +25,8 @@ RoadMap
 <li>Design(desktop/mobile) 15 November</li>
 <li>Login throw gmail</li>
 <li>Chat 1 December</li>
-<li>Roles in game 31 December </li>
+<li>Roles in game 31 December</li>
+<li>Ability to set your own type of cards</li>
 </ol>
  
 

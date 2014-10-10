@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bb = require('backbone');
+var _ = require('underscore');
 
 //plugin server
 app.get('/', function(req, res){
@@ -32,13 +33,12 @@ io.on('connection', function(socket){
 				// delete string from list of socksets(counter)
 				delete counterOfSockets[id];
 				// delete model from colliction
-				delete game.remove(game.findWhere({id : id}) );
+				game.remove(game.findWhere({id : id}) );
 				// push new game without disconnected gamer
-				newGame.emit('poker load', game);
+				newGame.emit('update game', game);
 			});
-			socket.emit('room created');
 
-			socket.on('poker load', function(login){
+			socket.on('add gamer', function(login){
 				// if there is no gamer yet, create
 				if (!gamer){
 					gamer = new Gamer;
@@ -48,15 +48,27 @@ io.on('connection', function(socket){
 				// add gamer in game
 				game.add(gamer);
 				// push new game with new gamer. on client
-				newGame.emit('poker load', game);
-			})
+				newGame.emit('update game', game);
+			});
 			
-			socket.on('vote', function(login, point){
+			socket.on('gamer vote', function(login, point){
 				// set new value for gamer
 				gamer.set({id: id, login: login, point: point});
 				// push new game with new gamer. on client
-				newGame.emit('vote', game);
-			})
+				newGame.emit('update game', game);
+			});
+
+			socket.on('choose borders', function(){
+				var lowest = +game.models[0].attributes.point;
+				var login = game.models[0].attributes.login;
+				_.each(game.models, function(gamer){
+					if(+gamer.attributes.point < lowest){
+						lowest = +gamer.attributes.point;
+						login =  gamer.attributes.login;
+					}
+				});
+				newGame.emit('borders are', lowest, login);
+			});
 		});
 	})
 })

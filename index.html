@@ -23,19 +23,18 @@
     <input type="button" value="Join Room"  onclick="joinRoom()">
     <input type="text" class="points" value="1">
     <input type="button" value="Vote"  onclick="vote()">
+    <input type="button" value="Open"  onclick="openCards()">
     <script src="/socket.io/socket.io.js"></script>
     <script>
 		var room;
 		var socket = io();
-		var loaclGameModel = new Backbone.Model.extend();
+		var gamers = {};
 
 		function createRoom(){
 			room = '/' + makeid();
 			socket.emit('create room', room);
 			socket = io(room);
-			socket.on('room created', function(){
-				socketInit()
-			})
+			socketInit();
 			$('.room').val(room);	
 		}	
 
@@ -46,21 +45,20 @@
 		}
 
 		function socketInit(){
-			window.login = prompt('your name?');
-			socket.emit('poker load', login);
-			socket.on('poker load', function(game){
-				loaclGameModel = game;
-				console.log(loaclGameModel);
+			window.login = makeid();
+			socket.emit('add gamer', login);
+			socket.on('update game', function(game){
+				gamers = game;
+				console.log(gamers);
 			});
-			socket.on('vote', function(game){
-				loaclGameModel = game;
-				console.log(loaclGameModel);
+			socket.on('borders are', function(lowest, login){
+				console.log(lowest, login);
 			});
 		}
 
 		function vote(){
 			var points = $('.points').val();
-			socket.emit('vote', login, points);
+			socket.emit('gamer vote', login, points);
 		}
 
 		function makeid(){
@@ -71,6 +69,9 @@
 			    text += possible.charAt(Math.floor(Math.random() * possible.length));
 
 			return text;
+		}
+		function openCards(){
+			socket.emit('choose borders');
 		}
     </script>
   </body>
