@@ -14,9 +14,9 @@ Basic
 <li>send new model to all clients(DONE)</li>
 <li>delete row if someone disconnected(DONE)</li>
 <li>choose middle, lowest, highest(DONE)</li>
-<li>model with cards with styles, you need</li>
-<li>update model, flip cards(render)</li>
-<li>"open results"</li>
+<li>"open results"(DONE)</li>
+<li>render cards(PROGRESS)</li>
+<li>typeOfCards</li>
 </ol>
 
 RoadMap

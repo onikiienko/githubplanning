@@ -11,6 +11,7 @@
       #messages { list-style-type: none; margin: 0; padding: 0; }
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
+      .gamerCard { width: 100px; height: 100px; background: green;}
     </style>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
@@ -41,7 +42,11 @@
 			socket.emit('add gamer', login);
 			socket.on('update game', function(game){
 				gamers = game;
-				console.log(gamers);
+				$(".table").empty();
+				_.each(gamers, function(gamer){
+					$(".table").append("<div class='" + gamer.login + " gamerCard'>" + gamer.login + "</div>");
+					console.log(gamer);
+				})
 			});
 			socket.on('borders are', function(result){
 				resultsOfAGame = result;
@@ -76,5 +81,6 @@
     <input type="text" class="points" value="1">
     <input type="button" value="Vote"  onclick="vote()">
     <input type="button" value="Open"  onclick="openCards()">
+    <div class="table"></div>
   </body>
 </html>
