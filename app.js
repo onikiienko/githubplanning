@@ -11,13 +11,17 @@ app.get('/', function(req, res){
 
 // create object for new gamers
 var Gamer = bb.Model.extend();
+var standardCurrency = [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100, 'infinity', '?', 'coffee'];
+var tShirtCurrency = ['0', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', 'infinity', '?', 'coffee'];
+var fibonacciCurrency = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 'infinity', '?', 'coffee'];
 
 // create first stream for unset user
 io.on('connection', function(socket){
 	// console.log('connected to io: ', io.sockets.sockets.length);
-	socket.on('create room', function(room){
+	socket.on('create room', function(room, typeOfCards){
 		
 		var newGame = io.of(room);
+		//TODO find better way to count
 		var counterOfSockets = []; //counter for room if someone is gone
 		var	game = new bb.Collection; //new game, new room
 		
@@ -57,17 +61,30 @@ io.on('connection', function(socket){
 				// push new game with new gamer. on client
 				newGame.emit('update game', game);
 			});
-
+			//TODO make more optimize variant of this faunction
 			socket.on('choose borders', function(){
-				var lowest = +game.models[0].attributes.point;
-				var login = game.models[0].attributes.login;
+				var lowest = highest = middle = +game.models[0].attributes.point;
+				var login_lowest = login_highest = login_middle = +game.models[0].attributes.point;
+				var login_lowest = game.models[0].attributes.login;
+
 				_.each(game.models, function(gamer){
 					if(+gamer.attributes.point < lowest){
 						lowest = +gamer.attributes.point;
-						login =  gamer.attributes.login;
+						login_lowest =  gamer.attributes.login;
+					}
+					if(+gamer.attributes.point > highest){
+						highest = +gamer.attributes.point;
+						login_highest =  gamer.attributes.login;
 					}
 				});
-				newGame.emit('borders are', lowest, login);
+				middle = Math.round((lowest + highest) / 2);
+
+				if (lowest == highest){
+					newGame.emit('borders are', {'Avarage' : middle});
+				}else{
+					newGame.emit('borders are', {'login_lowest': lowest, login_highest : highest, "Avarage" : middle});
+				}
+
 			});
 		});
 	})

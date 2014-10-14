@@ -15,20 +15,12 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
     <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <input type="button" value="Create Room" onclick="createRoom()">
-    <input type="text" class="room">
-    <input type="button" value="Join Room"  onclick="joinRoom()">
-    <input type="text" class="points" value="1">
-    <input type="button" value="Vote"  onclick="vote()">
-    <input type="button" value="Open"  onclick="openCards()">
     <script src="/socket.io/socket.io.js"></script>
-    <script>
+	<script>
 		var room;
 		var socket = io();
 		var gamers = {};
+		var resultsOfAGame;
 
 		function createRoom(){
 			room = '/' + makeid();
@@ -51,8 +43,9 @@
 				gamers = game;
 				console.log(gamers);
 			});
-			socket.on('borders are', function(lowest, login){
-				console.log(lowest, login);
+			socket.on('borders are', function(result){
+				resultsOfAGame = result;
+				console.log(resultsOfAGame);
 			});
 		}
 
@@ -73,6 +66,15 @@
 		function openCards(){
 			socket.emit('choose borders');
 		}
-    </script>
+	</script>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <input type="button" value="Create Room" onclick="createRoom()">
+    <input type="text" class="room">
+    <input type="button" value="Join Room"  onclick="joinRoom()">
+    <input type="text" class="points" value="1">
+    <input type="button" value="Vote"  onclick="vote()">
+    <input type="button" value="Open"  onclick="openCards()">
   </body>
 </html>
