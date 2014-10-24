@@ -1,22 +1,46 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Planning Poker</title>
-	<script src="client/js/jquery.js"></script>
-    <script src="client/js/underscore.js"></script>
-	<script src="client/js/backbone.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-	<script src="client/js/script.js"></script>
-    <link rel="stylesheet" type="text/css" href="client/css/styles.css">
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <input type="button" value="Create Room" onclick="createRoom()">
-    <input type="text" class="room">
-    <input type="button" value="Join Room"  onclick="joinRoom()">
-    <input type="text" class="points" value="1">
-    <input type="button" value="Vote"  onclick="vote()">
-    <input type="button" value="Open"  onclick="openCards()">
-    <div class="table"></div>
-  </body>
+	<head>
+		<title>Planning Poker</title>
+		<script src="client/js/jquery.js"></script>
+		<script src="client/js/underscore.js"></script>
+		<script src="client/js/backbone.js"></script>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="client/bootstrap/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="client/css/styles.css">
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="client/bootstrap/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="client/bootstrap/css/bootstrap-theme.min.css">
+		<!-- Latest compiled and minified JavaScript -->
+	</head>
+	<body>
+		<div class="content">	
+			<!-- view1 modal to login!-->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Your name</h4>
+						</div>
+						<div class="modal-body">
+							<input type="text" class="gamerName" value="1">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary nameSubmit">Submit</button>
+						</div>
+					</div><!-- /.modal-content -->
+				</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+
+			<ul id="messages"></ul>
+			<input type="button" value="Create Room" onclick="createRoom()" class="btn btn-lg btn-primary">
+			<br>
+			<input type="text" class="points" value="1">
+			<input type="button" value="Vote"  onclick="vote()" class="btn btn-lg btn-primary">
+			<input type="button" value="Open"  onclick="openCards()" class="btn btn-lg btn-primary">
+			<div class="table"></div>
+		</div>
+		<script src="client/js/script.js"></script>
+	</body>
 </html>

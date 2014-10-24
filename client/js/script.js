@@ -3,6 +3,13 @@ var socket = io();
 var gamers = {};
 var resultsOfAGame;
 
+// console.log($('#myModal').modal);
+$('#myModal').modal('show');
+
+$('.nameSubmit').on('click', function (e) {
+	$('#myModal').modal('hide');
+	window.login = $('.gamerName').val();
+})
 
 if(window.location.hash) {
   // Fragment exists
@@ -25,14 +32,13 @@ function joinRoom(room){
 }
 
 function socketInit(){
-	window.login = makeid();
 	socket.emit('add gamer', login);
 	socket.on('update game', function(game){
 		gamers = game;
 		$(".table").empty();
 		_.each(gamers, function(gamer){
-			$(".table").append("<div class='" + gamer.login + " gamerCard'>" + gamer.login + "</div>");
-			console.log(gamer);
+			$(".table").append("<div class='" + gamer.login + " gamerCard'>" + gamer.login + "<br>" + gamer.point + "</div>");
+			// console.log(gamer);
 		})
 	});
 	socket.on('borders are', function(result){

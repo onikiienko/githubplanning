@@ -23,6 +23,18 @@ app.get('/client/js/script.js', function(req, res){
 app.get('/client/css/styles.css', function(req, res){
   res.sendfile('client/css/styles.css');
 });
+app.get('/client/bootstrap/css/bootstrap.min.css', function(req, res){
+  res.sendfile('client/bootstrap/css/bootstrap.min.css');
+});
+app.get('/client/bootstrap/css/bootstrap-theme.min.css', function(req, res){
+  res.sendfile('client/bootstrap/css/bootstrap-theme.min.css');
+});
+app.get('/client/bootstrap/js/bootstrap.min.js', function(req, res){
+  res.sendfile('client/bootstrap/js/bootstrap.min.js');
+});
+
+
+
 
 // create object for new gamers
 var Gamer = bb.Model.extend();
