@@ -6,29 +6,44 @@ var resultsOfAGame;
 // console.log($('#myModal').modal);
 $('#myModal').modal('show');
 
-$('.nameSubmit').on('click', function (e) {
+function loginGamer(){	
 	$('#myModal').modal('hide');
+	$('.createOrJoin').slideToggle();
 	window.login = $('.gamerName').val();
-})
+	if(window.location.hash) {
+		joinRoom();
+	}
+}
 
-if(window.location.hash) {
-  // Fragment exists
-  joinRoom(window.location.hash.substr(1));
-  console.log(window.location.hash.substr(1));
-} else {
+function setupRoom(){
+	window.location.hash = '';
+	$('.createOrJoin').slideToggle();
+	$('.roomOptions').slideToggle();
 }
 
 function createRoom(){
-	room = '/' + makeid();
+	$('.roomOptions').slideToggle();
+	$('.gameTable').slideToggle();
+	if($('.roomName').val()){
+		room = '/' + $('.roomName').val();
+	}else{	
+		room = '/' + makeid();
+	}
 	socket.emit('create room', room);
 	socket = io(room);
 	socketInit();
 	window.location.hash = room;
+	$('.alert-success').alert()
 }	
 
-function joinRoom(room){
-	socket = io(room);
-	socketInit()
+function joinRoom(){
+	if(window.location.hash) {
+		socket = io(window.location.hash.substring(1));
+		socketInit();
+		$('.createOrJoin').slideToggle();
+		$('.gameTable').slideToggle();
+	} else {
+	}
 }
 
 function socketInit(){
