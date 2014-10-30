@@ -2,18 +2,58 @@ var room;
 var socket = io();
 var gamers = {};
 var resultsOfAGame;
-
-// console.log($('#myModal').modal);
-$('#myModal').modal('show');
-
-function loginGamer(){	
-	$('#myModal').modal('hide');
-	$('.createOrJoin').slideToggle();
-	window.login = $('.gamerName').val();
-	if(window.location.hash) {
-		joinRoom();
+var GameModel = Backbone.Model.extend({
+	defaults: {
+		loginName: 'anonymous',
+		cards: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 'infinity', '?', 'coffee'],
+	},
+	promptName: function() {
+		$('#myModal').modal('hide');
+		$('.createOrJoin').slideToggle();
+		this.set('cards', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 'infinity', '?', 'coffee']);
+		this.set('loginName', $('.gamerName').val());
+		gameView = new GameView;
 	}
-}
+});
+
+
+
+var GameView = Backbone.View.extend({
+	el: '.content',
+	model: gameModel,
+	// idName: "myModal",
+	events: {
+		"click .nameSubmit" : "nameSubmit"
+	},
+	templateLogin: _.template("<%- loginName %>"),
+	temlateCards: _.template("<br><% _.each(cards, function(card) { %><a class='btn btn-primary'><%= card %></a><% }); %>"),
+
+	nameSubmit: function(){
+		console.log(this);
+		gameModel.promptName();
+	},
+
+	initialize: function() {
+		console.log(this.model);
+		console.log(this.render);
+		console.log(this.listenTo);
+		this.listenTo(this.model, "change", this.render);
+	},
+	render: function() {
+		console.log('render');
+		this.$el.append(this.templateLogin(this.model.attributes));
+		this.$el.append(this.temlateCards(this.model.attributes));
+		return this;
+	}
+});
+
+var gameModel = new GameModel();
+
+// gameModel.on('change:loginName', function(model, loginName) {
+// 	console.log('DONE');
+// });
+
+$('#myModal').modal('show');
 
 function setupRoom(){
 	window.location.hash = '';
