@@ -8,14 +8,14 @@ var _ = require('underscore');
 app.get('/', function(req, res){
   res.sendfile('index.html');
 });
-app.get('/client/js/jquery.js', function(req, res){
-  res.sendfile('client/js/jquery.js');
+app.get('/client/js/utils/jquery.js', function(req, res){
+  res.sendfile('client/js/utils/jquery.js');
 });
-app.get('/client/js/underscore.js', function(req, res){
-  res.sendfile('client/js/underscore.js');
+app.get('/client/js/utils/underscore.js', function(req, res){
+  res.sendfile('client/js/utils/underscore.js');
 });
-app.get('/client/js/backbone.js', function(req, res){
-  res.sendfile('client/js/backbone.js');
+app.get('/client/js/utils/backbone.js', function(req, res){
+  res.sendfile('client/js/utils/backbone.js');
 });
 app.get('/client/js/script.js', function(req, res){
   res.sendfile('client/js/script.js');
