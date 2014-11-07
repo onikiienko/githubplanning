@@ -1,49 +1,21 @@
-var room;
+var room, login, cards;
 var socket = io();
-var gamers = {};
-var resultsOfAGame;
+// var gamers = {};
+// var resultsOfAGame;
 
+// var Game = Backbone.Collection.extend({
+//   model: Hand
+// });
 
-
-function vote(){
-	var points = $('.points').val();
-	socket.emit('gamer vote', login, points);
-}
-
-function makeid(){
-	var text = "",
-		possible = "0123456789";
-
-	for( var i=0; i < 5; i++ )
-	    text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-	return text;
-}
-
-function openCards(){
-	socket.emit('choose borders');
-}
-
-
-
-var GameModel = Backbone.Model.extend({
-	defaults: {
-		loginName: null,
-		gameTable: null
-		// cards: [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 'infinity', '?', 'coffee'],
-	},
-	writeLogin: function(login) {
-		if(login){
-			this.set('loginName', login);
-			return;
-		}
-		// this.set('cards', [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 'infinity', '?', 'coffee']);
-		this.set('loginName', $('.loginInput').val());
-	},
-	updateTable: function(gameTable){
-		this.set('gameTable', gameTable);
-	}
+var Gamer = Backbone.Model.extend({
+	room: undefined,
+	login: undefined,
+	cards: undefined
 });
+
+var gamer = new Gamer;
+
+var Hand = Backbone.Model.extend();
 
 var StartView = Backbone.View.extend({
 	el: 'body',
@@ -53,10 +25,9 @@ var StartView = Backbone.View.extend({
 	startGame: function(){
 		if(document.cookie){
 			var login = this.getNameValueCookies('login');
-			gameModel.writeLogin(login);
-			var createOrJoinView = new CreateOrJoinView;
+			new CreateOrJoinView;
 		}else{
-			var loginView = new LoginView;
+			new LoginView;
 		}			
 	},
 	getNameValueCookies: function(name) {
@@ -102,20 +73,12 @@ var StartView = Backbone.View.extend({
 	}
 });
 
+new StartView;
+
 var LoginView = Backbone.View.extend({
 	el: '.inner.cover',
 	initialize: function() {
 		this.render();
-	},
-	events: {
-		"click .loginBtn" : "loginSubmit"
-	},
-	loginSubmit: function(){
-		gameModel.writeLogin();
-		if ($('.loginCheckBox').prop('checked')){
-			document.cookie = 'login='+$('.loginInput').val();
-		}
-		var createOrJoinView = new CreateOrJoinView;
 	},
 	render: function(){
 		this.$el.html(
@@ -130,34 +93,26 @@ var LoginView = Backbone.View.extend({
 		        '<button class="btn btn-lg btn-primary loginBtn" type="submit">Sign in</button>' +
 	      	'</div>'
 	    );
+	},
+	events: {
+		"click .loginBtn" : "loginSubmit"
+	},
+	loginSubmit: function(){
+		gamer.login = $('.loginInput').val();
+		if ($('.loginCheckBox').prop('checked')){
+			document.cookie = 'login='+ $('.loginInput').val();
+		}
+		new CreateOrJoinView;
 	}
 });
 
 var CreateOrJoinView = Backbone.View.extend({
 	el: '.inner.cover',
 	events: {
-		"click .enterRoomBtn" : "enterRoomBtn"
+		"click .enterRoomBtn" : "enterRoom"
 	},
-	enterRoomBtn: function(){
-		var roomName = $('.roomNameInput').val();
-		if($(roomName)){
-			roomName = '/' + roomName;
-		}else{	
-			roomName = '/' + makeid();
-		}
-		socket.emit('create room', roomName);
-		socket = io(roomName);
-		this.socketInit();
-	},
-	socketInit: function(){
-		socket.emit('add gamer', gameModel.attributes.loginName);
-		socket.on('update game', function(game){
-			gameModel.updateTable(game);
-		});
-		socket.on('borders are', function(result){
-			resultsOfAGame = result;
-			console.log(resultsOfAGame);
-		});
+	initialize: function() {
+		this.render();
 	},
 	render: function(){
 		this.$el.html(    
@@ -170,32 +125,86 @@ var CreateOrJoinView = Backbone.View.extend({
             '</p>'
         );
 	},
-	initialize: function() {
-		this.render()
+	enterRoom: function(){
+		gamer.room = $('.roomNameInput').val();
+		var room  = '/' + gamer.room;
+		socket.emit('enter room', room, gamer.login, 'standardCurrency');
+		socket = io(room);
+		this.socketInit();
+		new Table;
 	},
-});
-
-var TableView = Backbone.View.extend({
-	el: '.inner.cover',
-	templateLogin: _.template("<%- loginName %>"),
-	templateCards: _.template("<br><% _.each(cards, function(card) { %><a class='btn btn-primary'><%= card %></a><% }); %>"),
-	templateGame: _.template("<br><% _.each(gameTable, function(record) { %><div class=''><%= record.login %></div><div class=''><%= record.point %></div><% }); %>"),
-	initialize: function() {
-		this.listenTo(this.model, "set change", this.render);
-	},
-	render: function() {
-		console.log(this.model.attributes);
-		try{
-			this.$el.append(this.templateLogin(this.model.attributes));
-		}catch(e){}
-		try{
-			this.$el.append(this.templateGame(this.model.attributes));
-		}catch(e){}
-		// this.$el.append(this.temlateCards(this.model.attributes));
-		return this;
+	socketInit: function(){
+		socket.on('typeCards', function(typeCards){
+			gamer.cards = typeCards;
+		});
 	}
 });
 
-var gameModel = new GameModel;
-var startView = new StartView();
+var Table = Backbone.View.extend({
+	el: '.inner.cover',
+	events: {
+		"click .voteBtn" : "chooseACard"
+	},
+	initialize: function() {
+		this.render();
+	},
+	render: function(){
+		this.$el.html(
+			'<div class="form-signin vote" role="form">' + 
+		        '<h2 class="form-signin-heading">Your number is</h2>' +
+		        '<input type="login" class="form-control voteInput" placeholder="Number" required autofocus>' +
+		        '<button class="btn btn-lg btn-primary voteBtn">Vote</button>' +
+	      	'</div>'
+		);
+		return this;
+	},
+	templateGame: _.template("<br><% for(var record in gameTable){ %><div class=''><%= record.name %></div><div class=''><%= record.voteNumber %></div><% }; %>"),
+	chooseACard: function(){
+		socket.emit('vote', new Hand({name: gamer.login, number: $('.voteInput').val()}));
+	}
+	// updateTableView: function(){
+	// 	// var roomName = $('.roomNameInput').val();
+	// 	// if(roomName){
+	// 	// 	roomName = '/' + roomName;
+	// 	// }else{	
+	// 	// 	roomName = '/' + makeid();
+	// 	// }
+	// 	// socket.emit('enter room', roomName);
+	// 	// socket = io(roomName);
+	// 	// this.socketInit();
+
+	// 	//HERE SHOULD BE SOCKET CONNECTION
+	// 	gameModel.updateTable();
+	// 		if(this.model.attributes){
+	// 			var gameTable = gameModel.toJSON();
+	// 			// this.$el.append(this.templateGame(gameTable));
+	// 			console.log(gameTable);
+	// 			// for(var record in gameTable){console.log(record.name, record.voteNumber);}
+	// 		}
+	// },
+});
+
+
+// var TableView = Backbone.View.extend({
+// 	el: '.inner.cover',
+// 	templateLogin: _.template("<%- loginName %>"),
+// 	templateCards: _.template("<br><% _.each(cards, function(card) { %><a class='btn btn-primary'><%= card %></a><% }); %>"),
+// 	initialize: function() {
+// 		this.listenTo(this.model, "set change", this.render);
+// 	},
+// 	render: function() {
+// 		// console.log(this.model.attributes);
+// 		// try{
+// 		// 	this.$el.append(this.templateLogin(this.model.attributes));
+// 		// }catch(e){}
+// 		try{
+			
+// 		}catch(e){}
+// 		// this.$el.append(this.temlateCards(this.model.attributes));
+// 		return this;
+// 	}
+// });
+
+// var gameModel = new GameModel;
+
 // var tableView = new TableView({model:gameModel});
