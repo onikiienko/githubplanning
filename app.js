@@ -49,9 +49,9 @@ app.get('/client/bootstrap/js/bootstrap.min.js', function(req, res){
 });
 
 // create object for new gamers
-var standardCurrency = [0, 0.5, 1, 2, 3, 5, 8, 13, 20, 40, 100, 'infinity', '?', 'coffee'];
+var standardCurrency = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity', '?', 'coffee'];
 var tShirtCurrency = ['0', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', 'infinity', '?', 'coffee'];
-var fibonacciCurrency = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 'infinity', '?', 'coffee'];
+var fibonacciCurrency = ['0', '1', '2', '3', '5', '8', '13', '21', '34', 'infinity', '?', 'coffee'];
 
 var TableSocket = function(room){
 	return io.of(room);

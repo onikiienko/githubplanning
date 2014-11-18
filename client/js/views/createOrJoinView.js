@@ -20,7 +20,6 @@ var CreateOrJoinView = Backbone.View.extend({
 		socket.emit('enter room', room, 'standardCurrency');
 		socket = io(room);
 		this.socketInit();
-		tableView.render();
 	},
 	socketInit: function(){
 		socket.on('connectionReady', function(cards, table){
@@ -30,11 +29,11 @@ var CreateOrJoinView = Backbone.View.extend({
 				console.log('table: ');
 				console.log(gamer.table.models);
 			}
+			tableView.render();
 		});
 		socket.on('updateTable', function(table){
 			gamer.table.set(table);
-			console.log('table: ');
-			console.log(gamer.table.models);
+			tableView.render();
 		})
 	}
 });

@@ -1,7 +1,8 @@
 var StartView = Backbone.View.extend({
 	el: 'body',
 	events: {
-		"click .start" : "startGame",
+		"click .start" : "startGame"
+
 	},
 	startGame: function(){
 		var login = this.getNameValueCookies('login');
