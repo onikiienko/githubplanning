@@ -1,30 +1,70 @@
 var TableView = Backbone.View.extend({
 	el: '.inner.cover',
 	events: {
-		"click .voteBtn" : "chooseACard"
+		"click .cardsToChooseView" : "chooseACard"
 	},
 	render: function(){
 		this.$el.html(
-			'<div class="form-signin vote" role="form">' + 
-				'<div class="table-cards"></div>' +
-		        '<h2 class="form-signin-heading">Your number is</h2>' +
-		        '<input type="login" class="form-control voteInput" placeholder="Number" required autofocus>' +
-		        '<button class="btn btn-lg btn-primary voteBtn">Vote</button>' +
-	      	'</div>'
+			'<h3 class="masthead-brand tableNameView"></h3>'+
+			'<br>'+
+			'<h3 class="masthead-brand taskNameView"></h3>'+
+			'<br>'+
+			'<div class="table row">'+
+				'<div class="gameZoneView row"></div>'+
+				'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>'+
+				'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>'+
+			'</div>'+
+			'<br>'+
+			'<div class="cardsToChooseView row"></div>'+
+			'<div class="chatAndTaskList row">'+
+				'<div class="taskListView row"></div>'+
+				'<div class="chatView row"></div>'+
+			'</div>'
 		);
-		$('.table-cards').append(this.tempCardsDiv(gamer));
-		$('.table-cards').append(this.tempGameDiv(gamer));
+		$('.tableNameView').append(this.tempTableName(tableModule.toJSON()));
 		return this;
 	},
-	tempCardsDiv: _.template("<% for(var i in cards) { %><div class='card'><%= cards[i] %></div><% } %>"),
-	tempGameDiv: _.template("<% if(table.models[0]){for(var i in table.models) { %><div class='card'><%= table.models[i].attributes.name %></div><div class='card'><%= table.models[i].attributes.number %></div><% }} %>"),
-	chooseACard: function(){
-		socket.emit('vote', new Hand({name: gamer.login, number: $('.voteInput').val()}));
+	renderGameZone: function(){
+		$('.gameZoneView').html(this.tempGameZone(gameZoneCollection.toJSON()));
+		return this;
+	},
+	renderCardsToChoose: function(){
+		$('.cardsToChooseView').append(this.tempCardsToChoose(cardsToChooseCollection.toJSON()));
+		return this;
+	},
+	tempGameZone: _.template(
+		"<%for(var gamerModel in data) { %>"+
+			"<div class='col-xs-6 col-md-3'>"+
+				"<div class='thumbnail' data='<%= data[gamerModel].name %>'>"+
+					"<%= data[gamerModel].name %>"+
+					"<br>"+
+					"<%= data[gamerModel].number.name %>"+
+					"(<%= data[gamerModel].number.data %>)"+
+				"</div>"+
+			"</div>"+
+		"<% } %>",
+		{variable: 'data'}
+	),
+	tempCardsToChoose: _.template(
+		"<%for(var card in data) { %>"+
+			"<div class='col-xs-6 col-md-3'>"+
+				"<% for(var name in data[card]) { %>"+
+					"<div class='thumbnail' data='<%= data[card][name] %>'>"+
+						"<%= name %>"+
+					"</div>"+
+				"<% } %>"+
+			"</div>"+
+		"<% } %>",
+		{variable: 'data'}
+	),
+	tempTableName: _.template("Room: <%= data.room %>, Login: <%= data.login %>",
+		{variable: 'data'}
+	),
+	chooseACard: function(e){
+		var data = e.target.getAttribute('data');
+		var name = e.target.innerText;
+		socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
 	}
 });
 
-tableView = new TableView;
-
-
-// var compiled = _.template("<% print('Hello ' + epithet); %>");
-// compiled({epithet: "stooge"});
+tableView = new TableView();

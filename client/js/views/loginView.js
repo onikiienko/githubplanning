@@ -18,12 +18,13 @@ var LoginView = Backbone.View.extend({
 		"click .loginBtn" : "loginSubmit"
 	},
 	loginSubmit: function(){
-		gamer.login = $('.loginInput').val();
+		var login = $('.loginInput').val()
+		tableModule.set({'login' : login});
 		if ($('.loginCheckBox').prop('checked')){
-			document.cookie = 'login='+ $('.loginInput').val();
+			document.cookie = 'login=' + login;
 		}
 		createOrJoinView.render();
 	}
 });
 
-loginView = new LoginView;
+loginView = new LoginView();

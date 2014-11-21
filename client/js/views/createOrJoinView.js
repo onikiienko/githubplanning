@@ -10,32 +10,32 @@ var CreateOrJoinView = Backbone.View.extend({
             	'<input type="default" class="form-control roomNameInput" placeholder="Room name" required autofocus>' +
             '</p>'+
             '<p class="lead">'+
-            	'<button href="#" class="btn btn-lg btn-primary enterRoomBtn">Enter room</button>'+
+            	'<button href="#" class="btn btn-lg btn-primary enterRoomBtn submit">Enter room</button>'+
             '</p>'
         );
 	},
 	enterRoom: function(){
-		gamer.room = $('.roomNameInput').val();
-		var room  = '/' + gamer.room;
+		tableModule.set({'room': $('.roomNameInput').val()});
+		var room  = '/' + tableModule.toJSON().room;
 		socket.emit('enter room', room, 'standardCurrency');
 		socket = io(room);
 		this.socketInit();
 	},
 	socketInit: function(){
 		socket.on('connectionReady', function(cards, table){
-			gamer.cards = cards;
-			if(table[0]){
-				gamer.table.set(table);
-				console.log('table: ');
-				console.log(gamer.table.models);
-			}
+			cardsToChooseCollection.set(cards);
 			tableView.render();
+			tableView.renderCardsToChoose();
+			if(table[0]){
+				gameZoneCollection.set(table);
+				tableView.renderGameZone();
+			}
 		});
 		socket.on('updateTable', function(table){
-			gamer.table.set(table);
-			tableView.render();
+			gameZoneCollection.set(table);
+			tableView.renderGameZone();
 		})
 	}
 });
 
-createOrJoinView = new CreateOrJoinView;
+createOrJoinView = new CreateOrJoinView();

@@ -4,10 +4,13 @@ var StartView = Backbone.View.extend({
 		"click .start" : "startGame"
 
 	},
+	initialize: function(){
+		this.render();
+	},
 	startGame: function(){
 		var login = this.getNameValueCookies('login');
 		if(login){
-			gamer.login = login;
+			tableModule.set({'login': login});
 			createOrJoinView.render();
 		}else{
 			loginView.render();
@@ -37,9 +40,8 @@ var StartView = Backbone.View.extend({
 							'<h1 class="cover-heading">Planning Poker</h1>'+
 							'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
 							'<p class="lead">'+
-								'<a href="#" class="btn btn-lg btn-success start">Start</a>'+
+								'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
 							'</p>'+
-							'<div class="table"></div>'+
 						'</div>'+
 						'<div class="mastfoot">'+
 							'<div class="inner">'+
@@ -53,5 +55,4 @@ var StartView = Backbone.View.extend({
 	}
 });
 
-startView = new StartView;
-startView.render();
+startView = new StartView();

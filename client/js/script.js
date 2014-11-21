@@ -1,16 +1,9 @@
-var room, login, cards;
+// var room, login, cards;
 var socket = io();
 
-var Gamer = Backbone.Model.extend({
-	room: undefined,
-	login: undefined,
-	cards: undefined,
-	table: new Backbone.Collection()
-});
-
-var gamer = new Gamer;
-
-var Hand = Backbone.Model.extend();
+var tableModule = new Backbone.Model();
+var gameZoneCollection = new Backbone.Collection();
+var cardsToChooseCollection = new Backbone.Collection();
 
 $.getScript("/client/js/views/startView.js");
 $.getScript("/client/js/views/loginView.js");

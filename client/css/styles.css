@@ -1,9 +1,18 @@
-.card{
-  display: inline-block;
-  margin-left: 10px;
+.tableNameView, .taskNameView, .table, .cardsToChooseView, .chatAndTaskList{
+  border: white 1px solid;
 }
 
+.row{
+  margin: 0;
+}
 
+.card{
+  display: inline-block;
+}
+
+.cardsToChooseView, .gameZoneView{
+  color: black;
+}
 
 /*
  * Globals
