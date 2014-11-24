@@ -1,7 +1,9 @@
 var TableView = Backbone.View.extend({
 	el: '.inner.cover',
 	events: {
-		"click .cardsToChooseView" : "chooseACard"
+		"click .cardsToChooseView" : "chooseACard",
+		"click .restartRoundBtn" : "restartRound",
+		"click .flipCardsBtn" : "flipCards",
 	},
 	render: function(){
 		this.$el.html(
@@ -64,6 +66,11 @@ var TableView = Backbone.View.extend({
 		var data = e.target.getAttribute('data');
 		var name = e.target.innerText;
 		socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
+	},	
+	restartRound: function(){
+		// var data = e.target.getAttribute('data');
+		// var name = e.target.innerText;
+		socket.emit('restart');
 	}
 });
 

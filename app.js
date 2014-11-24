@@ -48,14 +48,9 @@ app.get('/client/bootstrap/js/bootstrap.min.js', function(req, res){
   res.sendfile('client/bootstrap/js/bootstrap.min.js');
 });
 
-// create object for new gamers
-// var standardCurrency = ['0', '0.5', '1', '2', '3', '5', '8', '13', '20', '40', '100', 'infinity', '?', 'coffee'];
 var standardCurrency = [{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];
-
-// standardCurrency.set([{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 6}, 
-	// {'8' : 7}, {'13' : 8}, {'20' : 10}, {'40' : 11}, {'100' : 12}, {'infinity' : 13}, {'?' : 14}, {'coffee' : 15}]);
-// var tShirtCurrency = ['0', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL', '4XL', '5XL', 'infinity', '?', 'coffee'];
-// var fibonacciCurrency = ['0', '1', '2', '3', '5', '8', '13', '21', '34', 'infinity', '?', 'coffee'];
+var tShirtCurrency = [{'XS': 0}, {'S' : 1}, {'M' : 2}, {'L' : 3}, {'XL' : 4}, {'2XL' : 5}, {'3XL' : 6}, {'4XL' : 7}, {'5XL' : 8}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];
+var fibonacciCurrency = [{'0': 0}, {'1' : 1}, {'2' : 2}, {'3' : 3}, {'5' : 4}, {'8' : 5}, {'13' : 6}, {'21' : 7}, {'34' : 8}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];
 
 var TableSocket = function(room){
 	return io.of(room);
@@ -66,21 +61,37 @@ var Table = bb.Collection.extend();
 io.on('connection', function(socket){
 	socket.on('enter room', function(room, typeOfCards){
 		if(!socket.server.nsps[room]){
+			var currency;
+			switch(typeOfCards){
+				    case 'standardCurrency':
+				    	currency = standardCurrency;
+				        break;
+				    case 'tShirtCurrency':
+				    	currency = tShirtCurrency;
+				        break;					    
+				    case 'fibonacciCurrency':
+				    	currency = fibonacciCurrency;
+				        break;
+			};
 			var tableSocket = io.of(room);
 			tableSocket.table = new Table;
 			tableSocket.on('connection', function(socket){
-				tableSocket.emit('connectionReady', standardCurrency, tableSocket.table.toJSON());
+				tableSocket.emit('connectionReady', currency, tableSocket.table.toJSON());
 				socket.on('vote', function(hand){
 					if (tableSocket.table.findWhere({'name': hand.name})){
 						tableSocket.table.remove(tableSocket.table.findWhere({'name': hand.name}));
 					}
 					tableSocket.table.add(hand);
 					tableSocket.emit('updateTable', tableSocket.table.toJSON());
+				});				
+				socket.on('restart', function(hand){
+					tableSocket.table.reset();
+					tableSocket.emit('updateTable', tableSocket.table.toJSON());
 				});
 			});
 		}
-	})
-})
+	});
+});
 
 // swich on server
 http.listen(3000, function(){
