@@ -1,29 +1,14 @@
 planningpoker
 =============
 
-Basic
-=============
-<ol>
-<li>Creat game(DONE)</li>
-<li>create model with hash(DONE)</li>
-<li>return model(DONE)</li>
-<li>enter with hash(DONE)</li>
-<li>choose card, change local model(DONE)</li>
-<li>submit(DONE)</li>
-<li>send new model to all clients(DONE)</li>
-<li>delete row if someone disconnected(DONE)</li>
-<li>choose middle, lowest, highest(DONE)</li>
-<li>render cards(PROGRESS)</li>
-<li>typeOfCards</li>
-</ol>
 
 RoadMap
 =============
 <ol>
-<li>Basic. Till 1 November</li>
-<li>Design(desktop/mobile) 15 November</li>
+<li>Basic. Till 1 December</li>
+<li>Design(desktop/mobile) 15 December</li>
 <li>Login throw gmail</li>
-<li>Chat 1 December</li>
+<li>Chat 1 January</li>
 <li>Ability to set your own type of cards</li>
 </ol>
  
