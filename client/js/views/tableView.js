@@ -19,6 +19,7 @@ var TableView = Backbone.View.extend({
 			'<br>'+
 			'<div class="cardsToChooseView row"></div>'+
 			'<div class="chatAndTaskList row">'+
+				'<ul class="list-group gamersListView"></ul>'+
 				'<div class="taskListView row"></div>'+
 				'<div class="chatView row"></div>'+
 			'</div>'
@@ -32,6 +33,10 @@ var TableView = Backbone.View.extend({
 	},
 	renderCardsToChoose: function(){
 		$('.cardsToChooseView').append(this.tempCardsToChoose(cardsToChooseCollection.toJSON()));
+		return this;
+	},
+	renderGamersList: function(){
+		$('.gamersListView').html(this.tempGamersList(gamersListCollection.toJSON()));
 		return this;
 	},
 	tempGameZone: _.template(
@@ -60,6 +65,14 @@ var TableView = Backbone.View.extend({
 		{variable: 'data'}
 	),
 	tempTableName: _.template("Room: <%= data.room %>, Login: <%= data.login %>",
+		{variable: 'data'}
+	),
+	tempGamersList: _.template(
+		"<%for(var gamer in data) { %>"+
+				"<li class='list-group-item'>"+
+					"<%= data[gamer].name %>"+
+				"</li>"+
+		"<% } %>",
 		{variable: 'data'}
 	),
 	chooseACard: function(e){

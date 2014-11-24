@@ -29,11 +29,6 @@ var StartView = Backbone.View.extend({
 						'<div class="masthead clearfix">'+
 							'<div class="inner">'+
 								'<h3 class="masthead-brand">Planning Poker</h3>'+
-								'<ul class="nav masthead-nav">'+
-									'<li class="active"><a href="#">Home</a></li>'+
-									'<li><a href="#">About</a></li>'+
-									'<li><a href="#">Contact</a></li>'+
-								'</ul>'+
 							'</div>'+
 						'</div>'+
 						'<div class="inner cover">'+
