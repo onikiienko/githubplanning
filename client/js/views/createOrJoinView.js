@@ -9,15 +9,38 @@ var CreateOrJoinView = Backbone.View.extend({
             '<p class="lead">Create your own room or join other.</p>'+
             	'<input type="default" class="form-control roomNameInput" placeholder="Room name" required autofocus>' +
             '</p>'+
+			'<br>'+
+			'<div class="currencyType">'+
+				'<div class="radio-inline">'+
+					'<label>'+
+						'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
+							'Standard'+
+						'</label>'+
+				'</div>'+
+				'<div class="radio-inline">'+
+					'<label>'+
+						'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
+						'T-shirt'+
+					'</label>'+
+				'</div>'+
+				'<div class="radio-inline">'+
+					'<label>'+
+						'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
+						'Fibonacci'+
+					'</label>'+
+				'</div>'+
+			'</div>'+
+			'<br>'+
             '<p class="lead">'+
-            	'<button href="#" class="btn btn-lg btn-primary enterRoomBtn submit">Enter room</button>'+
+            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
             '</p>'
         );
 	},
 	enterRoom: function(){
 		tableModule.set({'room': $('.roomNameInput').val()});
 		var room  = '/' + tableModule.toJSON().room;
-		socket.emit('enter room', room, 'standardCurrency');
+		var currencyType = $('input:checked').prop('value');
+		socket.emit('enter room', room, currencyType);
 		socket = io(room);
 		this.socketInit();
 	},
