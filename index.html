@@ -2,80 +2,18 @@
 <html>
 	<head>
 		<title>Planning Poker</title>
-		<script src="client/js/jquery.js"></script>
-		<script src="client/js/underscore.js"></script>
-		<script src="client/js/backbone.js"></script>
+		<script src="client/js/utils/jquery.js"></script>
+		<script src="client/js/utils/underscore.js"></script>
+		<script src="client/js/utils/backbone.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<link rel="stylesheet" href="client/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="client/bootstrap/css/bootstrap-theme.min.css">
 		<script src="client/bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="client/css/styles.css">
-		<!-- Latest compiled and minified CSS -->
-		<link rel="stylesheet" href="client/bootstrap/css/bootstrap.min.css">
-		<!-- Optional theme -->
-		<link rel="stylesheet" href="client/bootstrap/css/bootstrap-theme.min.css">
-		<!-- Latest compiled and minified JavaScript -->
+		<script src="client/js/script.js"></script>
 	</head>
 	<body>
-		<div class="content">	
-			<!-- view1 modal to login!-->
-			<div class="modal fade" id="myModal">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h4 class="modal-title">Your name</h4>
-						</div>
-						<div class="modal-body">
-							<input type="text" class="gamerName" value="anonymous">
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary nameSubmit" onclick="loginGamer()">Submit</button>
-						</div>
-					</div><!-- /.modal-content -->
-				</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-			<div class="container createOrJoin">
-				<button type="button" class="btn btn-primary" onclick="setupRoom()">Create room</button>
-				<button type="button" class="btn btn-primary" onclick="joinRoom()">Join room</button>
-			</div>			
-			<div class="container roomOptions">
-				<span class="label label-default">Room name: </span>
-				<input type="text" class="roomName" value="rainbow">
-				<br>
-				<span class="label label-default">Game type: </span>
-				<div class="btn-group" data-toggle="buttons">
-				  <label class="btn btn-primary active">
-				    <input type="radio" name="options" id="fibonacci" checked> Fibonacci
-				  </label>
-				  <label class="btn btn-primary">
-				    <input type="radio" name="options" id="option2"> Standard
-				  </label>
-				  <label class="btn btn-primary">
-				    <input type="radio" name="options" id="option3"> T-Shirt
-				  </label>
-				</div>
-				<br>
-				<button type="button" class="btn btn-danger" onclick="createRoom()">Submit</button>
-			</div>
-			<div class="container roomCreated">
-			<div class="alert alert-success" role="alert">
-				<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				Your room "<script type="text/javascript">window.room</script>" was created.
-				<br>
-				You can invite roommates by:
-				<br>
-				url: <script>window.location</script>
-				<br>
-				or
-				<br>
-				room name: <script>window.location.hash.substirng(1)</script>
-			</div>
-			</div>
-			<div class="container gameTable">
-				<input type="text" class="points" value="1">
-				<input type="button" value="Vote"  onclick="vote()" class="btn btn-lg btn-primary">
-				<input type="button" value="Open"  onclick="openCards()" class="btn btn-lg btn-primary">
-				<div class="table"></div>
-			</div>
-		</div>
-		<script src="client/js/script.js"></script>
+	<script>
+	</script>
 	</body>
 </html>
