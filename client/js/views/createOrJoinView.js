@@ -48,18 +48,27 @@ var CreateOrJoinView = Backbone.View.extend({
 		this.socketInit();
 	},
 	socketInit: function(){
-		socket.on('connectionReady', function(cards, table){
+		socket.on('connectionReady', function(cards, table, gamers){
+			
+			gamersListCollection.set(gamers);
+			
 			cardsToChooseCollection.set(cards);
 			tableView.render();
 			tableView.renderCardsToChoose();
+			tableView.renderGamersList();
+			
 			if(table[0]){
 				gameZoneCollection.set(table);
 				tableView.renderGameZone();
 			}
 		});
-		socket.on('updateTable', function(table){
+		socket.on('updateTable', function(table, gamers){
 			gameZoneCollection.set(table);
+			if (gamers){
+				gamersListCollection.set(gamers);
+			}
 			tableView.renderGameZone();
+			tableView.renderGamersList();
 		})
 	}
 });

@@ -64,7 +64,6 @@ var roomsCounter = new RoomsCounter;
 roomsCounter.howMatch = function(){
 	console.log('Rooms has been created: ' + roomsCounter.toJSON().length);
 }
-setInterval(roomsCounter.howMatch, 5000);
 
 // create first stream for unset user
 io.on('connection', function(socket){
@@ -86,18 +85,23 @@ io.on('connection', function(socket){
 			var tableSocket = io.of(room);
 			tableSocket.table = new Table;
 			roomsCounter.add(new bb.Model({room : room}));
+			roomsCounter.howMatch();
 			tableSocket.on('connection', function(socket){
-				tableSocket.emit('connectionReady', currency, tableSocket.table.toJSON());
+				var gamersList = gamers.where(({'room' : room}));
+				var table = tableSocket.table.toJSON();
+				tableSocket.emit('connectionReady', currency, table, gamersList);
 				socket.on('vote', function(hand){
 					if (tableSocket.table.findWhere({'name': hand.name})){
 						tableSocket.table.remove(tableSocket.table.findWhere({'name': hand.name}));
 					}
 					tableSocket.table.add(hand);
-					tableSocket.emit('updateTable', tableSocket.table.toJSON());
+					var table = tableSocket.table.toJSON();
+					tableSocket.emit('updateTable', table);
 				});				
 				socket.on('restart', function(hand){
 					tableSocket.table.reset();
-					tableSocket.emit('updateTable', tableSocket.table.toJSON());
+					var table = tableSocket.table.toJSON();
+					tableSocket.emit('updateTable', table);
 				});
 				socket.on('disconnect', function() {
 					// delete room after all gamers gone
@@ -111,11 +115,12 @@ io.on('connection', function(socket){
 					if (tableSocket.table.findWhere({'name': gamerName})){
 						// remove this votes
 					 	tableSocket.table.remove(tableSocket.table.findWhere({'name': gamerName}));
-					 	// update client side
-						tableSocket.emit('updateTable', tableSocket.table.toJSON());
 					}
 					// remove gamer from all current gamers list
 			    	gamers.remove(gamers.findWhere({'id': socket.id}));
+				 	var gamersList = gamers.where(({'room' : room}));
+				 	var table = tableSocket.table.toJSON();
+					tableSocket.emit('updateTable', table, gamersList);
 			    });
 			});
 		}
