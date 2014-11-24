@@ -56,10 +56,20 @@ var TableSocket = function(room){
 	return io.of(room);
 } 
 var Table = bb.Collection.extend();
+var Gamers = bb.Collection.extend();
+var RoomsCounter = bb.Collection.extend();
+var gamers = new Gamers;
+var roomsCounter = new RoomsCounter;
+
+roomsCounter.howMatch = function(){
+	console.log('Rooms has been created: ' + roomsCounter.toJSON().length);
+}
+setInterval(roomsCounter.howMatch, 5000);
 
 // create first stream for unset user
 io.on('connection', function(socket){
-	socket.on('enter room', function(room, typeOfCards){
+	socket.on('enter room', function(room, typeOfCards, login){
+		gamers.add(new bb.Model({name: login, id : socket.id, room : room}));
 		if(!socket.server.nsps[room]){
 			var currency;
 			switch(typeOfCards){
@@ -75,6 +85,7 @@ io.on('connection', function(socket){
 			};
 			var tableSocket = io.of(room);
 			tableSocket.table = new Table;
+			roomsCounter.add(new bb.Model({room : room}));
 			tableSocket.on('connection', function(socket){
 				tableSocket.emit('connectionReady', currency, tableSocket.table.toJSON());
 				socket.on('vote', function(hand){
@@ -88,6 +99,24 @@ io.on('connection', function(socket){
 					tableSocket.table.reset();
 					tableSocket.emit('updateTable', tableSocket.table.toJSON());
 				});
+				socket.on('disconnect', function() {
+					// delete room after all gamers gone
+					if (_.isEqual(socket.server.nsps[room].connected ,{})){
+						// delete hardcore from rooms list
+						delete socket.server.nsps[room];
+					}
+					// delete item from game if one gamer gone
+			       	var gamerName = gamers.findWhere({'id': socket.id}).toJSON().name;
+			       	// if there is any votes in game
+					if (tableSocket.table.findWhere({'name': gamerName})){
+						// remove this votes
+					 	tableSocket.table.remove(tableSocket.table.findWhere({'name': gamerName}));
+					 	// update client side
+						tableSocket.emit('updateTable', tableSocket.table.toJSON());
+					}
+					// remove gamer from all current gamers list
+			    	gamers.remove(gamers.findWhere({'id': socket.id}));
+			    });
 			});
 		}
 	});

@@ -38,9 +38,12 @@ var CreateOrJoinView = Backbone.View.extend({
 	},
 	enterRoom: function(){
 		tableModule.set({'room': $('.roomNameInput').val()});
+
 		var room  = '/' + tableModule.toJSON().room;
 		var currencyType = $('input:checked').prop('value');
-		socket.emit('enter room', room, currencyType);
+		var login = tableModule.toJSON().login;
+		
+		socket.emit('enter room', room, currencyType, login);
 		socket = io(room);
 		this.socketInit();
 	},
