@@ -94,6 +94,9 @@ io.on('connection', function(socket){
 				var gamersList = gamers.where(({'room' : room}));
 				var table = tableSocket.table.toJSON();
 				tableSocket.emit('connectionReady', currency, table, gamersList);
+				socket.on('chat message', function(msg, login){
+					tableSocket.emit('chat message', msg, login);
+				});
 				socket.on('vote', function(hand){
 					if (tableSocket.table.findWhere({'name': hand.name})){
 						tableSocket.table.remove(tableSocket.table.findWhere({'name': hand.name}));

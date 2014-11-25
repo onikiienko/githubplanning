@@ -157,6 +157,9 @@ var CreateOrJoinView = Backbone.View.extend({
 			tableView.renderGameZone();
 			tableView.renderGamersList();
 		});
+		socket.on('chat message', function(msg, login){
+			tableView.renderMessage(msg, login);
+		});
 	}
 });
 
@@ -167,6 +170,7 @@ var TableView = Backbone.View.extend({
 		"click .cardsToChooseView" : "chooseACard",
 		"click .restartRoundBtn" : "restartRound",
 		"click .flipCardsBtn" : "flipCards",
+		"click .sendMessage" : "sendMessage"
 	},
 	render: function(){
 		this.$el.html(
@@ -184,10 +188,21 @@ var TableView = Backbone.View.extend({
 			'<div class="chatAndTaskList row">'+
 				'<ul class="list-group gamersListView"></ul>'+
 				'<div class="taskListView row"></div>'+
-				'<div class="chatView row"></div>'+
+				'<div class="chatView row">'+
+					'<div id="messages"></div>'+
+  					'<input type="login" class="form-control chatInput" placeholder="Message" required autofocus>'+
+  					'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>'+
+    			'</div>'+
 			'</div>'
 		);
 		$('.tableNameView').append(this.tempTableName(tableModule.toJSON()));
+		return this;
+	},
+	renderMessage: function(msg, login){
+		$('<div/>', {
+    		text: login + " : " + msg
+		}).appendTo('#messages');
+		$("#messages").animate({ scrollTop: $(document).height() }, "slow");
 		return this;
 	},
 	renderGameZone: function(){
@@ -238,6 +253,13 @@ var TableView = Backbone.View.extend({
 		"<% } %>",
 		{variable: 'data'}
 	),
+	sendMessage: function(){
+		var msg = $('.chatInput').val();
+		var login = tableModule.toJSON().login;
+		socket.emit('chat message', msg, login);
+		$('.chatInput').val('');
+		return false;
+	},
 	chooseACard: function(e){
 		var data = e.target.getAttribute('data');
 		var name = e.target.innerText;

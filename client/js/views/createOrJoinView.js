@@ -70,6 +70,9 @@ var CreateOrJoinView = Backbone.View.extend({
 			tableView.renderGameZone();
 			tableView.renderGamersList();
 		});
+		socket.on('chat message', function(msg, login){
+			tableView.renderMessage(msg, login);
+		});
 	}
 });
 

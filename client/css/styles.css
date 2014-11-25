@@ -1,6 +1,13 @@
 /*.tableNameView, .taskNameView, .table, .cardsToChooseView, .chatAndTaskList{
   border: white 1px solid;
 }*/
+#messages{
+  width: 300px;
+  height: 100px;
+  border: 1px solid white;
+  overflow: scroll;
+}
+
 
 .row{
   margin: 0;
