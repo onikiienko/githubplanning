@@ -69,7 +69,7 @@ var CreateOrJoinView = Backbone.View.extend({
 			}
 			tableView.renderGameZone();
 			tableView.renderGamersList();
-		})
+		});
 	}
 });
 

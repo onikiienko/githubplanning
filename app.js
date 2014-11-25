@@ -3,6 +3,25 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bb = require('backbone');
 var _ = require('underscore');
+var fs = require('fs');
+
+var pkg = "./package.json";
+var roomsNumber;
+
+var RoomsCounter = bb.Collection.extend();
+var roomsCounter = new RoomsCounter();
+
+roomsCounter.getNumberOfRooms = function(){
+	roomsNumber = parseInt(fs.readFileSync(pkg, 'utf8').match(/"numberOfRooms": "([0-9.]+)",/).pop());
+};
+roomsCounter.incNumberOfRooms = function(){
+	if(!roomsNumber) this.getNumberOfRooms();
+	console.log(roomsNumber);
+	roomsNumber++;
+	console.log(roomsNumber);
+	var pkgContent = fs.readFileSync(pkg, 'utf8');
+	fs.writeFileSync(pkg, pkgContent.replace(/"numberOfRooms": "([0-9.]+)",/, '"numberOfRooms": "' + roomsNumber + '",'), 'utf8');
+};
 
 //plugin server
 app.get('/', function(req, res){
@@ -17,23 +36,11 @@ app.get('/client/js/utils/underscore.js', function(req, res){
 app.get('/client/js/utils/backbone.js', function(req, res){
   res.sendfile('client/js/utils/backbone.js');
 });
-app.get('/client/js/utils/require.js', function(req, res){
-  res.sendfile('client/js/utils/require.js');
-});
 app.get('/client/js/script.js', function(req, res){
   res.sendfile('client/js/script.js');
 });
-app.get('/client/js/views/startView.js', function(req, res){
-  res.sendfile('client/js/views/startView.js');
-});
-app.get('/client/js/views/createOrJoinView.js', function(req, res){
-  res.sendfile('client/js/views/createOrJoinView.js');
-});
-app.get('/client/js/views/loginView.js', function(req, res){
-  res.sendfile('client/js/views/loginView.js');
-});
-app.get('/client/js/views/tableView.js', function(req, res){
-  res.sendfile('client/js/views/tableView.js');
+app.get('/client/js/planningpoker.min.js', function(req, res){
+  res.sendfile('client/js/planningpoker.min.js');
 });
 app.get('/client/css/styles.css', function(req, res){
   res.sendfile('client/css/styles.css');
@@ -54,16 +61,11 @@ var fibonacciCurrency = [{'0': 0}, {'1' : 1}, {'2' : 2}, {'3' : 3}, {'5' : 4}, {
 
 var TableSocket = function(room){
 	return io.of(room);
-} 
+};
 var Table = bb.Collection.extend();
 var Gamers = bb.Collection.extend();
-var RoomsCounter = bb.Collection.extend();
-var gamers = new Gamers;
-var roomsCounter = new RoomsCounter;
+var gamers = new Gamers();
 
-roomsCounter.howMatch = function(){
-	console.log('Rooms has been created: ' + roomsCounter.toJSON().length);
-}
 
 // create first stream for unset user
 io.on('connection', function(socket){
@@ -81,11 +83,11 @@ io.on('connection', function(socket){
 				    case 'fibonacciCurrency':
 				    	currency = fibonacciCurrency;
 				        break;
-			};
+			}
 			var tableSocket = io.of(room);
-			tableSocket.table = new Table;
+			tableSocket.table = new Table();
 			roomsCounter.add(new bb.Model({room : room}));
-			roomsCounter.howMatch();
+			roomsCounter.incNumberOfRooms();
 			tableSocket.on('connection', function(socket){
 				var gamersList = gamers.where(({'room' : room}));
 				var table = tableSocket.table.toJSON();

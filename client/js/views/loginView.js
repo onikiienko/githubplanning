@@ -18,7 +18,7 @@ var LoginView = Backbone.View.extend({
 		"click .loginBtn" : "loginSubmit"
 	},
 	loginSubmit: function(){
-		var login = $('.loginInput').val()
+		var login = $('.loginInput').val();
 		tableModule.set({'login' : login});
 		if ($('.loginCheckBox').prop('checked')){
 			document.cookie = 'login=' + login;
