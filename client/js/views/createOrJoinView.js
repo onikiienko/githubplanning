@@ -1,14 +1,13 @@
 var CreateOrJoinView = Backbone.View.extend({
-	el: '.inner.cover',
+	el: '.contentDiv',
 	events: {
 		"click .enterRoomBtn" : "enterRoom"
 	},
 	render: function(){
 		this.$el.html(    
-		    '<h1 class="cover-heading">Enter to room</h1>'+
-            '<p class="lead">Create your own room or join other.</p>'+
-            	'<input type="default" class="form-control roomNameInput" placeholder="Room name" required autofocus>' +
-            '</p>'+
+		    '<h1>Enter to room</h1>'+
+            '<p>Create your own room or join other.</p>'+
+            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus>' +
 			'<br>'+
 			'<div class="currencyType">'+
 				'<div class="radio-inline">'+
@@ -31,7 +30,7 @@ var CreateOrJoinView = Backbone.View.extend({
 				'</div>'+
 			'</div>'+
 			'<br>'+
-            '<p class="lead">'+
+            '<p>'+
             	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
             '</p>'
         );

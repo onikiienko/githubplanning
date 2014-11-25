@@ -2,7 +2,7 @@
   "name": "planningpoker",
   "version": "0.0.0",
   "description": "Planning poker for scrum",
-  "numberOfRooms": "28",
+  "numberOfRooms": "83",
   "main": "app.js",
   "scripts": {
     "test": "grunt test"

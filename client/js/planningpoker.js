@@ -25,43 +25,33 @@ var StartView = Backbone.View.extend({
   		if (parts.length == 2) return parts.pop().split(";").shift();
 	},
 	render: function(){
-		this.$el.append(
-			'<div class="site-wrapper">'+
-				'<div class="site-wrapper-inner">'+
-					'<div class="cover-container">'+
-						'<div class="masthead clearfix">'+
-							'<div class="inner">'+
-								'<h3 class="masthead-brand">Planning Poker</h3>'+
-							'</div>'+
-						'</div>'+
-						'<div class="inner cover">'+
-							'<h1 class="cover-heading">Planning Poker</h1>'+
-							'<p class="lead roomsNumberView"></p>'+
-							'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
-							'<p class="lead">'+
-								'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
-							'</p>'+
-						'</div>'+
-						'<div class="mastfoot">'+
-							'<div class="inner">'+
-								'<p>Created by <a href="https://twitter.com/onikiienko">@onikiienko</a></p>'+
-							'</div>'+
-						'</div>'+
-					'</div>'+
-				'</div>'+
-			'</div>'
+		this.$el.append(		
+			'<div class="headerDiv">'+
+				'<h3>Planning Poker</h3>'+
+			'</div>'+
+			'<div class="contentDiv">'+
+				'<h1 class="cover-heading">Planning Poker</h1>'+
+				'<p class="lead roomsNumberView"></p>'+
+				'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
+				'<p class="lead">'+
+					'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
+				'</p>'+
+			'</div>'+			
+			'<div class="footerDiv">'+
+				'<p>Created by <a href="https://twitter.com/onikiienko">@onikiienko</a></p>'+
+			'</div>'	
 	    );
 	}
 });
 
 startView = new StartView();
 var LoginView = Backbone.View.extend({
-	el: '.inner.cover',
+	el: '.contentDiv',
 	render: function(){
 		this.$el.html(
-			'<div class="form-signin login" role="form">' + 
-		        '<h2 class="form-signin-heading">Please sign in</h2>' +
-		        '<input type="login" class="form-control loginInput" placeholder="Login" required autofocus>' +
+			'<div class="loginDiv" role="form">' + 
+		        '<h2>Please sign in</h2>' +
+		        '<input type="text" class="loginInput" placeholder="Login" required autofocus>' +
 		        '<div class="checkbox">' +
 		          	'<label>' +
 		            	'<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me' +
@@ -86,16 +76,15 @@ var LoginView = Backbone.View.extend({
 
 loginView = new LoginView();
 var CreateOrJoinView = Backbone.View.extend({
-	el: '.inner.cover',
+	el: '.contentDiv',
 	events: {
 		"click .enterRoomBtn" : "enterRoom"
 	},
 	render: function(){
 		this.$el.html(    
-		    '<h1 class="cover-heading">Enter to room</h1>'+
-            '<p class="lead">Create your own room or join other.</p>'+
-            	'<input type="default" class="form-control roomNameInput" placeholder="Room name" required autofocus>' +
-            '</p>'+
+		    '<h1>Enter to room</h1>'+
+            '<p>Create your own room or join other.</p>'+
+            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus>' +
 			'<br>'+
 			'<div class="currencyType">'+
 				'<div class="radio-inline">'+
@@ -118,7 +107,7 @@ var CreateOrJoinView = Backbone.View.extend({
 				'</div>'+
 			'</div>'+
 			'<br>'+
-            '<p class="lead">'+
+            '<p>'+
             	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
             '</p>'
         );
@@ -165,7 +154,7 @@ var CreateOrJoinView = Backbone.View.extend({
 
 createOrJoinView = new CreateOrJoinView();
 var TableView = Backbone.View.extend({
-	el: '.inner.cover',
+	el: '.contentDiv',
 	events: {
 		"click .cardsToChooseView" : "chooseACard",
 		"click .restartRoundBtn" : "restartRound",
@@ -174,23 +163,23 @@ var TableView = Backbone.View.extend({
 	},
 	render: function(){
 		this.$el.html(
-			'<h3 class="masthead-brand tableNameView"></h3>'+
+			'<h3 class="tableNameView"></h3>'+
 			'<br>'+
-			'<h3 class="masthead-brand taskNameView"></h3>'+
+			'<h3 class="taskNameView"></h3>'+
 			'<br>'+
-			'<div class="table row">'+
-				'<div class="gameZoneView row"></div>'+
+			'<div class="table">'+
+				'<div class="gameZoneView"></div>'+
 				'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>'+
 				'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>'+
 			'</div>'+
 			'<br>'+
-			'<div class="cardsToChooseView row"></div>'+
-			'<div class="chatAndTaskList row">'+
-				'<ul class="list-group gamersListView"></ul>'+
-				'<div class="taskListView row"></div>'+
-				'<div class="chatView row">'+
+			'<div class="cardsToChooseView"></div>'+
+			'<div class="chatAndTaskList">'+
+				'<div class="gamersListView"></div>'+
+				'<div class="taskListView"></div>'+
+				'<div class="chatView">'+
 					'<div id="messages"></div>'+
-  					'<input type="login" class="form-control chatInput" placeholder="Message" required autofocus>'+
+  					'<input type="text" class="chatInput" placeholder="Message" required autofocus>'+
   					'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>'+
     			'</div>'+
 			'</div>'
@@ -219,26 +208,22 @@ var TableView = Backbone.View.extend({
 	},
 	tempGameZone: _.template(
 		"<%for(var gamerModel in data) { %>"+
-			"<div class='col-xs-6 col-md-3'>"+
 				"<div class='thumbnail' data='<%= data[gamerModel].name %>'>"+
 					"<%= data[gamerModel].name %>"+
 					"<br>"+
 					"<%= data[gamerModel].number.name %>"+
 					"(<%= data[gamerModel].number.data %>)"+
 				"</div>"+
-			"</div>"+
 		"<% } %>",
 		{variable: 'data'}
 	),
 	tempCardsToChoose: _.template(
 		"<%for(var card in data) { %>"+
-			"<div class='col-xs-6 col-md-3'>"+
 				"<% for(var name in data[card]) { %>"+
-					"<div class='thumbnail' data='<%= data[card][name] %>'>"+
+					"<div class='cardToChoose thumbnail' data='<%= data[card][name] %>'>"+
 						"<%= name %>"+
 					"</div>"+
 				"<% } %>"+
-			"</div>"+
 		"<% } %>",
 		{variable: 'data'}
 	),
@@ -247,9 +232,9 @@ var TableView = Backbone.View.extend({
 	),
 	tempGamersList: _.template(
 		"<%for(var gamer in data) { %>"+
-				"<li class='list-group-item'>"+
+				"<div>"+
 					"<%= data[gamer].name %>"+
-				"</li>"+
+				"</div>"+
 		"<% } %>",
 		{variable: 'data'}
 	),
@@ -262,12 +247,13 @@ var TableView = Backbone.View.extend({
 	},
 	chooseACard: function(e){
 		var data = e.target.getAttribute('data');
-		var name = e.target.innerText;
-		socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
+		var classOfCard = e.target.getAttribute('class');
+		if (classOfCard == "cardToChoose thumbnail"){
+			var name = e.target.innerText;
+			socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
+		}
 	},	
 	restartRound: function(){
-		// var data = e.target.getAttribute('data');
-		// var name = e.target.innerText;
 		socket.emit('restart');
 	}
 });
