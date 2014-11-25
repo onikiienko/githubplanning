@@ -5,6 +5,9 @@ var StartView = Backbone.View.extend({
 
 	},
 	initialize: function(){
+		socket.on('numberOfRooms', function(numberOfRooms){
+			$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' number of rooms. Join us!');
+		});
 		this.render();
 	},
 	startGame: function(){
@@ -33,6 +36,7 @@ var StartView = Backbone.View.extend({
 						'</div>'+
 						'<div class="inner cover">'+
 							'<h1 class="cover-heading">Planning Poker</h1>'+
+							'<p class="lead roomsNumberView"></p>'+
 							'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
 							'<p class="lead">'+
 								'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+

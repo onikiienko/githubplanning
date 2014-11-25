@@ -8,13 +8,12 @@ var fs = require('fs');
 var pkg = "./package.json";
 var roomsNumber;
 
-var RoomsCounter = bb.Collection.extend();
-var roomsCounter = new RoomsCounter();
-
-roomsCounter.getNumberOfRooms = function(){
+getNumberOfRooms = function(){
 	roomsNumber = parseInt(fs.readFileSync(pkg, 'utf8').match(/"numberOfRooms": "([0-9.]+)",/).pop());
+	return roomsNumber;
 };
-roomsCounter.incNumberOfRooms = function(){
+
+incNumberOfRooms = function(){
 	if(!roomsNumber) this.getNumberOfRooms();
 	console.log(roomsNumber);
 	roomsNumber++;
@@ -69,6 +68,7 @@ var gamers = new Gamers();
 
 // create first stream for unset user
 io.on('connection', function(socket){
+	socket.emit('numberOfRooms', getNumberOfRooms());
 	socket.on('enter room', function(room, typeOfCards, login){
 		gamers.add(new bb.Model({name: login, id : socket.id, room : room}));
 		if(!socket.server.nsps[room]){
@@ -86,8 +86,10 @@ io.on('connection', function(socket){
 			}
 			var tableSocket = io.of(room);
 			tableSocket.table = new Table();
-			roomsCounter.add(new bb.Model({room : room}));
-			roomsCounter.incNumberOfRooms();
+
+			incNumberOfRooms();
+			socket.emit('numberOfRooms', getNumberOfRooms());
+			
 			tableSocket.on('connection', function(socket){
 				var gamersList = gamers.where(({'room' : room}));
 				var table = tableSocket.table.toJSON();
