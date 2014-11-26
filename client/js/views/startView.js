@@ -6,7 +6,7 @@ var StartView = Backbone.View.extend({
 	},
 	initialize: function(){
 		socket.on('numberOfRooms', function(numberOfRooms){
-			$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' number of rooms. Join us!');
+			$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' rooms.');
 		});
 		this.render();
 	},
@@ -25,21 +25,30 @@ var StartView = Backbone.View.extend({
   		if (parts.length == 2) return parts.pop().split(";").shift();
 	},
 	render: function(){
-		this.$el.append(		
-			'<div class="headerDiv">'+
-				'<h3>Planning Poker</h3>'+
-			'</div>'+
-			'<div class="contentDiv">'+
-				'<h1 class="cover-heading">Planning Poker</h1>'+
-				'<p class="lead roomsNumberView"></p>'+
-				'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
-				'<p class="lead">'+
-					'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
-				'</p>'+
-			'</div>'+			
-			'<div class="footerDiv">'+
-				'<p>Created by <a href="https://twitter.com/onikiienko">@onikiienko</a></p>'+
-			'</div>'	
+		this.$el.append(
+	'<nav class="navbar navbar-inverse navbar-fixed-top headerDiv" role="navigation">'+
+      '<div class="container">'+
+        '<div class="navbar-header">'+
+          '<a class="navbar-brand" href="#">Scrum Poker</a>'+
+        '</div>'+
+      '</div>'+
+    '</nav>'+
+    '<div class="contentDiv text-center">'+
+	    '<div class="jumbotron vcenter">'+
+	      '<div class="container">'+
+			'<h1 class="cover-heading">Join Us!</h1>'+
+			'<p class="lead roomsNumberView"></p>'+
+			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
+			'<p class="lead">'+
+				'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
+			'</p>'+
+	      '</div>'+
+	    '</div>'+
+    '</div>'+
+      '<div class="footerDiv footer">'+
+        '<p>@onikiienko</p>'+
+      '</div>'+
+    '</div>'
 	    );
 	}
 });

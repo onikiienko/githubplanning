@@ -5,34 +5,40 @@ var CreateOrJoinView = Backbone.View.extend({
 	},
 	render: function(){
 		this.$el.html(    
-		    '<h1>Enter to room</h1>'+
-            '<p>Create your own room or join other.</p>'+
-            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus>' +
-			'<br>'+
-			'<div class="currencyType">'+
-				'<div class="radio-inline">'+
-					'<label>'+
-						'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
-							'Standard'+
-						'</label>'+
+			'<div class="jumbotron vcenter" role="form">' + 
+				'<div class="container">'+
+				    '<h1>Enter to room</h1>'+
+		            '<p>Create your own room or join other.</p>'+
+		            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus="true">' +
+					'<br>'+
+					'<br>'+
+					'<div class="currencyType">'+
+						'<div class="radio-inline">'+
+							'<label>'+
+								'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
+									'Standard'+
+								'</label>'+
+						'</div>'+
+						'<div class="radio-inline">'+
+							'<label>'+
+								'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
+								'T-shirt'+
+							'</label>'+
+						'</div>'+
+						'<div class="radio-inline">'+
+							'<label>'+
+								'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
+								'Fibonacci'+
+							'</label>'+
+						'</div>'+
+					'</div>'+
+					'<br>'+
+		            '<p>'+
+		            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
+		            '</p>'+
 				'</div>'+
-				'<div class="radio-inline">'+
-					'<label>'+
-						'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
-						'T-shirt'+
-					'</label>'+
-				'</div>'+
-				'<div class="radio-inline">'+
-					'<label>'+
-						'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
-						'Fibonacci'+
-					'</label>'+
-				'</div>'+
-			'</div>'+
-			'<br>'+
-            '<p>'+
-            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
-            '</p>'
+			'</div>'
+
         );
 	},
 	enterRoom: function(){

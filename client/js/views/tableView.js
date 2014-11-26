@@ -8,35 +8,59 @@ var TableView = Backbone.View.extend({
 	},
 	render: function(){
 		this.$el.html(
-			'<h3 class="tableNameView"></h3>'+
-			'<br>'+
-			'<h3 class="taskNameView"></h3>'+
-			'<br>'+
-			'<div class="table">'+
-				'<div class="gameZoneView"></div>'+
-				'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>'+
-				'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>'+
-			'</div>'+
-			'<br>'+
-			'<div class="cardsToChooseView"></div>'+
-			'<div class="chatAndTaskList">'+
-				'<div class="gamersListView"></div>'+
-				'<div class="taskListView"></div>'+
-				'<div class="chatView">'+
-					'<div id="messages"></div>'+
-  					'<input type="text" class="chatInput" placeholder="Message" required autofocus>'+
-  					'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>'+
-    			'</div>'+
+			'<div class="contentDiv text-center">' + 
+				'<div class="jumbotron vcenter" role="form">' + 
+					'<div class="container">' + 
+
+
+						'<div class="rightGameView">' + 
+							'<div class="taskListView">' + 
+								'Task list' + 
+								'<div class="taskList"></div>' + 
+								'<input type="text" class="taskInput" placeholder="Task name">' + 
+								'<button href="#" class="btn btn-lg btn-primary addTask">Add</button>' + 
+							'</div>' + 
+							'<div class="taskResultsListView">' + 
+								'Vote results' + 
+								'<div class="taskList"></div>' + 							
+							'</div>' + 
+							'<div class="chatView">' + 
+								'Chat' + 
+								'<div class="messages"></div>' + 
+								'<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true">' + 
+								'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>' + 
+							'</div>' + 
+						'</div>' + 
+
+					'<div class="leftGameView">' + 
+						'<div class="gamersListView">Gamers:</div>' + 
+						'<div class="tableNameView"></div>' + 
+						'<div class="taskNameView">' + 
+							'<p>Task#1</p>'+
+						'</div>' + 
+						'<div class="table">' + 
+							'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
+							'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
+							'<div class="gameZoneView">' + 
+							'</div>' + 
+						'</div>' + 
+						'<div class="cardsToChooseView">' + 
+						'</div>' + 
+					'</div>' + 
+						
+					'</div>' + 
+				'</div>' + 
 			'</div>'
 		);
+
 		$('.tableNameView').append(this.tempTableName(tableModule.toJSON()));
 		return this;
 	},
 	renderMessage: function(msg, login){
 		$('<div/>', {
     		text: login + " : " + msg
-		}).appendTo('#messages');
-		$("#messages").animate({ scrollTop: $(document).height() }, "slow");
+		}).appendTo('.messages');
+		$(".messages").animate({ scrollTop: $(document).height() }, "slow");
 		return this;
 	},
 	renderGameZone: function(){
@@ -63,6 +87,7 @@ var TableView = Backbone.View.extend({
 		{variable: 'data'}
 	),
 	tempCardsToChoose: _.template(
+		"<p>Choose a card:</p>"+
 		"<%for(var card in data) { %>"+
 				"<% for(var name in data[card]) { %>"+
 					"<div class='cardToChoose thumbnail' data='<%= data[card][name] %>'>"+
@@ -72,10 +97,11 @@ var TableView = Backbone.View.extend({
 		"<% } %>",
 		{variable: 'data'}
 	),
-	tempTableName: _.template("Room: <%= data.room %>, Login: <%= data.login %>",
+	tempTableName: _.template("<div class='tableRoomView'><h3>Room: <%= data.room %></h3></div><div class='tableLoginView'><h3>Login: <%= data.login %></h3></div>",
 		{variable: 'data'}
 	),
 	tempGamersList: _.template(
+		"<p>List of Gamers:</p>"+
 		"<%for(var gamer in data) { %>"+
 				"<div>"+
 					"<%= data[gamer].name %>"+

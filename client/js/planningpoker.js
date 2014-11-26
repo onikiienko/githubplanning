@@ -6,7 +6,7 @@ var StartView = Backbone.View.extend({
 	},
 	initialize: function(){
 		socket.on('numberOfRooms', function(numberOfRooms){
-			$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' number of rooms. Join us!');
+			$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' rooms.');
 		});
 		this.render();
 	},
@@ -25,21 +25,30 @@ var StartView = Backbone.View.extend({
   		if (parts.length == 2) return parts.pop().split(";").shift();
 	},
 	render: function(){
-		this.$el.append(		
-			'<div class="headerDiv">'+
-				'<h3>Planning Poker</h3>'+
-			'</div>'+
-			'<div class="contentDiv">'+
-				'<h1 class="cover-heading">Planning Poker</h1>'+
-				'<p class="lead roomsNumberView"></p>'+
-				'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
-				'<p class="lead">'+
-					'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
-				'</p>'+
-			'</div>'+			
-			'<div class="footerDiv">'+
-				'<p>Created by <a href="https://twitter.com/onikiienko">@onikiienko</a></p>'+
-			'</div>'	
+		this.$el.append(
+	'<nav class="navbar navbar-inverse navbar-fixed-top headerDiv" role="navigation">'+
+      '<div class="container">'+
+        '<div class="navbar-header">'+
+          '<a class="navbar-brand" href="#">Scrum Poker</a>'+
+        '</div>'+
+      '</div>'+
+    '</nav>'+
+    '<div class="contentDiv text-center">'+
+	    '<div class="jumbotron vcenter">'+
+	      '<div class="container">'+
+			'<h1 class="cover-heading">Join Us!</h1>'+
+			'<p class="lead roomsNumberView"></p>'+
+			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
+			'<p class="lead">'+
+				'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
+			'</p>'+
+	      '</div>'+
+	    '</div>'+
+    '</div>'+
+      '<div class="footerDiv footer">'+
+        '<p>@onikiienko</p>'+
+      '</div>'+
+    '</div>'
 	    );
 	}
 });
@@ -49,15 +58,17 @@ var LoginView = Backbone.View.extend({
 	el: '.contentDiv',
 	render: function(){
 		this.$el.html(
-			'<div class="loginDiv" role="form">' + 
-		        '<h2>Please sign in</h2>' +
-		        '<input type="text" class="loginInput" placeholder="Login" required autofocus>' +
-		        '<div class="checkbox">' +
-		          	'<label>' +
-		            	'<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me' +
-		          	'</label>' +
-	          	'</div>'+
-		        '<button class="btn btn-lg btn-success loginBtn" type="submit">Sign in</button>' +
+			'<div class="loginDiv jumbotron vcenter" role="form">' + 
+				'<div class="container">'+
+			        '<h2>Please sign in</h2>' +
+			        '<input type="text" class="loginInput" placeholder="Login" required autofocus="true">' +
+			        '<div class="checkbox">' +
+			          	'<label>' +
+			            	'<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me' +
+			          	'</label>' +
+		          	'</div>'+
+			        '<button class="btn btn-lg btn-success loginBtn" type="submit">Sign in</button>' +
+		        '</div>'+
 	      	'</div>'
 	    );
 	},
@@ -82,34 +93,40 @@ var CreateOrJoinView = Backbone.View.extend({
 	},
 	render: function(){
 		this.$el.html(    
-		    '<h1>Enter to room</h1>'+
-            '<p>Create your own room or join other.</p>'+
-            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus>' +
-			'<br>'+
-			'<div class="currencyType">'+
-				'<div class="radio-inline">'+
-					'<label>'+
-						'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
-							'Standard'+
-						'</label>'+
+			'<div class="jumbotron vcenter" role="form">' + 
+				'<div class="container">'+
+				    '<h1>Enter to room</h1>'+
+		            '<p>Create your own room or join other.</p>'+
+		            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus="true">' +
+					'<br>'+
+					'<br>'+
+					'<div class="currencyType">'+
+						'<div class="radio-inline">'+
+							'<label>'+
+								'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
+									'Standard'+
+								'</label>'+
+						'</div>'+
+						'<div class="radio-inline">'+
+							'<label>'+
+								'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
+								'T-shirt'+
+							'</label>'+
+						'</div>'+
+						'<div class="radio-inline">'+
+							'<label>'+
+								'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
+								'Fibonacci'+
+							'</label>'+
+						'</div>'+
+					'</div>'+
+					'<br>'+
+		            '<p>'+
+		            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
+		            '</p>'+
 				'</div>'+
-				'<div class="radio-inline">'+
-					'<label>'+
-						'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
-						'T-shirt'+
-					'</label>'+
-				'</div>'+
-				'<div class="radio-inline">'+
-					'<label>'+
-						'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
-						'Fibonacci'+
-					'</label>'+
-				'</div>'+
-			'</div>'+
-			'<br>'+
-            '<p>'+
-            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
-            '</p>'
+			'</div>'
+
         );
 	},
 	enterRoom: function(){
@@ -163,35 +180,59 @@ var TableView = Backbone.View.extend({
 	},
 	render: function(){
 		this.$el.html(
-			'<h3 class="tableNameView"></h3>'+
-			'<br>'+
-			'<h3 class="taskNameView"></h3>'+
-			'<br>'+
-			'<div class="table">'+
-				'<div class="gameZoneView"></div>'+
-				'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>'+
-				'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>'+
-			'</div>'+
-			'<br>'+
-			'<div class="cardsToChooseView"></div>'+
-			'<div class="chatAndTaskList">'+
-				'<div class="gamersListView"></div>'+
-				'<div class="taskListView"></div>'+
-				'<div class="chatView">'+
-					'<div id="messages"></div>'+
-  					'<input type="text" class="chatInput" placeholder="Message" required autofocus>'+
-  					'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>'+
-    			'</div>'+
+			'<div class="contentDiv text-center">' + 
+				'<div class="jumbotron vcenter" role="form">' + 
+					'<div class="container">' + 
+
+
+						'<div class="rightGameView">' + 
+							'<div class="taskListView">' + 
+								'Task list' + 
+								'<div class="taskList"></div>' + 
+								'<input type="text" class="taskInput" placeholder="Task name">' + 
+								'<button href="#" class="btn btn-lg btn-primary addTask">Add</button>' + 
+							'</div>' + 
+							'<div class="taskResultsListView">' + 
+								'Vote results' + 
+								'<div class="taskList"></div>' + 							
+							'</div>' + 
+							'<div class="chatView">' + 
+								'Chat' + 
+								'<div class="messages"></div>' + 
+								'<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true">' + 
+								'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>' + 
+							'</div>' + 
+						'</div>' + 
+
+					'<div class="leftGameView">' + 
+						'<div class="gamersListView">Gamers:</div>' + 
+						'<div class="tableNameView"></div>' + 
+						'<div class="taskNameView">' + 
+							'<p>Task#1</p>'+
+						'</div>' + 
+						'<div class="table">' + 
+							'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
+							'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
+							'<div class="gameZoneView">' + 
+							'</div>' + 
+						'</div>' + 
+						'<div class="cardsToChooseView">' + 
+						'</div>' + 
+					'</div>' + 
+						
+					'</div>' + 
+				'</div>' + 
 			'</div>'
 		);
+
 		$('.tableNameView').append(this.tempTableName(tableModule.toJSON()));
 		return this;
 	},
 	renderMessage: function(msg, login){
 		$('<div/>', {
     		text: login + " : " + msg
-		}).appendTo('#messages');
-		$("#messages").animate({ scrollTop: $(document).height() }, "slow");
+		}).appendTo('.messages');
+		$(".messages").animate({ scrollTop: $(document).height() }, "slow");
 		return this;
 	},
 	renderGameZone: function(){
@@ -218,6 +259,7 @@ var TableView = Backbone.View.extend({
 		{variable: 'data'}
 	),
 	tempCardsToChoose: _.template(
+		"<p>Choose a card:</p>"+
 		"<%for(var card in data) { %>"+
 				"<% for(var name in data[card]) { %>"+
 					"<div class='cardToChoose thumbnail' data='<%= data[card][name] %>'>"+
@@ -227,10 +269,11 @@ var TableView = Backbone.View.extend({
 		"<% } %>",
 		{variable: 'data'}
 	),
-	tempTableName: _.template("Room: <%= data.room %>, Login: <%= data.login %>",
+	tempTableName: _.template("<div class='tableRoomView'><h3>Room: <%= data.room %></h3></div><div class='tableLoginView'><h3>Login: <%= data.login %></h3></div>",
 		{variable: 'data'}
 	),
 	tempGamersList: _.template(
+		"<p>List of Gamers:</p>"+
 		"<%for(var gamer in data) { %>"+
 				"<div>"+
 					"<%= data[gamer].name %>"+
