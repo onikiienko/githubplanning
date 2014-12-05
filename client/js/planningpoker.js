@@ -45,9 +45,7 @@ var StartView = Backbone.View.extend({
 	      '</div>'+
 	    '</div>'+
     '</div>'+
-      '<div class="footerDiv footer">'+
-        '<p>@onikiienko</p>'+
-      '</div>'+
+    '<div class="footerDiv footer">'+
     '</div>'
 	    );
 	}
@@ -302,3 +300,42 @@ var TableView = Backbone.View.extend({
 });
 
 tableView = new TableView();
+
+// Hide Header on on scroll down
+var didScroll = false;
+var lastScrollTop = 0;
+var delta = 5;
+var navbarHeight = $('.headerDiv').outerHeight();
+
+$(window).scroll(function(event){
+    didScroll = true;
+});
+
+setInterval(function() {
+    if (didScroll) {
+        hasScrolled();
+        didScroll = false;
+    }
+}, 50);
+
+function hasScrolled() {
+    var st = $(this).scrollTop();
+    
+    // Make sure they scroll more than delta
+    if(Math.abs(lastScrollTop - st) <= delta)
+        return;
+    
+    // If they scrolled down and are past the navbar, add class .nav-up.
+    // This is necessary so you never see what is "behind" the navbar. 
+    if (st > lastScrollTop && st > navbarHeight){
+        // Scroll Down
+        $('.headerDiv').removeClass('nav-down').addClass('nav-up');
+    } else {
+        // Scroll Up
+        if(st + $(window).height() < $(document).height()) {
+            $('.headerDiv').removeClass('nav-up').addClass('nav-down');
+        }
+    }
+    
+    lastScrollTop = st;
+}

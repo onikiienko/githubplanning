@@ -5,12 +5,12 @@ grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
 	concat: {
 		dist: {
-			src: ['client/js/views/startView.js', 'client/js/views/loginView.js', 'client/js/views/createOrJoinView.js', 'client/js/views/tableView.js'],
+			src: ['client/js/views/startView.js', 'client/js/views/loginView.js', 'client/js/views/createOrJoinView.js', 'client/js/views/tableView.js', 'client/js/headerScroll.js'],
 			dest: 'client/js/<%= pkg.name %>.js'
 		}
 	},
 	jshint: {
-		beforeconcat: ['client/js/views/startView.js', 'client/js/views/loginView.js', 'client/js/views/createOrJoinView.js', 'client/js/views/tableView.js', 'app.js', 'client/js/script.js'],
+		beforeconcat: ['client/js/views/startView.js', 'client/js/views/loginView.js', 'client/js/views/createOrJoinView.js', 'client/js/views/tableView.js', 'app.js', 'client/js/headerScroll.js', 'client/js/script.js'],
 		afterconcat: ['client/js/<%= pkg.name %>.js']
 	},
 	uglify: {
@@ -21,7 +21,7 @@ grunt.initConfig({
     },
 	watch: {
 		scripts: {
-			files: ['client/js/views/*.js', 'app.js', 'client/js/script.js'],
+			files: ['client/js/views/*.js', 'app.js', 'client/js/script.js', 'client/js/headerScroll.js'],
 			tasks: ['concat', 'jshint', 'uglify']
 		}
 	}

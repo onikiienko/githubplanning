@@ -1,12 +1,29 @@
-body{
-  background-color: #D2D3CC;
+html, body {
+  /*min-height: 300px;*/
 }
 
-.messages, .taskList{
+.nav-up {
+    top: -45px;
+}
+
+.contentDiv {
+    position: relative;
+    /*min-height: 300px;*/
+     min-height: calc(100vh - 100px);
+}
+
+.messages{
   height: -webkit-calc(100% - 45px);
   height: -moz-calc(100% - 45px);
   height: calc(100% - 45px);
-  overflow: фгещ;
+  overflow: auto;
+}
+
+.taskList{
+  height: -webkit-calc(100% - 45px);
+  height: -moz-calc(100% - 45px);
+  height: calc(100% - 45px);
+  overflow: auto;
 }
 
 .cardsToChooseView{
@@ -47,10 +64,20 @@ body{
 
 .messages, .taskList, .gamersListView, .cardsToChooseView, .gameZoneView{
   text-align: initial;
-  background-color: #EDEDE7;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
+  display: block;
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #fff;
+background-image: none;
+border: 1px solid #ccc;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
 .sendMessage,.addTask{
@@ -75,17 +102,18 @@ body{
 }
 
 .leftGameView {
-  width: -webkit-calc(100% - 260px);
-  width: -moz-calc(100% - 260px);
-  width: calc(100% - 260px);
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  width: -webkit-calc(100% - 360px);
+  width: -moz-calc(100% - 360px);
+  width: calc(100% - 360px);
+  height: -webkit-calc(100% - 100px);
+  height: -moz-calc(100% - 100px);
+  height: calc(100% - 100px);
+  margin-top: 20px;
 }
 
 .rightGameView {
     float: right;
-    width: 250px;
+    width: 350px;
     margin-left: 10px;
     height: -webkit-calc(100vh - 100px);
     height: -moz-calc(100vh - 100px);
@@ -95,10 +123,10 @@ body{
 
 
 .contentDiv{
-  height: 80px;
-  height: -webkit-calc(100vh - 100px);
-  height: -moz-calc(100vh - 100px);
-  height: calc(100vh - 100px);
+  height: 800px;
+  height: -webkit-calc(100% - 100px);
+  height: -moz-calc(100% - 100px);
+  height: calc(100% - 100px);
   margin-top: 50px;
 }
 
@@ -112,11 +140,11 @@ body{
   margin: 0px;
   height: auto;
   width: 100vw;
-  background-color: #D2D3CC;
+  background-color: transparent;
 }
 
 .footer {
-  position: absolute;
+  position: inherit;
   bottom: 0;
   width: 100%;
   height: 50px;

@@ -1,4 +1,5 @@
 var app = require('express')();
+var express = require('express');
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bb = require('backbone');
@@ -26,33 +27,10 @@ incNumberOfRooms = function(){
 app.get('/', function(req, res){
   res.sendfile('index.html');
 });
-app.get('/client/js/utils/jquery.js', function(req, res){
-  res.sendfile('client/js/utils/jquery.js');
-});
-app.get('/client/js/utils/underscore.js', function(req, res){
-  res.sendfile('client/js/utils/underscore.js');
-});
-app.get('/client/js/utils/backbone.js', function(req, res){
-  res.sendfile('client/js/utils/backbone.js');
-});
-app.get('/client/js/script.js', function(req, res){
-  res.sendfile('client/js/script.js');
-});
-app.get('/client/js/planningpoker.min.js', function(req, res){
-  res.sendfile('client/js/planningpoker.min.js');
-});
-app.get('/client/css/styles.css', function(req, res){
-  res.sendfile('client/css/styles.css');
-});
-app.get('/client/bootstrap/css/bootstrap.min.css', function(req, res){
-  res.sendfile('client/bootstrap/css/bootstrap.min.css');
-});
-app.get('/client/bootstrap/css/bootstrap-theme.min.css', function(req, res){
-  res.sendfile('client/bootstrap/css/bootstrap-theme.min.css');
-});
-app.get('/client/bootstrap/js/bootstrap.min.js', function(req, res){
-  res.sendfile('client/bootstrap/js/bootstrap.min.js');
-});
+app.use('/styles', express.static(__dirname + '/client/css'));
+app.use('/js', express.static(__dirname + '/client/js'));
+app.use('/utils', express.static(__dirname + '/client/utils'));
+// app.use(express.static(__dirname + '/'));
 
 var standardCurrency = [{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];
 var tShirtCurrency = [{'XS': 0}, {'S' : 1}, {'M' : 2}, {'L' : 3}, {'XL' : 4}, {'2XL' : 5}, {'3XL' : 6}, {'4XL' : 7}, {'5XL' : 8}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];

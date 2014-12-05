@@ -6,4 +6,4 @@ var gameZoneCollection = new Backbone.Collection();
 var cardsToChooseCollection = new Backbone.Collection();
 var gamersListCollection = new Backbone.Collection();
 
-$.getScript("/client/js/planningpoker.min.js");
+$.getScript("js/planningpoker.min.js");

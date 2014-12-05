@@ -45,9 +45,7 @@ var StartView = Backbone.View.extend({
 	      '</div>'+
 	    '</div>'+
     '</div>'+
-      '<div class="footerDiv footer">'+
-        '<p>@onikiienko</p>'+
-      '</div>'+
+    '<div class="footerDiv footer">'+
     '</div>'
 	    );
 	}
