@@ -1,17 +1,11 @@
 planningpoker
 =============
 
-
-RoadMap
+TaskDesk
 =============
 <ol>
-<li>Basic. Till 1 December</li>
-<li>Design(desktop/mobile) 15 December</li>
-<li>Login throw gmail</li>
-<li>Chat 1 January</li>
-<li>Ability to set your own type of cards</li>
+<li>https://trello.com/b/3C54qEKw/planningpoker</li>
 </ol>
- 
 
 Install
 =============
