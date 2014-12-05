@@ -10,17 +10,18 @@ var pkg = "./package.json";
 var roomsNumber;
 
 getNumberOfRooms = function(){
-	roomsNumber = parseInt(fs.readFileSync(pkg, 'utf8').match(/"numberOfRooms": "([0-9.]+)",/).pop());
+	var pkgContent = fs.readFileSync(pkg, 'utf8');
+	roomsNumber = parseInt(JSON.parse(pkgContent).numberOfRooms);
 	return roomsNumber;
 };
 
 incNumberOfRooms = function(){
 	if(!roomsNumber) this.getNumberOfRooms();
-	console.log(roomsNumber);
 	roomsNumber++;
-	console.log(roomsNumber);
 	var pkgContent = fs.readFileSync(pkg, 'utf8');
-	fs.writeFileSync(pkg, pkgContent.replace(/"numberOfRooms": "([0-9.]+)",/, '"numberOfRooms": "' + roomsNumber + '",'), 'utf8');
+	pkgContent = JSON.parse(pkgContent);
+	pkgContent.numberOfRooms = roomsNumber;
+	fs.writeFileSync(pkg, JSON.stringify(pkgContent));
 };
 
 //plugin server
@@ -30,7 +31,6 @@ app.get('/', function(req, res){
 app.use('/styles', express.static(__dirname + '/client/css'));
 app.use('/js', express.static(__dirname + '/client/js'));
 app.use('/utils', express.static(__dirname + '/client/utils'));
-// app.use(express.static(__dirname + '/'));
 
 var standardCurrency = [{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];
 var tShirtCurrency = [{'XS': 0}, {'S' : 1}, {'M' : 2}, {'L' : 3}, {'XL' : 4}, {'2XL' : 5}, {'3XL' : 6}, {'4XL' : 7}, {'5XL' : 8}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];

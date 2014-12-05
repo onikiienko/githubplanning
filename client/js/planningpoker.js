@@ -2,7 +2,6 @@ var StartView = Backbone.View.extend({
 	el: 'body',
 	events: {
 		"click .start" : "startGame"
-
 	},
 	initialize: function(){
 		socket.on('numberOfRooms', function(numberOfRooms){
@@ -40,7 +39,7 @@ var StartView = Backbone.View.extend({
 			'<p class="lead roomsNumberView"></p>'+
 			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
 			'<p class="lead">'+
-				'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
+				'<a href="#" class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
 			'</p>'+
 	      '</div>'+
 	    '</div>'+
@@ -65,7 +64,7 @@ var LoginView = Backbone.View.extend({
 			            	'<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me' +
 			          	'</label>' +
 		          	'</div>'+
-			        '<button class="btn btn-lg btn-success loginBtn" type="submit">Sign in</button>' +
+			        '<button class="btn btn-lg btn-success loginBtn">Sign in</button>' +
 		        '</div>'+
 	      	'</div>'
 	    );
@@ -89,6 +88,7 @@ var CreateOrJoinView = Backbone.View.extend({
 	events: {
 		"click .enterRoomBtn" : "enterRoom"
 	},
+	isNewer: true,
 	render: function(){
 		this.$el.html(    
 			'<div class="jumbotron vcenter" role="form">' + 
@@ -139,19 +139,21 @@ var CreateOrJoinView = Backbone.View.extend({
 		this.socketInit();
 	},
 	socketInit: function(){
+		var that = this;
 		socket.on('connectionReady', function(cards, table, gamers){
-			
+			if (that.isNewer){
+				tableView.render();
+				cardsToChooseCollection.set(cards);
+				tableView.renderCardsToChoose();
+				if(table.length){
+					gameZoneCollection.set(table);
+					tableView.renderGameZone();
+				}
+				that.isNewer = false;
+			}		
 			gamersListCollection.set(gamers);
-			
-			cardsToChooseCollection.set(cards);
-			tableView.render();
-			tableView.renderCardsToChoose();
 			tableView.renderGamersList();
 			
-			if(table[0]){
-				gameZoneCollection.set(table);
-				tableView.renderGameZone();
-			}
 		});
 		socket.on('updateTable', function(table, gamers){
 			gameZoneCollection.set(table);

@@ -3,6 +3,7 @@ var CreateOrJoinView = Backbone.View.extend({
 	events: {
 		"click .enterRoomBtn" : "enterRoom"
 	},
+	isNewer: true,
 	render: function(){
 		this.$el.html(    
 			'<div class="jumbotron vcenter" role="form">' + 
@@ -53,19 +54,21 @@ var CreateOrJoinView = Backbone.View.extend({
 		this.socketInit();
 	},
 	socketInit: function(){
+		var that = this;
 		socket.on('connectionReady', function(cards, table, gamers){
-			
+			if (that.isNewer){
+				tableView.render();
+				cardsToChooseCollection.set(cards);
+				tableView.renderCardsToChoose();
+				if(table.length){
+					gameZoneCollection.set(table);
+					tableView.renderGameZone();
+				}
+				that.isNewer = false;
+			}		
 			gamersListCollection.set(gamers);
-			
-			cardsToChooseCollection.set(cards);
-			tableView.render();
-			tableView.renderCardsToChoose();
 			tableView.renderGamersList();
 			
-			if(table[0]){
-				gameZoneCollection.set(table);
-				tableView.renderGameZone();
-			}
 		});
 		socket.on('updateTable', function(table, gamers){
 			gameZoneCollection.set(table);

@@ -11,7 +11,7 @@ var LoginView = Backbone.View.extend({
 			            	'<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me' +
 			          	'</label>' +
 		          	'</div>'+
-			        '<button class="btn btn-lg btn-success loginBtn" type="submit">Sign in</button>' +
+			        '<button class="btn btn-lg btn-success loginBtn">Sign in</button>' +
 		        '</div>'+
 	      	'</div>'
 	    );

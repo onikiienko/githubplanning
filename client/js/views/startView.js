@@ -2,7 +2,6 @@ var StartView = Backbone.View.extend({
 	el: 'body',
 	events: {
 		"click .start" : "startGame"
-
 	},
 	initialize: function(){
 		socket.on('numberOfRooms', function(numberOfRooms){
@@ -40,7 +39,7 @@ var StartView = Backbone.View.extend({
 			'<p class="lead roomsNumberView"></p>'+
 			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
 			'<p class="lead">'+
-				'<a href="#" class="btn btn-lg btn-success start submit">Start</a>'+
+				'<a href="#" class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
 			'</p>'+
 	      '</div>'+
 	    '</div>'+
