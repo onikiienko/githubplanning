@@ -61,6 +61,9 @@ io.on('connection', function(socket){
 				    case 'fibonacciCurrency':
 				    	currency = fibonacciCurrency;
 				        break;
+				    default:
+				    	currency = fibonacciCurrency;
+				    	break;
 			}
 			var tableSocket = io.of(room);
 			tableSocket.table = new Table();

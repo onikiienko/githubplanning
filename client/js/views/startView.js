@@ -39,12 +39,10 @@ var StartView = Backbone.View.extend({
 			'<p class="lead roomsNumberView"></p>'+
 			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
 			'<p class="lead">'+
-				'<a href="#" class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
+				'<a class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
 			'</p>'+
 	      '</div>'+
 	    '</div>'+
-    '</div>'+
-    '<div class="footerDiv footer">'+
     '</div>'
 	    );
 	}

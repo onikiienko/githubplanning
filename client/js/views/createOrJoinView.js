@@ -35,7 +35,7 @@ var CreateOrJoinView = Backbone.View.extend({
 					'</div>'+
 					'<br>'+
 		            '<p>'+
-		            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
+		            	'<button class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
 		            '</p>'+
 				'</div>'+
 			'</div>'
@@ -50,6 +50,14 @@ var CreateOrJoinView = Backbone.View.extend({
 		var login = tableModule.toJSON().login;
 		
 		socket.emit('enter room', room, currencyType, login);
+		socket = io(room);
+		this.socketInit();
+		window.location.hash = room;
+	},
+	joinRoom: function(room){
+		tableModule.set({'room': room.substring(1)});
+		var login = tableModule.toJSON().login;
+		socket.emit('enter room', room, undefined, login);
 		socket = io(room);
 		this.socketInit();
 	},

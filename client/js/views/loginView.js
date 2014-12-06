@@ -25,7 +25,11 @@ var LoginView = Backbone.View.extend({
 		if ($('.loginCheckBox').prop('checked')){
 			document.cookie = 'login=' + login;
 		}
-		createOrJoinView.render();
+		if(window.location.hash.substring(2)){
+			createOrJoinView.joinRoom(window.location.hash.substring(1));
+		}else{
+			createOrJoinView.render();
+		}
 	}
 });
 

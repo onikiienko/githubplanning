@@ -39,12 +39,10 @@ var StartView = Backbone.View.extend({
 			'<p class="lead roomsNumberView"></p>'+
 			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
 			'<p class="lead">'+
-				'<a href="#" class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
+				'<a class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
 			'</p>'+
 	      '</div>'+
 	    '</div>'+
-    '</div>'+
-    '<div class="footerDiv footer">'+
     '</div>'
 	    );
 	}
@@ -78,7 +76,11 @@ var LoginView = Backbone.View.extend({
 		if ($('.loginCheckBox').prop('checked')){
 			document.cookie = 'login=' + login;
 		}
-		createOrJoinView.render();
+		if(window.location.hash.substring(2)){
+			createOrJoinView.joinRoom(window.location.hash.substring(1));
+		}else{
+			createOrJoinView.render();
+		}
 	}
 });
 
@@ -120,7 +122,7 @@ var CreateOrJoinView = Backbone.View.extend({
 					'</div>'+
 					'<br>'+
 		            '<p>'+
-		            	'<button href="#" class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
+		            	'<button class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
 		            '</p>'+
 				'</div>'+
 			'</div>'
@@ -135,6 +137,14 @@ var CreateOrJoinView = Backbone.View.extend({
 		var login = tableModule.toJSON().login;
 		
 		socket.emit('enter room', room, currencyType, login);
+		socket = io(room);
+		this.socketInit();
+		window.location.hash = room;
+	},
+	joinRoom: function(room){
+		tableModule.set({'room': room.substring(1)});
+		var login = tableModule.toJSON().login;
+		socket.emit('enter room', room, undefined, login);
 		socket = io(room);
 		this.socketInit();
 	},
@@ -211,8 +221,8 @@ var TableView = Backbone.View.extend({
 							'<p>Task#1</p>'+
 						'</div>' + 
 						'<div class="table">' + 
-							'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
-							'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
+							'<button class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
+							'<button class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
 							'<div class="gameZoneView">' + 
 							'</div>' + 
 						'</div>' + 

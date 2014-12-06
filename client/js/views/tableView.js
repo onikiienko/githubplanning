@@ -39,8 +39,8 @@ var TableView = Backbone.View.extend({
 							'<p>Task#1</p>'+
 						'</div>' + 
 						'<div class="table">' + 
-							'<button href="#" class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
-							'<button href="#" class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
+							'<button class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
+							'<button class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
 							'<div class="gameZoneView">' + 
 							'</div>' + 
 						'</div>' + 

@@ -1,15 +1,15 @@
-html, body {
-  /*min-height: 300px;*/
-}
-
 .nav-up {
     top: -45px;
 }
 
 .contentDiv {
-    position: relative;
-    /*min-height: 300px;*/
-     min-height: calc(100vh - 100px);
+  position: relative;
+  min-height: calc(100vh - 100px);
+  height: 800px;
+  height: -webkit-calc(100% - 100px);
+  height: -moz-calc(100% - 100px);
+  height: calc(100% - 100px);
+  margin-top: 50px;
 }
 
 .messages{
@@ -24,10 +24,6 @@ html, body {
   height: -moz-calc(100% - 45px);
   height: calc(100% - 45px);
   overflow: auto;
-}
-
-.cardsToChooseView{
-  width: 100%;
 }
 
 .tableNameView{
@@ -46,7 +42,8 @@ html, body {
   display: table-row;
 }
 
-.table, .cardsToChooseView{
+.cardsToChooseView{
+  width: 100%;
   height: 30vh;
   text-align: left;
 }
@@ -65,19 +62,19 @@ html, body {
 .messages, .taskList, .gamersListView, .cardsToChooseView, .gameZoneView{
   text-align: initial;
   display: block;
-padding: 6px 12px;
-font-size: 14px;
-line-height: 1.42857143;
-color: #555;
-background-color: #fff;
-background-image: none;
-border: 1px solid #ccc;
-border-radius: 4px;
--webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
--webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
--o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
 .sendMessage,.addTask{
@@ -120,16 +117,6 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     height: calc(100vh - 100px);
 }
 
-
-
-.contentDiv{
-  height: 800px;
-  height: -webkit-calc(100% - 100px);
-  height: -moz-calc(100% - 100px);
-  height: calc(100% - 100px);
-  margin-top: 50px;
-}
-
 .vcenter {
   display: flex;
   align-items: center;
@@ -141,15 +128,4 @@ transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
   height: auto;
   width: 100vw;
   background-color: transparent;
-}
-
-.footer {
-  position: inherit;
-  bottom: 0;
-  width: 100%;
-  height: 50px;
-  background-color: #333;
-  text-align: center;
-  padding-top: 10px;
-  color: white;
 }
