@@ -116,6 +116,6 @@ io.on('connection', function(socket){
 });
 
 // swich on server
-http.listen(3000, function(){
+http.listen(80, function(){
   console.log('Planning started, listening on port:3000');
 });
