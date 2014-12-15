@@ -2,6 +2,10 @@ planningpoker
 =============
 [![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/onikiienko/planningpoker?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
+Application(working)
+=============
+http://githubplanning.com/
+
 TaskDesk
 =============
 <ol>
@@ -14,7 +18,8 @@ Install
 <li>install node http://nodejs.org/</li>
 <li>install npm https://www.npmjs.org/</li>
 <li>make command "npm install"</li>
+<li>enable watch task(hint + build) "grunt watch"</li>
 <li>start process "sudo node app.js" or you can use supervisor for this for better work.(npm install supervisor -g) "sudo supervisor app.js"</li>
-<li>Go on browser by link http://127.0.0.1:3000</li>
+<li>Go on browser by link http://127.0.0.1</li>
 </ol>
 
