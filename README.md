@@ -8,9 +8,7 @@ http://githubplanning.com/
 
 TaskDesk
 =============
-<ol>
-<li>https://trello.com/b/3C54qEKw/planningpoker</li>
-</ol>
+https://trello.com/b/3C54qEKw/planningpoker
 
 Flowchart(Base)
 =============
