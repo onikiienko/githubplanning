@@ -1,46 +1,12 @@
 var CreateOrJoinView = Backbone.View.extend({
-	el: '.contentDiv',
+	el: '.createOrJoinView',
 	events: {
 		"click .enterRoomBtn" : "enterRoom"
 	},
 	isNewer: true,
 	render: function(){
-		this.$el.html(    
-			'<div class="jumbotron vcenter" role="form">' + 
-				'<div class="container">'+
-				    '<h1>Enter to room</h1>'+
-		            '<p>Create your own room or join other.</p>'+
-		            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus="true">' +
-					'<br>'+
-					'<br>'+
-					'<div class="currencyType">'+
-						'<div class="radio-inline">'+
-							'<label>'+
-								'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
-									'Standard'+
-								'</label>'+
-						'</div>'+
-						'<div class="radio-inline">'+
-							'<label>'+
-								'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
-								'T-shirt'+
-							'</label>'+
-						'</div>'+
-						'<div class="radio-inline">'+
-							'<label>'+
-								'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
-								'Fibonacci'+
-							'</label>'+
-						'</div>'+
-					'</div>'+
-					'<br>'+
-		            '<p>'+
-		            	'<button class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
-		            '</p>'+
-				'</div>'+
-			'</div>'
-
-        );
+		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
+		this.$el.css('display', 'block');
 	},
 	enterRoom: function(){
 		tableModule.set({'room': $('.roomNameInput').val()});

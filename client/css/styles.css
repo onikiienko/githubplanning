@@ -1,3 +1,7 @@
+.loginView, .createOrJoinView, .tableView, .startView{
+  display: none;
+}
+
 .nav-up {
     top: -45px;
 }

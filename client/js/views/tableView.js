@@ -1,5 +1,5 @@
 var TableView = Backbone.View.extend({
-	el: '.contentDiv',
+	el: '.tableView',
 	events: {
 		"click .cardsToChooseView" : "chooseACard",
 		"click .restartRoundBtn" : "restartRound",
@@ -7,52 +7,8 @@ var TableView = Backbone.View.extend({
 		"click .sendMessage" : "sendMessage"
 	},
 	render: function(){
-		this.$el.html(
-			'<div class="contentDiv text-center">' + 
-				'<div class="jumbotron vcenter" role="form">' + 
-					'<div class="container">' + 
-
-
-						'<div class="rightGameView">' + 
-							'<div class="taskListView">' + 
-								'Task list' + 
-								'<div class="taskList"></div>' + 
-								'<input type="text" class="taskInput" placeholder="Task name">' + 
-								'<button href="#" class="btn btn-lg btn-primary addTask">Add</button>' + 
-							'</div>' + 
-							'<div class="taskResultsListView">' + 
-								'Vote results' + 
-								'<div class="taskList"></div>' + 							
-							'</div>' + 
-							'<div class="chatView">' + 
-								'Chat' + 
-								'<div class="messages"></div>' + 
-								'<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true">' + 
-								'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>' + 
-							'</div>' + 
-						'</div>' + 
-
-					'<div class="leftGameView">' + 
-						'<div class="gamersListView">Gamers:</div>' + 
-						'<div class="tableNameView"></div>' + 
-						'<div class="taskNameView">' + 
-							'<p>Task#1</p>'+
-						'</div>' + 
-						'<div class="table">' + 
-							'<button class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
-							'<button class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
-							'<div class="gameZoneView">' + 
-							'</div>' + 
-						'</div>' + 
-						'<div class="cardsToChooseView">' + 
-						'</div>' + 
-					'</div>' + 
-						
-					'</div>' + 
-				'</div>' + 
-			'</div>'
-		);
-
+		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
+		this.$el.css('display', 'block');
 		$('.tableNameView').append(this.tempTableName(tableModule.toJSON()));
 		return this;
 	},

@@ -1,5 +1,5 @@
 var StartView = Backbone.View.extend({
-	el: 'body',
+	el: '.startView',
 	events: {
 		"click .start" : "startGame"
 	},
@@ -8,6 +8,10 @@ var StartView = Backbone.View.extend({
 			$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' rooms.');
 		});
 		this.render();
+	},
+	render: function(){
+		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
+		this.$el.css('display', 'block');
 	},
 	startGame: function(){
 		var login = this.getNameValueCookies('login');
@@ -22,50 +26,15 @@ var StartView = Backbone.View.extend({
   		var value = "; " + document.cookie;
   		var parts = value.split("; " + name + "=");
   		if (parts.length == 2) return parts.pop().split(";").shift();
-	},
-	render: function(){
-		this.$el.append(
-	'<nav class="navbar navbar-inverse navbar-fixed-top headerDiv" role="navigation">'+
-      '<div class="container">'+
-        '<div class="navbar-header">'+
-          '<a class="navbar-brand" href="#">Scrum Poker</a>'+
-        '</div>'+
-      '</div>'+
-    '</nav>'+
-    '<div class="contentDiv text-center">'+
-	    '<div class="jumbotron vcenter">'+
-	      '<div class="container">'+
-			'<h1 class="cover-heading">Join Us!</h1>'+
-			'<p class="lead roomsNumberView"></p>'+
-			'<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>'+
-			'<p class="lead">'+
-				'<a class="btn btn-lg btn-success start submit" type="submit">Start</a>'+
-			'</p>'+
-	      '</div>'+
-	    '</div>'+
-    '</div>'
-	    );
 	}
 });
 
 startView = new StartView();
 var LoginView = Backbone.View.extend({
-	el: '.contentDiv',
+	el: '.loginView',
 	render: function(){
-		this.$el.html(
-			'<div class="loginDiv jumbotron vcenter" role="form">' + 
-				'<div class="container">'+
-			        '<h2>Please sign in</h2>' +
-			        '<input type="text" class="loginInput" placeholder="Login" required autofocus="true">' +
-			        '<div class="checkbox">' +
-			          	'<label>' +
-			            	'<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me' +
-			          	'</label>' +
-		          	'</div>'+
-			        '<button class="btn btn-lg btn-success loginBtn">Sign in</button>' +
-		        '</div>'+
-	      	'</div>'
-	    );
+		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
+		this.$el.css('display', 'block');
 	},
 	events: {
 		"click .loginBtn" : "loginSubmit"
@@ -86,48 +55,14 @@ var LoginView = Backbone.View.extend({
 
 loginView = new LoginView();
 var CreateOrJoinView = Backbone.View.extend({
-	el: '.contentDiv',
+	el: '.createOrJoinView',
 	events: {
 		"click .enterRoomBtn" : "enterRoom"
 	},
 	isNewer: true,
 	render: function(){
-		this.$el.html(    
-			'<div class="jumbotron vcenter" role="form">' + 
-				'<div class="container">'+
-				    '<h1>Enter to room</h1>'+
-		            '<p>Create your own room or join other.</p>'+
-		            '<input type="text" class="roomNameInput" placeholder="Room name" required autofocus="true">' +
-					'<br>'+
-					'<br>'+
-					'<div class="currencyType">'+
-						'<div class="radio-inline">'+
-							'<label>'+
-								'<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>'+
-									'Standard'+
-								'</label>'+
-						'</div>'+
-						'<div class="radio-inline">'+
-							'<label>'+
-								'<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">'+
-								'T-shirt'+
-							'</label>'+
-						'</div>'+
-						'<div class="radio-inline">'+
-							'<label>'+
-								'<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">'+
-								'Fibonacci'+
-							'</label>'+
-						'</div>'+
-					'</div>'+
-					'<br>'+
-		            '<p>'+
-		            	'<button class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>'+
-		            '</p>'+
-				'</div>'+
-			'</div>'
-
-        );
+		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
+		this.$el.css('display', 'block');
 	},
 	enterRoom: function(){
 		tableModule.set({'room': $('.roomNameInput').val()});
@@ -181,7 +116,7 @@ var CreateOrJoinView = Backbone.View.extend({
 
 createOrJoinView = new CreateOrJoinView();
 var TableView = Backbone.View.extend({
-	el: '.contentDiv',
+	el: '.tableView',
 	events: {
 		"click .cardsToChooseView" : "chooseACard",
 		"click .restartRoundBtn" : "restartRound",
@@ -189,52 +124,8 @@ var TableView = Backbone.View.extend({
 		"click .sendMessage" : "sendMessage"
 	},
 	render: function(){
-		this.$el.html(
-			'<div class="contentDiv text-center">' + 
-				'<div class="jumbotron vcenter" role="form">' + 
-					'<div class="container">' + 
-
-
-						'<div class="rightGameView">' + 
-							'<div class="taskListView">' + 
-								'Task list' + 
-								'<div class="taskList"></div>' + 
-								'<input type="text" class="taskInput" placeholder="Task name">' + 
-								'<button href="#" class="btn btn-lg btn-primary addTask">Add</button>' + 
-							'</div>' + 
-							'<div class="taskResultsListView">' + 
-								'Vote results' + 
-								'<div class="taskList"></div>' + 							
-							'</div>' + 
-							'<div class="chatView">' + 
-								'Chat' + 
-								'<div class="messages"></div>' + 
-								'<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true">' + 
-								'<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button>' + 
-							'</div>' + 
-						'</div>' + 
-
-					'<div class="leftGameView">' + 
-						'<div class="gamersListView">Gamers:</div>' + 
-						'<div class="tableNameView"></div>' + 
-						'<div class="taskNameView">' + 
-							'<p>Task#1</p>'+
-						'</div>' + 
-						'<div class="table">' + 
-							'<button class="btn btn-lg btn-primary restartRoundBtn">Restart task</button>' + 
-							'<button class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button>' + 
-							'<div class="gameZoneView">' + 
-							'</div>' + 
-						'</div>' + 
-						'<div class="cardsToChooseView">' + 
-						'</div>' + 
-					'</div>' + 
-						
-					'</div>' + 
-				'</div>' + 
-			'</div>'
-		);
-
+		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
+		this.$el.css('display', 'block');
 		$('.tableNameView').append(this.tempTableName(tableModule.toJSON()));
 		return this;
 	},

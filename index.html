@@ -14,5 +14,115 @@
 		<script src="js/script.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<body></body>
+	<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top headerDiv" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">Scrum Poker</a>
+			</div>
+		</div>
+	</nav>
+	<div class="contentDiv startView text-center">
+		<div class="jumbotron vcenter">
+			<div class="container">
+				<h1 class="cover-heading">Join Us!</h1>
+				<p class="lead roomsNumberView"></p>
+				<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>
+				<p class="lead">
+					<a class="btn btn-lg btn-success start submit" type="submit">Start</a>
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="contentDiv loginView text-center">
+		<div class="loginDiv jumbotron vcenter" role="form"> 
+			<div class="container">
+		        <h2>Please sign in</h2>
+		        <input type="text" class="loginInput" placeholder="Login" required autofocus="true">
+		        <div class="checkbox">
+		          	<label>
+		            	<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me
+		          	</label>
+		      	</div>
+		        <button class="btn btn-lg btn-success loginBtn">Sign in</button>
+		    </div>
+		</div>
+	</div>
+	<div class="contentDiv createOrJoinView text-center">
+		<div class="jumbotron vcenter" role="form"> 
+		<div class="container">
+		    <h1>Enter to room</h1>
+            <p>Create your own room or join other.</p>
+            <input type="text" class="roomNameInput" placeholder="Room name" required autofocus="true">
+			<br>
+			<br>
+			<div class="currencyType">
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>
+							Standard
+						</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">
+						T-shirt
+					</label>
+				</div>
+				<div class="radio-inline">
+					<label>
+						<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">
+						Fibonacci
+					</label>
+				</div>
+			</div>
+			<br>
+            <p>
+            	<button class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>
+            </p>
+		</div>
+	</div>'
+	</div>	
+	<div class="contentDiv tableView text-center">
+		<div class="contentDiv text-center"> 
+		<div class="jumbotron vcenter" role="form"> 
+			<div class="container"> 
+				<div class="rightGameView"> 
+					<div class="taskListView"> 
+						Task list 
+						<div class="taskList"></div> 
+						<input type="text" class="taskInput" placeholder="Task name"> 
+						<button href="#" class="btn btn-lg btn-primary addTask">Add</button> 
+					</div> 
+					<div class="taskResultsListView"> 
+						Vote results 
+						<div class="taskList"></div> 							
+					</div> 
+					<div class="chatView"> 
+						Chat 
+						<div class="messages"></div> 
+						<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true"> 
+						<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button> 
+					</div> 
+				</div> 
+			<div class="leftGameView"> 
+				<div class="gamersListView">Gamers:</div> 
+				<div class="tableNameView"></div> 
+				<div class="taskNameView"> 
+					<p>Task#1</p>
+				</div> 
+				<div class="table"> 
+					<button class="btn btn-lg btn-primary restartRoundBtn">Restart task</button> 
+					<button class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button> 
+					<div class="gameZoneView"> 
+					</div> 
+				</div> 
+				<div class="cardsToChooseView"> 
+				</div> 
+			</div> 
+			</div> 
+		</div> 
+	</div>'
+	</div>
+	</body>
 </html>
