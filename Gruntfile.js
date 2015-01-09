@@ -5,7 +5,7 @@ grunt.initConfig({
 	pkg: grunt.file.readJSON('package.json'),
 	concat: {
 		dist: {
-			src: ['client/js/views/startView.js', 'client/js/views/loginView.js', 'client/js/views/createOrJoinView.js', 'client/js/views/tableView.js', 'client/js/headerScroll.js'],
+			src: ['client/js/views/startView.js', 'client/js/views/loginView.js', 'client/js/views/createOrJoinView.js', 'client/js/views/tableView.js'],
 			dest: 'client/js/<%= pkg.name %>.js'
 		}
 	},
@@ -21,8 +21,8 @@ grunt.initConfig({
     },
 	watch: {
 		scripts: {
-			files: ['client/js/views/*.js', 'app.js', 'client/js/script.js', 'client/js/headerScroll.js'],
-			tasks: ['concat', 'jshint', 'uglify']
+			files: ['client/js/views/*.js', 'app.js', 'client/js/script.js'],
+			tasks: ['devbuild']
 		}
 	}
 });
@@ -36,4 +36,5 @@ grunt.loadNpmTasks('grunt-contrib-concat');
 // Default task(s).
 grunt.registerTask('default', ['watch']);
 grunt.registerTask('build', ['concat', 'jshint', 'uglify']);
+grunt.registerTask('devbuild', ['concat', 'jshint']);
 };

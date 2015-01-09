@@ -116,6 +116,6 @@ io.on('connection', function(socket){
 });
 
 // swich on server
-http.listen(80, function(){
+http.listen(8080, function(){
   console.log('Planning started: 127.0.0.1');
 });
