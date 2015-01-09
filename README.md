@@ -6,10 +6,6 @@ Application(working)
 =============
 http://githubplanning.com/
 
-TaskDesk
-=============
-https://trello.com/b/3C54qEKw/planningpoker
-
 Flowchart(Base)
 =============
 http://www.gliffy.com/go/publish/6813505
@@ -23,5 +19,12 @@ Install
 <li>enable watch task(hint + build) "grunt watch"</li>
 <li>start process "sudo node app.js" or you can use supervisor for this for better work.(npm install supervisor -g) "sudo supervisor app.js"</li>
 <li>Go on browser by link http://127.0.0.1</li>
+</ol>
+
+Developing
+=============
+<ol>
+<li>'grunt'</li>
+<li>to build project for installing on server 'grunt build'</li>
 </ol>
 
