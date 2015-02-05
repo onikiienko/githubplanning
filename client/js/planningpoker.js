@@ -1,7 +1,7 @@
 var StartView = Backbone.View.extend({
 	el: '.startView',
 	events: {
-		"click .start" : "startGame"
+		"click .startBtn" : "startGame"
 	},
 	initialize: function(){
 		socket.on('numberOfRooms', function(numberOfRooms){
@@ -11,13 +11,18 @@ var StartView = Backbone.View.extend({
 	},
 	render: function(){
 		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-		this.$el.css('display', 'block');
+		this.$el.css('display', 'table');
 	},
 	startGame: function(){
 		var login = this.getNameValueCookies('login');
 		if(login){
 			tableModule.set({'login': login});
-			createOrJoinView.render();
+			if(window.location.hash.substring(2)){
+				createOrJoinView.joinRoom(window.location.hash.substring(1));
+				// tableView.render();
+			}else{
+				createOrJoinView.render();
+			}
 		}else{
 			loginView.render();
 		}			
@@ -34,7 +39,7 @@ var LoginView = Backbone.View.extend({
 	el: '.loginView',
 	render: function(){
 		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-		this.$el.css('display', 'block');
+		this.$el.css('display', 'table');
 	},
 	events: {
 		"click .loginBtn" : "loginSubmit"
@@ -57,14 +62,14 @@ loginView = new LoginView();
 var CreateOrJoinView = Backbone.View.extend({
 	el: '.createOrJoinView',
 	events: {
-		"click .enterRoomBtn" : "enterRoom"
+		"click .enterRoomBtn" : "createRoom"
 	},
 	isNewer: true,
 	render: function(){
 		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-		this.$el.css('display', 'block');
+		this.$el.css('display', 'table');
 	},
-	enterRoom: function(){
+	createRoom: function(){
 		tableModule.set({'room': $('.roomNameInput').val()});
 
 		var room  = '/' + tableModule.toJSON().room;
@@ -118,7 +123,7 @@ createOrJoinView = new CreateOrJoinView();
 var TableView = Backbone.View.extend({
 	el: '.tableView',
 	events: {
-		"click .cardsToChooseView" : "chooseACard",
+		"click .deckView" : "chooseACard",
 		"click .restartRoundBtn" : "restartRound",
 		"click .flipCardsBtn" : "flipCards",
 		"click .sendMessage" : "sendMessage"
@@ -141,7 +146,7 @@ var TableView = Backbone.View.extend({
 		return this;
 	},
 	renderCardsToChoose: function(){
-		$('.cardsToChooseView').append(this.tempCardsToChoose(cardsToChooseCollection.toJSON()));
+		$('.deckView').append(this.tempCardsToChoose(cardsToChooseCollection.toJSON()));
 		return this;
 	},
 	renderGamersList: function(){

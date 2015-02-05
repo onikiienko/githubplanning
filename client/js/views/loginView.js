@@ -2,7 +2,7 @@ var LoginView = Backbone.View.extend({
 	el: '.loginView',
 	render: function(){
 		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-		this.$el.css('display', 'block');
+		this.$el.css('display', 'table');
 	},
 	events: {
 		"click .loginBtn" : "loginSubmit"

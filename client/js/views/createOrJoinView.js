@@ -1,14 +1,14 @@
 var CreateOrJoinView = Backbone.View.extend({
 	el: '.createOrJoinView',
 	events: {
-		"click .enterRoomBtn" : "enterRoom"
+		"click .enterRoomBtn" : "createRoom"
 	},
 	isNewer: true,
 	render: function(){
 		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-		this.$el.css('display', 'block');
+		this.$el.css('display', 'table');
 	},
-	enterRoom: function(){
+	createRoom: function(){
 		tableModule.set({'room': $('.roomNameInput').val()});
 
 		var room  = '/' + tableModule.toJSON().room;

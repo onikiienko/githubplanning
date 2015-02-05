@@ -16,6 +16,6 @@ app.use('/utils', express.static(__dirname + '/client/utils'));
 
 
 // swich on server
-http.listen(8080, function(){
+http.listen(80, function(){
   console.log('Planning started: 127.0.0.1');
 });

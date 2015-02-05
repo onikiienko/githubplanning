@@ -6,123 +6,79 @@
 		<script src="utils/underscore.js"></script>
 		<script src="utils/backbone.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
-		<link rel="stylesheet" href="utils/bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="utils/bootstrap/css/bootstrap-theme.min.css">
-		<script src="utils/bootstrap/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles/styles.css">
 		<!--<script src="js/planningpoker.min.js"></script>-->
 		<script src="js/script.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
-	<nav class="navbar navbar-inverse navbar-fixed-top headerDiv" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
+
+	<div class="headerBar">
 				<a class="navbar-brand" href="#">Scrum Poker</a>
-			</div>
-		</div>
-	</nav>
-	<div class="contentDiv startView text-center">
-		<div class="jumbotron vcenter">
-			<div class="container">
-				<h1 class="cover-heading">Join Us!</h1>
-				<p class="lead roomsNumberView"></p>
-				<p class="lead">A realtime Planning Poker application for distributed Agile teams</p>
-				<p class="lead">
-					<a class="btn btn-lg btn-success start submit" type="submit">Start</a>
-				</p>
-			</div>
+	</div>
+
+	<div class="contentDiv startView">
+		<div class="contentCenter">			
+			<h1>Join Us!</h1>
+			<p class="roomsNumberView"></p>
+			<p>A realtime Planning Poker application for distributed Agile teams</p>
+			<div class="startBtn btn">Start</div>
 		</div>
 	</div>
-	<div class="contentDiv loginView text-center">
-		<div class="loginDiv jumbotron vcenter" role="form"> 
-			<div class="container">
-		        <h2>Please sign in</h2>
-		        <input type="text" class="loginInput" placeholder="Login" required autofocus="true">
-		        <div class="checkbox">
-		          	<label>
-		            	<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me
-		          	</label>
-		      	</div>
-		        <button class="btn btn-lg btn-success loginBtn">Sign in</button>
+
+	<div class="contentDiv loginView">
+		<div class="contentCenter">			
+			<h1>Please sign in</h1>
+			<input class="loginInput" type="input" required autofocus="true"></input>
+			<div class="checkbox">
+	          	<label>
+	            	<input type="checkbox" value="remember-me" class="loginCheckBox"> Remember me
+	          	</label>
 		    </div>
+			<div class="loginBtn btn">LogIn</div>
 		</div>
 	</div>
-	<div class="contentDiv createOrJoinView text-center">
-		<div class="jumbotron vcenter" role="form"> 
-		<div class="container">
-		    <h1>Enter to room</h1>
+
+	<div class="contentDiv createOrJoinView">
+		<div class="contentCenter">			
+			<h1>Enter to room</h1>
             <p>Create your own room or join other.</p>
-            <input type="text" class="roomNameInput" placeholder="Room name" required autofocus="true">
-			<br>
-			<br>
+			<input class="roomNameInput" placeholder="Room name" required autofocus="true" type="input"></input>
 			<div class="currencyType">
-				<div class="radio-inline">
-					<label>
-						<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>
-							Standard
-						</label>
-				</div>
-				<div class="radio-inline">
-					<label>
-						<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">
-						T-shirt
-					</label>
-				</div>
-				<div class="radio-inline">
-					<label>
-						<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">
-						Fibonacci
-					</label>
-				</div>
+					<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>
+					Standard
+					<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">
+					T-shirt
+					<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">
+					Fibonacci
 			</div>
-			<br>
-            <p>
-            	<button class="btn btn-lg btn-success enterRoomBtn submit">Enter room</button>
-            </p>
+			<div class="enterRoomBtn btn">LogIn</div>
 		</div>
-	</div>'
-	</div>	
-	<div class="contentDiv tableView text-center">
-		<div class="contentDiv text-center"> 
-		<div class="jumbotron vcenter" role="form"> 
-			<div class="container"> 
-				<div class="rightGameView"> 
-					<div class="taskListView"> 
-						Task list 
-						<div class="taskList"></div> 
-						<input type="text" class="taskInput" placeholder="Task name"> 
-						<button href="#" class="btn btn-lg btn-primary addTask">Add</button> 
-					</div> 
-					<div class="taskResultsListView"> 
-						Vote results 
-						<div class="taskList"></div> 							
-					</div> 
-					<div class="chatView"> 
-						Chat 
-						<div class="messages"></div> 
-						<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true"> 
-						<button href="#" class="btn btn-lg btn-primary sendMessage">Send</button> 
-					</div> 
-				</div> 
-			<div class="leftGameView"> 
+	</div>
+
+	<div class="contentDiv tableView">
+		<div class="contentCenter">
+		<div class="leftCol">
+			<div class="deckView"></div>
+			<div class="table">
+					<div class="btn restartRoundBtn">Restart task</div> 
+					<div class="btn flipCardsBtn">Flip cards</div> 
+					<div class="gameZoneView"></div>
+			</div>			
+		</div>
+		<div class="rightCol">
+			<div class="infoView">
 				<div class="gamersListView">Gamers:</div> 
-				<div class="tableNameView"></div> 
-				<div class="taskNameView"> 
-					<p>Task#1</p>
+				<div class="tableNameView">
 				</div> 
-				<div class="table"> 
-					<button class="btn btn-lg btn-primary restartRoundBtn">Restart task</button> 
-					<button class="btn btn-lg btn-primary flipCardsBtn">Flip cards</button> 
-					<div class="gameZoneView"> 
-					</div> 
-				</div> 
-				<div class="cardsToChooseView"> 
-				</div> 
-			</div> 
-			</div> 
-		</div> 
-	</div>'
+			</div>
+			<div class="chatView">
+				Chat 
+				<div class="messages"></div> 
+				<input type="text" class="chatInput" placeholder="Message" required="" autofocus="true"> 
+				<div href="#" class="btn sendMessage">Send</div> 
+			</div>
+		</div>
 	</div>
 	</body>
 </html>

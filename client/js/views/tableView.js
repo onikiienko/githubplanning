@@ -1,7 +1,7 @@
 var TableView = Backbone.View.extend({
 	el: '.tableView',
 	events: {
-		"click .cardsToChooseView" : "chooseACard",
+		"click .deckView" : "chooseACard",
 		"click .restartRoundBtn" : "restartRound",
 		"click .flipCardsBtn" : "flipCards",
 		"click .sendMessage" : "sendMessage"
@@ -24,7 +24,7 @@ var TableView = Backbone.View.extend({
 		return this;
 	},
 	renderCardsToChoose: function(){
-		$('.cardsToChooseView').append(this.tempCardsToChoose(cardsToChooseCollection.toJSON()));
+		$('.deckView').append(this.tempCardsToChoose(cardsToChooseCollection.toJSON()));
 		return this;
 	},
 	renderGamersList: function(){
