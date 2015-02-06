@@ -78,11 +78,12 @@ var TableView = Backbone.View.extend({
 		return false;
 	},
 	chooseACard: function(e){
-		var data = e.target.getAttribute('data');
 		var classOfCard = e.target.getAttribute('class');
-		var name = e.target.textContent;
-		
-		socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
+		if (classOfCard=='cardToChoose'){
+			var data = e.target.getAttribute('data');
+			var name = e.target.textContent;
+			socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
+		}
 	},	
 	restartRound: function(){
 		socket.emit('restart');
