@@ -1,3 +1,60 @@
+/* entire container, keeps perspective */
+.flip-container {
+  perspective: 1000;
+}
+.flip-container:hover .flipper,
+.flip-container .hover {
+  transform: rotateY(180deg);
+}
+/* flip speed goes here */
+.flipper {
+  transition: 0.6s;
+  transform-style: preserve-3d;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  color: white;
+  /* hide back of pane during swap */
+  /* front pane, placed above back */
+  /* back, initially hidden pane */
+}
+.flipper .front,
+.flipper .back {
+  backface-visibility: hidden;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.flipper .front {
+  z-index: 2;
+  border-radius: 8px;
+  /* for firefox 31 */
+  transform: rotateY(0deg);
+  background: black;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #cb1b15), color-stop(1, #ae2c58));
+  background: -ms-linear-gradient(bottom, #cb1b15, #ae2c58);
+  background: -moz-linear-gradient(center bottom, #cb1b15 0%, #ae2c58 100%);
+  background: -o-linear-gradient(#ae2c58, #cb1b15);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ae2c58', endColorstr='#cb1b15', GradientType=0);
+}
+.flipper .back {
+  transform: rotateY(180deg);
+  border-radius: 8px;
+  background: black;
+  background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #859427), color-stop(1, #52ae2c));
+  background: -ms-linear-gradient(bottom, #859427, #52ae2c);
+  background: -moz-linear-gradient(center bottom, #859427 0%, #52ae2c 100%);
+  background: -o-linear-gradient(#52ae2c, #859427);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#52ae2c', endColorstr='#859427', GradientType=0);
+}
+html,
+body {
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
 .headerBar {
   position: fixed;
   top: 0;
@@ -24,7 +81,7 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  top: 45px;
+  top: 0;
   left: 0;
   display: table;
 }
@@ -53,7 +110,8 @@
 .checkbox {
   margin: 10px;
 }
-.cardToChoose {
+.cardToChoose,
+.flipper {
   width: 50px;
   border: 1px solid;
   border-radius: 8px;
@@ -66,11 +124,14 @@
   height: 100%;
   width: 75%;
   float: left;
+  border-right: 1px solid;
 }
 .leftCol .deckView {
+  margin-top: 45px;
   height: 50%;
 }
 .leftCol .table {
+  border-top: 1px solid;
   height: 45%;
 }
 .rightCol {
@@ -81,8 +142,10 @@
   width: 25%;
 }
 .rightCol .infoView {
+  margin-top: 45px;
   height: 50%;
 }
 .rightCol .chatView {
+  border-top: 1px solid;
   height: 45%;
 }

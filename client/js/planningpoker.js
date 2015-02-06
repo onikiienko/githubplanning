@@ -142,6 +142,7 @@ var TableView = Backbone.View.extend({
 		return this;
 	},
 	renderGameZone: function(){
+		console.log(gameZoneCollection.toJSON());
 		$('.gameZoneView').html(this.tempGameZone(gameZoneCollection.toJSON()));
 		return this;
 	},
@@ -155,11 +156,15 @@ var TableView = Backbone.View.extend({
 	},
 	tempGameZone: _.template(
 		"<%for(var gamerModel in data) { %>"+
-				"<div class='thumbnail' data='<%= data[gamerModel].name %>'>"+
-					"<%= data[gamerModel].name %>"+
-					"<br>"+
-					"<%= data[gamerModel].number.name %>"+
-					"(<%= data[gamerModel].number.data %>)"+
+				"<div class='flip-container' data='<%= data[gamerModel].name %>'>"+
+					"<div class='flipper'>"+
+						"<div class='front'>"+
+							"<%= data[gamerModel].name %>"+
+						"</div>"+
+						"<div class='back'>"+
+							"<%= data[gamerModel].number.name %>"+
+						"</div>"+
+					"</div>"+
 				"</div>"+
 		"<% } %>",
 		{variable: 'data'}
@@ -168,9 +173,9 @@ var TableView = Backbone.View.extend({
 		"<p>Choose a card:</p>"+
 		"<%for(var card in data) { %>"+
 				"<% for(var name in data[card]) { %>"+
-					"<div class='cardToChoose thumbnail' data='<%= data[card][name] %>'>"+
+					"<div class='cardToChoose' data='<%= data[card][name] %>'>"+
 						"<%= name %>"+
-					"</div>"+
+					"</div>"+	
 				"<% } %>"+
 		"<% } %>",
 		{variable: 'data'}
@@ -197,13 +202,15 @@ var TableView = Backbone.View.extend({
 	chooseACard: function(e){
 		var data = e.target.getAttribute('data');
 		var classOfCard = e.target.getAttribute('class');
-		if (classOfCard == "cardToChoose thumbnail"){
-			var name = e.target.innerText;
-			socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
-		}
+		var name = e.target.textContent;
+		
+		socket.emit('vote', new Backbone.Model({name: tableModule.toJSON().login, number: {name : name, data : data}}));
 	},	
 	restartRound: function(){
 		socket.emit('restart');
+	},
+	flipCards: function(){
+		$('.flipper').toggleClass('hover');
 	}
 });
 

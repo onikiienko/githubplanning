@@ -40,22 +40,6 @@ module.exports = function(grunt) {
 					"client/css/styles.css": "client/css/styles.less"
 				}
 			},
-			// production: {
-			// 	options: {
-			// 		paths: ["assets/css"],
-			// 		plugins: [
-			// 			new (require('less-plugin-autoprefix'))({browsers: ["last 2 versions"]}),
-			// 			new (require('less-plugin-clean-css'))(cleanCssOptions)
-			// 		],
-			// 		modifyVars: {
-			// 			imgPath: '"http://mycdn.com/path/to/images"',
-			// 			bgColor: 'red'
-			// 		}
-			// 	},
-			// 	files: {
-			// 		"path/to/result.css": "path/to/source.less"
-			// 	}
-			// }
 		},
 		watch: {
 			scripts: {
@@ -63,7 +47,7 @@ module.exports = function(grunt) {
 				tasks: ['devbuild']
 			},
 			styles: {
-				files: ['client/css/styles.less'],
+				files: ['client/css/styles.less', 'client/css/flip.less', 'client/css/elements.less'],
 				tasks: ['devbuild']
 			}
 		}
