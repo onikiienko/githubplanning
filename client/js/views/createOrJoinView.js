@@ -55,6 +55,9 @@ var CreateOrJoinView = Backbone.View.extend({
 		socket.on('chat message', function(msg, login){
 			tableView.renderMessage(msg, login);
 		});
+		socket.on('flipCards', function(msg, login){
+			$('.flipper').addClass('hover');
+		});
 	}
 });
 

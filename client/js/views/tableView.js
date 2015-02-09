@@ -20,7 +20,6 @@ var TableView = Backbone.View.extend({
 		return this;
 	},
 	renderGameZone: function(){
-		console.log(gameZoneCollection.toJSON());
 		$('.gameZoneView').html(this.tempGameZone(gameZoneCollection.toJSON()));
 		return this;
 	},
@@ -89,7 +88,7 @@ var TableView = Backbone.View.extend({
 		socket.emit('restart');
 	},
 	flipCards: function(){
-		$('.flipper').toggleClass('hover');
+		socket.emit('flipCards');
 	}
 });
 

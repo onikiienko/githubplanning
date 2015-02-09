@@ -35,6 +35,12 @@ exports.init = function(roomSocket, gamers, socket, roomName, currency){
 			var table = roomSocket.table.toJSON();
 			// send new table to everyone
 			roomSocket.emit('updateTable', table);
+		});		
+
+		//when someone want to restart/reset round, or remove cards from table
+		socket.on('flipCards', function(hand){
+			// say flip cards to other members
+			roomSocket.emit('flipCards');
 		});
 
 		//when someone somehow disconnect from a game
