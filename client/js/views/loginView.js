@@ -24,6 +24,24 @@ var LoginView = Backbone.View.extend({
 		OAuth.initialize('DR4zizVjOy_1ZXdtlmn0GBLoTcA');
 		OAuth.popup('github')
 		.done(function(result) {
+			//get list of projects
+			result.get('/user/repos').done(function(a){
+				console.log(a);
+			});
+			//get organizations
+			result.get('/user/orgs').done(function(a){
+				console.log(a);
+			});
+			//get issues of a project
+			result.get('/repos/onikiienko/githubplanning/issues').done(function(b){
+				console.log(b);
+			});
+			// get list of collaborators
+			result.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
+				console.log(b);
+			});
+
+			
 		  result.me()
 			.done(function(me){
 				tableModule.set({'login' : me.name});
