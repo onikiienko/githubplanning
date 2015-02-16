@@ -5,6 +5,7 @@
 		<script src="utils/jquery.js"></script>
 		<script src="utils/underscore.js"></script>
 		<script src="utils/backbone.js"></script>
+		<script src="utils/oauth.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles/styles.css">
 		<!--<script src="js/planningpoker.min.js"></script>-->
@@ -36,6 +37,7 @@
 	          	</label>
 		    </div>
 			<div class="loginBtn btn">LogIn</div>
+			<div class="loginWithGithybBtn btn">Sign In with GitHub account</div>
 		</div>
 	</div>
 
@@ -52,7 +54,7 @@
 					<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">
 					Fibonacci
 			</div>
-			<div class="enterRoomBtn btn">LogIn</div>
+			<div class="enterRoomBtn btn">Enter room</div>
 		</div>
 	</div>
 
@@ -80,5 +82,16 @@
 			</div>
 		</div>
 	</div>
+	<div class="test" onclick="getHTTP('https://github.com/login/oauth/authorize')" style="width: 10px; height: 10px; font-color: red;">S</div>
+	<script>
+		function getHTTP(url){
+			var xmlHttp = null;
+
+		    xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open( "GET", url, false );
+		    xmlHttp.send( null );
+		    return xmlHttp.responseText;
+		}
+	</script>
 	</body>
 </html>
