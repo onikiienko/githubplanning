@@ -13,40 +13,40 @@ http://www.gliffy.com/go/publish/6813505
 Developing
 =============
 
-1. install node http://nodejs.org/
-2. install npm https://www.npmjs.org/
-3. instal dep 
+Install node http://nodejs.org/
+Iinstall npm https://www.npmjs.org/
+Instal dep 
 ```shell 
 npm install 
 ```
-4. enable watch task 
+Enable watch task 
 ```shell 
 grunt
 ```
-5. start process 
+Start process 
 ```shell 
 sudo node app.js 
 ```
-or
+or install supervisor. he works even better
 ```shell 
 npm install supervisor -g
 ```
-you can use supervisor for this for better work 
+then run
 ```shell 
 sudo supervisor app.js
 ```
-6. Open http://127.0.0.1/
+open http://127.0.0.1/
 
 Install
 =============
-1. install node http://nodejs.org/
-2. install npm https://www.npmjs.org/
-3. instal dep 
+Install node http://nodejs.org/
+Install npm https://www.npmjs.org/
+Instal dep 
 ```shell 
 npm install 
 ```
-4. To build project for installing on server 
+to build project for installing on server 
 ```shell 
 grunt build
 ```
-5. Open  http://127.0.0.1/
+open  http://127.0.0.1/
