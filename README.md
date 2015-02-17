@@ -1,7 +1,7 @@
 planningpoker
 =============
 
-Application(working)
+Application(not working)
 =============
 http://githubplanning.com/
 
