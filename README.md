@@ -13,6 +13,10 @@ Instal dep
 ```shell 
 npm install 
 ```
+Install Grunt
+```shell 
+npm install -g grunt-cli
+```
 Enable watch task 
 ```shell 
 grunt
@@ -37,6 +41,10 @@ Install node http://nodejs.org/ and npm https://www.npmjs.org/
 Instal dep 
 ```shell 
 npm install 
+```
+Install Grunt
+```shell 
+npm install -g grunt-cli
 ```
 To build project for installing on server 
 ```shell 
