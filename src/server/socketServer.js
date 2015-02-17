@@ -7,8 +7,8 @@ var room = require('./room');
 exports.create = function(http){	
 	var io = require('socket.io')(http);
 	var Table = bb.Collection.extend();
-	var Gamers = bb.Collection.extend()
-	var gamers = new Gamers;
+	var Gamers = bb.Collection.extend();
+	var gamers = new Gamers();
 
 	// create first stream for unset user
 	io.on('connection', function(socket){

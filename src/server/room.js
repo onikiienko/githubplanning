@@ -65,4 +65,4 @@ exports.init = function(roomSocket, gamers, socket, roomName, currency){
 			roomSocket.emit('updateTable', table, gamersList);
 	    });
 	});
-}
+};

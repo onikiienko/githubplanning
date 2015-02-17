@@ -15,8 +15,12 @@ Install
 <ol>
 <li>install node http://nodejs.org/</li>
 <li>install npm https://www.npmjs.org/</li>
-<li>make command "npm install"</li>
-<li>enable watch task(hint + build) "grunt watch"</li>
+<li>make command 
+```shell 
+npm install 
+```
+</li>
+<li>enable watch task "grunt"</li>
 <li>start process "sudo node app.js" or you can use supervisor for this for better work.(npm install supervisor -g) "sudo supervisor app.js"</li>
 <li>Go on browser by link http://127.0.0.1</li>
 </ol>
@@ -24,7 +28,6 @@ Install
 Developing
 =============
 <ol>
-<li>'grunt'</li>
 <li>to build project for installing on server 'grunt build'</li>
 </ol>
 

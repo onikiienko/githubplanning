@@ -40,6 +40,10 @@ var LoginView = Backbone.View.extend({
 			result.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
 				console.log(b);
 			});
+			// get users avatar
+			result.get('/user').done(function(b){
+				console.log(b.avatar_url);
+			});
 
 			
 		  result.me()
