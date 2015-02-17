@@ -31,3 +31,7 @@ Developing
 <li>to build project for installing on server 'grunt build'</li>
 </ol>
 
+
+```shell
+npm install grunt-contrib-copy --save-dev
+```
