@@ -4,6 +4,10 @@ planningpoker
 Application
 =============
 http://githubplanning.com/
+```shell 
+forever start app.js
+forever stop app.js
+```
 
 Developing
 =============
