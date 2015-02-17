@@ -42,4 +42,8 @@ To build project for installing on server
 ```shell 
 grunt build
 ```
+Start process 
+```shell 
+sudo node app.js 
+```
 Open  http://127.0.0.1/
