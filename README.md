@@ -10,28 +10,43 @@ Flowchart(Base)
 =============
 http://www.gliffy.com/go/publish/6813505
 
-Install
+Developing
 =============
-<ol>
-<li>install node http://nodejs.org/</li>
-<li>install npm https://www.npmjs.org/</li>
-<li>make command 
+
+1. install node http://nodejs.org/
+2. install npm https://www.npmjs.org/
+3. instal dep 
 ```shell 
 npm install 
 ```
-</li>
-<li>enable watch task "grunt"</li>
-<li>start process "sudo node app.js" or you can use supervisor for this for better work.(npm install supervisor -g) "sudo supervisor app.js"</li>
-<li>Go on browser by link http://127.0.0.1</li>
-</ol>
-
-Developing
-=============
-<ol>
-<li>to build project for installing on server 'grunt build'</li>
-</ol>
-
-
-```shell
-npm install grunt-contrib-copy --save-dev
+4. enable watch task 
+```shell 
+grunt
 ```
+5. start process 
+```shell 
+sudo node app.js 
+```
+or
+```shell 
+npm install supervisor -g
+```
+you can use supervisor for this for better work 
+```shell 
+sudo supervisor app.js
+```
+6. Open http://127.0.0.1/
+
+Install
+=============
+1. install node http://nodejs.org/
+2. install npm https://www.npmjs.org/
+3. instal dep 
+```shell 
+npm install 
+```
+4. To build project for installing on server 
+```shell 
+grunt build
+```
+5. Open  http://127.0.0.1/
