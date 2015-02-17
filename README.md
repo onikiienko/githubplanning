@@ -5,10 +5,6 @@ Application(working)
 =============
 http://githubplanning.com/
 
-Flowchart(Base)
-=============
-http://www.gliffy.com/go/publish/6813505
-
 Developing
 =============
 
