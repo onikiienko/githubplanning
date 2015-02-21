@@ -7,6 +7,7 @@
 		<script src="utils/backbone.js"></script>
 		<script src="utils/oauth.js"></script>
 		<script src="/socket.io/socket.io.js"></script>
+		<script src="utils/require.js"></script>
 		<link rel="stylesheet" type="text/css" href="styles/styles.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
@@ -80,8 +81,38 @@
 			</div>
 		</div>
 		<script>
-			// var room, login, cards;
+			// Require.js allows us to configure shortcut alias
+			require.config({
+				// The shim config allows us to configure dependencies for
+				// scripts that do not call define() to register a module
+				shim: {
+					underscore: {
+						exports: '_'
+					},
+					backbone: {
+						deps: [
+							'underscore',
+							'jquery'
+						],
+						exports: 'Backbone'
+					},
+					backboneLocalstorage: {
+						deps: ['backbone'],
+						exports: 'Store'
+					}
+				},
+				paths: {
+					jquery: 'utils/jquery',
+					underscore: 'utils/underscore',
+					backbone: 'utils/backbone',
+					text: 'utils/text'
+				}
+			});
 			var socket = io();
+			socket.on('numberOfRooms', function(numberOfRooms){
+				console.log(numberOfRooms);
+				$('.roomsNumberView').html('It has been created ' + numberOfRooms + ' rooms.');
+			});
 
 			var tableModule = new Backbone.Model();
 			var gameZoneCollection = new Backbone.Collection();

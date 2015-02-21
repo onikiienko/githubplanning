@@ -3,10 +3,9 @@
 module.exports =  {
 	dist: {
 		src: [
-			'src/client/js/views/startView.js', 
-			'src/client/js/views/loginView.js', 
-			'src/client/js/views/createOrJoinView.js', 
-			'src/client/js/views/tableView.js'
+			'src/client/js/views/*.js', 
+			// 'src/client/js/models/*.js', 
+			'src/client/js/collections/*.js'
 		],
 		dest: 'build/client/js/githubplanning.js'
 	}

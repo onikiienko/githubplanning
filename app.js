@@ -12,6 +12,7 @@ app.get('/', function(req, res){
 });
 app.use('/styles', express.static(__dirname + '/build/client/css'));
 app.use('/js', express.static(__dirname + '/build/client/js'));
+// app.use('/js/models', express.static(__dirname + '/build/client/js/models'));
 app.use('/utils', express.static(__dirname + '/build/client/utils'));
 
 

@@ -1,7 +1,13 @@
 'use strict';
 
 module.exports = {
-	customjs: {
+	clientModels:{
+	    expand: true,
+	    cwd: 'src/client/js',
+	    src: ['**/*.js', '**/*.html'],
+	    dest: 'build/client/js/'
+	},
+	serverjs: {
 	    expand: true,
 	    cwd: 'src/server',
 	    src: '**',
