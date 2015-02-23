@@ -31,6 +31,7 @@ require(["/js/models/player.js"], function(player) {
 							window.player.getAvatar();
 							window.player.getListOfProjects();
 							window.player.getListOfOrganizations();
+							window.player.getAvatar();
 							//old code
 							window.tableModule.set({'login' : window.player.name});
 							$('.loginInput').val(window.player.name);

@@ -1,18 +1,21 @@
-require(['text!/js/templates/roomCounter.html', 'underscore'], function(startTemplate, _, bb) {	
+require(['text!/js/templates/roomCounter.html', 'underscore'], function(startTemplate, _) {	
 	var StartView = Backbone.View.extend({
 		el: '.startView',
-		template: _.template(startTemplate),
 		events: {
 			"click .startBtn" : "startGame"
 		},
 		initialize: function(){
 			this.render();
+			window.socket = io();
+			socket.on('numberOfRooms', function(numberOfRooms){
+				var template = _.template(startTemplate);
+				$('.roomsNumberView').html(template({numberOfRoom: numberOfRooms}));
+			});
 		},
 		render: function(){
 			// console.log(_);
 			$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
 			this.$el.css('display', 'table');
-			$('.roomsNumberView').html(this.template(335));
 		},
 		startGame: function(){
 			var login = this.getNameValueCookies('login');

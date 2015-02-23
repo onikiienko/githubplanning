@@ -20,7 +20,7 @@ var Player = Backbone.Model.extend({
 		window.player.listOfProjects = data;
 	});
   },
-  getListOfOrganizations: function(playerAPI){
+  getListOfOrganizations: function(){
 	//get organizations
 	this.playerAPI.get('/user/orgs').done(function(data){
 		if(data){
@@ -28,7 +28,7 @@ var Player = Backbone.Model.extend({
 		}
 	});
   },
-  getAvatar: function(playerAPI){
+  getAvatar: function(){
 	// get users avatar
 	this.playerAPI.get('/user').done(function(data){
 		window.player.avatar = data.avatar_url;
