@@ -26,5 +26,11 @@ module.exports = {
 	html: {
     	src: 'src/client/index.html',
     	dest: 'build/client/index.html',
+  	},
+  	images: {
+	    expand: true,
+	    cwd: 'src/client/images',
+	    src: '*',
+	    dest: 'build/client/images/'
   	}
 }
