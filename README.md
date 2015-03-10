@@ -31,7 +31,7 @@ sudo node app.js
 ```
 Or install supervisor. he works even better
 ```shell 
-npm install supervisor -g
+sudo npm install supervisor -g
 ```
 Then run
 ```shell 
