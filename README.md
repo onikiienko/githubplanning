@@ -13,7 +13,7 @@ Developing
 =============
 
 Install node http://nodejs.org/ and npm https://www.npmjs.org/
-Instal dep 
+Install dependences 
 ```shell 
 npm install 
 ```
