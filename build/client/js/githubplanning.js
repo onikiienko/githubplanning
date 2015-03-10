@@ -1,17 +1,15 @@
 require(['text!/js/templates/createOrJoinTemplate.html', "/js/models/player.js"], function(createOrJoinTemplate, player) {	
 	window.CreateOrJoinView = Backbone.View.extend({
-		el: 'content',
+		el: '.content',
 		events: {
 			"click .enterRoomBtn" : "createRoom"
 		},
 		isNewer: true,
 		initialize: function(){
 			this.render();
-			console.log(this.el);
 		},
 		render: function(){
 			var template = _.template(createOrJoinTemplate);
-			console.log($(this.el));
 			$(this.el).html(template);
 		},
 		createRoom: function(){
