@@ -1,43 +1,51 @@
-require(['text!/js/templates/roomCounter.html', 'underscore'], function(startTemplate, _) {	
-	var StartView = Backbone.View.extend({
-		el: '.startView',
+require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], function(startTemplate, player) {	
+	StartView = Backbone.View.extend({
+		el: '.content',
 		events: {
-			"click .startBtn" : "startGame"
+			"click .btn" : "singInWithGitHub"
 		},
 		initialize: function(){
-			this.render();
 			window.socket = io();
-			socket.on('numberOfRooms', function(numberOfRooms){
-				var template = _.template(startTemplate);
-				$('.roomsNumberView').html(template({numberOfRoom: numberOfRooms}));
-			});
+			this.render();
 		},
 		render: function(){
-			// console.log(_);
-			$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-			this.$el.css('display', 'table');
+			window.socket.on('numberOfRooms', function(numberOfRooms){
+				var template = _.template(startTemplate);
+				$('.content').html(template({numberOfRoom: numberOfRooms}));
+			});
 		},
-		startGame: function(){
-			var login = this.getNameValueCookies('login');
-			if(login){
-				tableModule.set({'login': login});
-				if(window.location.hash.substring(2)){
-					createOrJoinView.joinRoom(window.location.hash.substring(1));
-					// tableView.render();
-				}else{
-					createOrJoinView.render();
-				}
-			}else{
-				loginView.render();
-			}			
-		},
-		getNameValueCookies: function(name) {
-	  		var value = "; " + document.cookie;
-	  		var parts = value.split("; " + name + "=");
-	  		if (parts.length == 2) return parts.pop().split(";").shift();
+		singInWithGitHub: function(){
+			OAuth.initialize('DR4zizVjOy_1ZXdtlmn0GBLoTcA');
+			OAuth.popup('github')
+			.done(function(result) {
+				window.player.getName(result)
+					.done(
+						function(){
+							window.player.getAvatar();
+							window.player.getListOfProjects();
+							window.player.getListOfOrganizations();
+							window.player.getAvatar();
+							//old code
+							window.tableModule.set({'login' : window.player.name});
+						}
+					);
+				//get issues of a project
+				result.get('/repos/onikiienko/githubplanning/issues').done(function(b){
+					console.log(b);
+				});
+				// get list of collaborators
+				result.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
+					console.log(b);
+				});
+				new CreateOrJoinView();
+			})
+			.fail(function (err) {
+			  //handle error with err
+			  console.log(err);
+			});
 		}
 	});
-	window.startView = new StartView();
+	new StartView();
 });
 
 

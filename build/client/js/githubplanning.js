@@ -1,91 +1,89 @@
-var CreateOrJoinView = Backbone.View.extend({
-	el: '.createOrJoinView',
-	events: {
-		"click .enterRoomBtn" : "createRoom"
-	},
-	isNewer: true,
-	render: function(){
-		$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-		this.$el.css('display', 'table');
-	},
-	createRoom: function(){
-		tableModule.set({'room': $('.roomNameInput').val()});
-
-		var room  = '/' + tableModule.toJSON().room;
-		var currencyType = $('input:checked').prop('value');
-		var login = tableModule.toJSON().login;
-		
-		socket.emit('enter room', room, currencyType, login);
-		socket = io(room);
-		this.socketInit();
-		window.location.hash = room;
-	},
-	joinRoom: function(room){
-		tableModule.set({'room': room.substring(1)});
-		var login = tableModule.toJSON().login;
-		socket.emit('enter room', room, undefined, login);
-		socket = io(room);
-		this.socketInit();
-	},
-	socketInit: function(){
-		var that = this;
-		socket.on('connectionReady', function(cards, table, gamers){
-			if (that.isNewer){
-				tableView.render();
-				cardsToChooseCollection.set(cards);
-				tableView.renderCardsToChoose();
-				if(table.length){
-					gameZoneCollection.set(table);
-					tableView.renderGameZone();
-				}
-				that.isNewer = false;
-			}		
-			gamersListCollection.set(gamers);
-			tableView.renderGamersList();
-			
-		});
-		socket.on('updateTable', function(table, gamers){
-			gameZoneCollection.set(table);
-			if (gamers){
-				gamersListCollection.set(gamers);
-			}
-			tableView.renderGameZone();
-			tableView.renderGamersList();
-		});
-		socket.on('chat message', function(msg, login){
-			tableView.renderMessage(msg, login);
-		});
-		socket.on('flipCards', function(msg, login){
-			$('.flipper').addClass('hover');
-		});
-	}
-});
-
-createOrJoinView = new CreateOrJoinView();
-require(["/js/models/player.js"], function(player) {
-	var LoginView = Backbone.View.extend({
-		el: '.loginView',
-		render: function(){
-			$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-			this.$el.css('display', 'table');
-		},
+require(['text!/js/templates/createOrJoinTemplate.html', "/js/models/player.js"], function(createOrJoinTemplate, player) {	
+	window.CreateOrJoinView = Backbone.View.extend({
+		el: 'content',
 		events: {
-			"click .loginBtn" : "loginSubmit",
-			"click .loginWithGithybBtn" : "loginWithGithub"
+			"click .enterRoomBtn" : "createRoom"
 		},
-		loginSubmit: function(){
-			var login = $('.loginInput').val();
-			tableModule.set({'login' : login});
-			if ($('.loginCheckBox').prop('checked')){
-				document.cookie = 'login=' + login;
-			}
-			if(window.location.hash.substring(2)){
-				createOrJoinView.joinRoom(window.location.hash.substring(1));
-			}else{
-				createOrJoinView.render();
-			}
+		isNewer: true,
+		initialize: function(){
+			this.render();
+			console.log(this.el);
 		},
-		loginWithGithub: function(){
+		render: function(){
+			var template = _.template(createOrJoinTemplate);
+			console.log($(this.el));
+			$(this.el).html(template);
+		},
+		createRoom: function(){
+			tableModule.set({'room': $('.roomNameInput').val()});
+
+			var room  = '/' + tableModule.toJSON().room;
+			var currencyType = $('input:checked').prop('value');
+			var login = tableModule.toJSON().login;
+			
+			socket.emit('enter room', room, currencyType, login);
+			socket = io(room);
+			this.socketInit();
+			window.location.hash = room;
+		},
+		joinRoom: function(room){
+			tableModule.set({'room': room.substring(1)});
+			var login = tableModule.toJSON().login;
+			socket.emit('enter room', room, undefined, login);
+			socket = io(room);
+			this.socketInit();
+		},
+		socketInit: function(){
+			var that = this;
+			socket.on('connectionReady', function(cards, table, gamers){
+				if (that.isNewer){
+					tableView.render();
+					cardsToChooseCollection.set(cards);
+					tableView.renderCardsToChoose();
+					if(table.length){
+						gameZoneCollection.set(table);
+						tableView.renderGameZone();
+					}
+					that.isNewer = false;
+				}		
+				gamersListCollection.set(gamers);
+				tableView.renderGamersList();
+				
+			});
+			socket.on('updateTable', function(table, gamers){
+				gameZoneCollection.set(table);
+				if (gamers){
+					gamersListCollection.set(gamers);
+				}
+				tableView.renderGameZone();
+				tableView.renderGamersList();
+			});
+			socket.on('chat message', function(msg, login){
+				tableView.renderMessage(msg, login);
+			});
+			socket.on('flipCards', function(msg, login){
+				$('.flipper').addClass('hover');
+			});
+		}
+	});
+});
+require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], function(startTemplate, player) {	
+	StartView = Backbone.View.extend({
+		el: '.content',
+		events: {
+			"click .btn" : "singInWithGitHub"
+		},
+		initialize: function(){
+			window.socket = io();
+			this.render();
+		},
+		render: function(){
+			window.socket.on('numberOfRooms', function(numberOfRooms){
+				var template = _.template(startTemplate);
+				$('.content').html(template({numberOfRoom: numberOfRooms}));
+			});
+		},
+		singInWithGitHub: function(){
 			OAuth.initialize('DR4zizVjOy_1ZXdtlmn0GBLoTcA');
 			OAuth.popup('github')
 			.done(function(result) {
@@ -98,7 +96,6 @@ require(["/js/models/player.js"], function(player) {
 							window.player.getAvatar();
 							//old code
 							window.tableModule.set({'login' : window.player.name});
-							$('.loginInput').val(window.player.name);
 						}
 					);
 				//get issues of a project
@@ -109,6 +106,7 @@ require(["/js/models/player.js"], function(player) {
 				result.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
 					console.log(b);
 				});
+				new CreateOrJoinView();
 			})
 			.fail(function (err) {
 			  //handle error with err
@@ -116,49 +114,7 @@ require(["/js/models/player.js"], function(player) {
 			});
 		}
 	});
-window.loginView = new LoginView();
-});
-
-require(['text!/js/templates/roomCounter.html', 'underscore'], function(startTemplate, _) {	
-	var StartView = Backbone.View.extend({
-		el: '.startView',
-		events: {
-			"click .startBtn" : "startGame"
-		},
-		initialize: function(){
-			this.render();
-			window.socket = io();
-			socket.on('numberOfRooms', function(numberOfRooms){
-				var template = _.template(startTemplate);
-				$('.roomsNumberView').html(template({numberOfRoom: numberOfRooms}));
-			});
-		},
-		render: function(){
-			// console.log(_);
-			$('.loginView, .createOrJoinView, .tableView, .startView').css('display', 'none');
-			this.$el.css('display', 'table');
-		},
-		startGame: function(){
-			var login = this.getNameValueCookies('login');
-			if(login){
-				tableModule.set({'login': login});
-				if(window.location.hash.substring(2)){
-					createOrJoinView.joinRoom(window.location.hash.substring(1));
-					// tableView.render();
-				}else{
-					createOrJoinView.render();
-				}
-			}else{
-				loginView.render();
-			}			
-		},
-		getNameValueCookies: function(name) {
-	  		var value = "; " + document.cookie;
-	  		var parts = value.split("; " + name + "=");
-	  		if (parts.length == 2) return parts.pop().split(";").shift();
-		}
-	});
-	window.startView = new StartView();
+	new StartView();
 });
 
 
