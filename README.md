@@ -13,13 +13,13 @@ Developing
 =============
 
 Install node http://nodejs.org/ and npm https://www.npmjs.org/
-Instal dep 
+Install dependences 
 ```shell 
 npm install 
 ```
 Install Grunt
 ```shell 
-npm install -g grunt-cli
+sudo npm install -g grunt-cli
 ```
 Enable watch task 
 ```shell 
@@ -31,7 +31,7 @@ sudo node app.js
 ```
 Or install supervisor. he works even better
 ```shell 
-npm install supervisor -g
+sudo npm install supervisor -g
 ```
 Then run
 ```shell 
