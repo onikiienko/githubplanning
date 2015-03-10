@@ -19,7 +19,7 @@ npm install
 ```
 Install Grunt
 ```shell 
-npm install -g grunt-cli
+sudo npm install -g grunt-cli
 ```
 Enable watch task 
 ```shell 
