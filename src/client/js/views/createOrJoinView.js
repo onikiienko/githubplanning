@@ -1,4 +1,4 @@
-require(['text!/js/templates/createOrJoinTemplate.html', "/js/models/player.js"], function(createOrJoinTemplate, player) {	
+require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinTemplate) {
 	window.CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -13,16 +13,17 @@ require(['text!/js/templates/createOrJoinTemplate.html', "/js/models/player.js"]
 			$(this.el).html(template);
 		},
 		createRoom: function(){
-			tableModule.set({'room': $('.roomNameInput').val()});
+			player.getIssues($('select option:selected').text());
+			// tableModule.set({'room': $('.roomNameInput').val()});
 
-			var room  = '/' + tableModule.toJSON().room;
-			var currencyType = $('input:checked').prop('value');
-			var login = tableModule.toJSON().login;
+			// var room  = '/' + tableModule.toJSON().room;
+			// var currencyType = $('input:checked').prop('value');
+			// var login = tableModule.toJSON().login;
 			
-			socket.emit('enter room', room, currencyType, login);
-			socket = io(room);
-			this.socketInit();
-			window.location.hash = room;
+			// socket.emit('enter room', room, currencyType, login);
+			// socket = io(room);
+			// this.socketInit();
+			// window.location.hash = room;
 		},
 		joinRoom: function(room){
 			tableModule.set({'room': room.substring(1)});

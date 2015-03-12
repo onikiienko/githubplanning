@@ -1,23 +1,18 @@
 var Player = Backbone.Model.extend({
   name : "value",
+  login : "value",
   listOfProjects: "value",  
   listOfOrganizations: "value", 
   avatar: "value",
-  playerAPI: "value", 
-  getName: function(playerAPI) {
+  playerAPI: "value",
+  setPlayerAPI: function(playerAPI) {
   	this.playerAPI = playerAPI;
-	return playerAPI.me()
-	.done(function(me){
-		window.player.name = me.name;
-	})
-	.fail(function (err) {
-		console.log(err);
-	});
   },
   getListOfProjects: function(){
 	//get list of projects
 	this.playerAPI.get('/user/repos').done(function(data){
 		window.player.listOfProjects = data;
+		new CreateOrJoinView();
 	});
   },
   getListOfOrganizations: function(){
@@ -28,18 +23,19 @@ var Player = Backbone.Model.extend({
 		}
 	});
   },
-  getAvatar: function(){
+  getAccount: function(){
 	// get users avatar
 	this.playerAPI.get('/user').done(function(data){
 		window.player.avatar = data.avatar_url;
+		window.player.login = data.login;
+		window.player.name = data.name;
 	});
   },
-  setEventHandlers: function(){  	
+  getIssues: function(project){
+	//get issues of a project
+	this.playerAPI.get('/repos/' + project + '/issues').done(function(b){
+		console.log(b);
+	});
   }
 });
 window.player = new Player();
-window.player.on({
-	// "change:name": console.log('window.loginView'),
-	// "change:author": authorPane.update,
-	// "destroy": bookView.remove
-});

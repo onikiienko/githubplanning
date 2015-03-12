@@ -1,4 +1,4 @@
-require(['text!/js/templates/createOrJoinTemplate.html', "/js/models/player.js"], function(createOrJoinTemplate, player) {	
+require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinTemplate) {
 	window.CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -13,16 +13,17 @@ require(['text!/js/templates/createOrJoinTemplate.html', "/js/models/player.js"]
 			$(this.el).html(template);
 		},
 		createRoom: function(){
-			tableModule.set({'room': $('.roomNameInput').val()});
+			player.getIssues($('select option:selected').text());
+			// tableModule.set({'room': $('.roomNameInput').val()});
 
-			var room  = '/' + tableModule.toJSON().room;
-			var currencyType = $('input:checked').prop('value');
-			var login = tableModule.toJSON().login;
+			// var room  = '/' + tableModule.toJSON().room;
+			// var currencyType = $('input:checked').prop('value');
+			// var login = tableModule.toJSON().login;
 			
-			socket.emit('enter room', room, currencyType, login);
-			socket = io(room);
-			this.socketInit();
-			window.location.hash = room;
+			// socket.emit('enter room', room, currencyType, login);
+			// socket = io(room);
+			// this.socketInit();
+			// window.location.hash = room;
 		},
 		joinRoom: function(room){
 			tableModule.set({'room': room.substring(1)});
@@ -69,14 +70,14 @@ require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], funct
 	StartView = Backbone.View.extend({
 		el: '.content',
 		events: {
-			"click .btn" : "singInWithGitHub"
+			"click .signIn" : "singInWithGitHub"
 		},
 		initialize: function(){
-			window.socket = io();
+			socket = io();
 			this.render();
 		},
 		render: function(){
-			window.socket.on('numberOfRooms', function(numberOfRooms){
+			socket.on('numberOfRooms', function(numberOfRooms){
 				var template = _.template(startTemplate);
 				$('.content').html(template({numberOfRoom: numberOfRooms}));
 			});
@@ -84,32 +85,20 @@ require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], funct
 		singInWithGitHub: function(){
 			OAuth.initialize('DR4zizVjOy_1ZXdtlmn0GBLoTcA');
 			OAuth.popup('github')
-			.done(function(result) {
-				window.player.getName(result)
-					.done(
-						function(){
-							window.player.getAvatar();
-							window.player.getListOfProjects();
-							window.player.getListOfOrganizations();
-							window.player.getAvatar();
-							//old code
-							window.tableModule.set({'login' : window.player.name});
-						}
-					);
-				//get issues of a project
-				result.get('/repos/onikiienko/githubplanning/issues').done(function(b){
-					console.log(b);
+				.done(function(api) {
+					window.player.setPlayerAPI(api);
+					window.player.getAccount();
+					window.player.getListOfOrganizations();
+					window.player.getListOfProjects();
+					// get list of collaborators
+					api.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
+						console.log(b);
+					});
+				})
+				.fail(function (err) {
+				  //handle error with err
+				  console.log(err);
 				});
-				// get list of collaborators
-				result.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
-					console.log(b);
-				});
-				new CreateOrJoinView();
-			})
-			.fail(function (err) {
-			  //handle error with err
-			  console.log(err);
-			});
 		}
 	});
 	new StartView();

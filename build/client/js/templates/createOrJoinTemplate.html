@@ -1,5 +1,14 @@
 <div class="contentCenter">			
-	<h1>Enter to room</h1>
+	<img src=<%= player.avatar %> class="avatar">
+	<%= player.name %>
+	<%= player.listOfOrganizations %>
+	<br>
+	<select>
+		<% _.each(player.listOfProjects, function(project) { %> 
+	    	<option><%= project.full_name %></option>
+		<% }); %>
+	</select>
+<!-- 	<h1>Enter to room</h1>
     <p>Create your own room or join other.</p>
 	<input class="roomNameInput" placeholder="Room name" required autofocus="true" type="input"></input>
 	<div class="currencyType">
@@ -9,6 +18,6 @@
 			T-shirt
 			<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">
 			Fibonacci
-	</div>
+	</div> -->
 	<div class="enterRoomBtn btn">Enter room</div>
 </div>
