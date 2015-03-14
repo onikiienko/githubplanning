@@ -1,4 +1,4 @@
-require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], function(startTemplate, player) {	
+require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], function(startTemplate, player) {
 	StartView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -9,31 +9,32 @@ require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], funct
 			this.render();
 		},
 		render: function(){
-			socket.on('numberOfRooms', function(numberOfRooms){
-				var template = _.template(startTemplate);
-				$('.content').html(template({numberOfRoom: numberOfRooms}));
-			});
+			var template = _.template(startTemplate);
+			$('.content').html(template());
 		},
 		singInWithGitHub: function(){
+			// console.log(this.model);
+			this.signIn();
+		},
+		signIn: function(){
 			OAuth.initialize('DR4zizVjOy_1ZXdtlmn0GBLoTcA');
 			OAuth.popup('github')
-				.done(function(api) {
-					window.player.setPlayerAPI(api);
-					window.player.getAccount();
-					window.player.getListOfOrganizations();
-					window.player.getListOfProjects();
-					// get list of collaborators
-					api.get('/repos/onikiienko/githubplanning/collaborators').done(function(b){
-						console.log(b);
+			.done(function(api) {
+				window.player.set('playerAPI', api);
+				api.get('/user/repos').done(function(data){
+					window.player.set('listOfProjects', data);
+					api.get('/user/orgs').done(function(data){
+						window.player.set('listOfOrganizations', data);
+						api.get('/user').done(function(data){
+							window.player.set('player', data);
+						});
 					});
-				})
-				.fail(function (err) {
-				  //handle error with err
-				  console.log(err);
 				});
+			});
 		}
 	});
-	new StartView();
+	new StartView({model : window.player});
+	new CreateOrJoinView({model : window.player});
 });
 
 

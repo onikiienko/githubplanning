@@ -6,14 +6,14 @@ require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinT
 		},
 		isNewer: true,
 		initialize: function(){
-			this.render();
+			this.listenTo(this.model, 'change:player', this.render);
 		},
 		render: function(){
 			var template = _.template(createOrJoinTemplate);
-			$(this.el).html(template);
+			$(this.el).html(template(player.toJSON()));
 		},
 		createRoom: function(){
-			player.getIssues($('select option:selected').text());
+			this.getProjectData();
 			// tableModule.set({'room': $('.roomNameInput').val()});
 
 			// var room  = '/' + tableModule.toJSON().room;
@@ -24,6 +24,18 @@ require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinT
 			// socket = io(room);
 			// this.socketInit();
 			// window.location.hash = room;
+		},
+		getProjectData: function(){
+			var projectName = $('select option:selected').text(); 
+			var api = this.model.toJSON().playerAPI;
+			//get issues of a project
+			api.get('/repos/' + projectName + '/issues').done(function(data){
+				window.player.set('issues', data);
+				//get collaborators of a project
+				api.get('/repos/' + projectName + '/collaborators').done(function(data){
+					window.player.set('collaborators', data);
+				});
+			});
 		},
 		joinRoom: function(room){
 			tableModule.set({'room': room.substring(1)});

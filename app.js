@@ -18,6 +18,4 @@ app.use('/images', express.static(__dirname + '/build/client/images'));
 
 
 // swich on server
-http.listen(80, function(){
-  console.log('Planning started: 127.0.0.1');
-});
+http.listen(80, function(){console.log('Ready!');});

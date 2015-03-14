@@ -3,51 +3,35 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:400,900,100);
 
 html, body{
-  height: 0;
-  margin: 0;
-  padding: 0;
   font-family: 'Lato', sans-serif;
+  font-size: 15px;
   color: #fff;
 }
 
 body{
   background-image: url('../images/background.png');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+  background-size: cover;
 }
 
-.avatar{
-  border-radius: 50%;
-  width: 50px;
+.content{
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
 }
 
 .headerBar{
   font-weight: 100;
-  top: 0;
-  left: 0;
   a {
     color: white;
-    cursor: pointer;
     text-decoration: none;
-    font-size: 30px;
-    line-height: 1.5;
-    margin-left: 30px;
+    p{
+      font-size: 3.5em;
+      margin-top: -0.25em;
+      margin-left: -4px;
+      margin-bottom: 0px;
+    }
   }
-}
-
-.contentDiv{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  display: table;
-}
-
-.contentCenter{
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center;
 }
 
 .btn{
@@ -55,17 +39,73 @@ body{
   position: relative;
   display: inline-block;
   padding: 9px 20px;
-  border-radius: 8px;
-  color: white;
-  .gradient(black,#369427,#34AE2C);
+  border-radius: 28px;
+  color: black;
+  background-color: #beff00;
+  font-weight: 600;
   &:hover{
-    opacity: 0.9;
+    opacity: 0.8;
+  }
+  i{
+    position: absolute;
+    top: 3px;
+    left: 4px;
   }
 }
 
-.checkbox{
-  margin: 10px;
+/*start view BEGIN*/
+.signIn{
+  padding: 10px 20px 10px 40px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  width: 125px;
 }
+.description{
+  font-size: 2em;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3vw;
+  margin-bottom: 3vw;
+  font-weight: 300;
+  opacity: 0.7;
+  text-align: center;
+  display: block;
+}
+.landing{  
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  margin-bottom: 3vw;
+  i{
+    position: relative;
+    left: -50px;
+    top: 20px;
+    font-size: 1.5em;
+  }
+  .landingHeadAd{
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  .landingItem{
+    padding-left: 40px;
+    width: 44%;
+    display: inline-block;
+    span{
+      font-weight: 100;
+      margin-top: 1em;
+    }
+  }
+}
+/*start view END*/
+
+/*create room view BEGIN*/
+.avatar{
+  border-radius: 50%;
+  width: 50px;
+}
+/*create room view END*/
 
 .cardToChoose, .flipper{
   width: 50px;
