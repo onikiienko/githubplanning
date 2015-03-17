@@ -1,16 +1,35 @@
-<div class="contentCenter">			
-	<img src=<%= player.avatar_url %> class="avatar">
-	<%= player.name %>
-	<%= listOfOrganizations %>
-	<br>
-	<select>
+<img src=<%= player.avatar_url %> class="avatar">
+<%= player.name %>
+<%= listOfOrganizations %>
+<br>
+
+<div class="createRoomForm">
+	<h1>Get Started</h1>
+	<div class="roomNameInput">
+	    <%=  _.first(listOfProjects).full_name %>
+	</div>
+	<div class="roomNameList">
 		<% _.each(listOfProjects, function(project) { %> 
-	    	<option><%= project.full_name %></option>
+	    	<div class="roomNameListItem">
+		    	<div class="roomNameListItemHeader">
+		    		<span class="roomNameListItemHeaderTitle">
+		    			<%= project.full_name %>
+		    		</span>
+		    		<span class="roomNameListItemHeaderIssuesCounter">
+		    			<i class="fa fa-tasks"></i> <%= project.open_issues %> 
+		    			<% if (project.open_issues !== 1) { %>
+		    				Tasks
+		    			<% }else{ %>
+		    				Task
+		    			<% } %>
+		    		</span>
+		    	</div>
+		    	<div class="roomNameListItemBody">
+		    		<%= project.description %>
+		    	</div>
+	    	</div>
 		<% }); %>
-	</select>
-	<h1>Enter to room</h1>
-    <p>Create your own room or join other.</p>
-	<input class="roomNameInput" placeholder="Room name" required autofocus="true" type="input"></input>
+	</div>
 	<div class="currencyType">
 			<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>
 			Standard

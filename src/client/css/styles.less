@@ -105,6 +105,64 @@ body{
   border-radius: 50%;
   width: 50px;
 }
+
+.createRoomForm{
+  width: 45%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.roomNameInput{
+  background-color: black;
+  background: black;
+  border-radius: 30px;
+  padding: 10px;
+  opacity: 0.5;
+  width: 100%;
+}
+.roomNameList{
+  width: 470px;
+  width: ~"-webkit-calc(100% + 20px)";
+  width: ~"-moz-calc(100% + 20px)";
+  width: ~"calc(100% + 20px)";
+  margin-top: 5px;
+  background-color: rgb(34, 40, 48);
+  background: rgb(34, 40, 48);
+  border-radius: 8px;
+  overflow: scroll;
+  max-height: 40vh;
+  position: absolute;
+  z-index: 2;
+  .roomNameListItem{
+    padding: 17px;
+    min-height: 60px;
+    &:hover{
+      background-color: rgb(43, 48, 56);
+      background: rgb(43, 48, 56);
+    }
+    .roomNameListItemHeader{
+      font-size: 17px;
+      .roomNameListItemHeaderTitle{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 85%;
+        display: inline-block;
+      }
+      .roomNameListItemHeaderIssuesCounter{
+        float: right;
+        opacity: 0.6;
+        font-size: 12px;
+        font-weight: 100;
+      }
+    }
+    .roomNameListItemBody{
+      opacity: 0.5;
+      font-weight: 100;
+    }
+  }
+}
+
 /*create room view END*/
 
 .cardToChoose, .flipper{
