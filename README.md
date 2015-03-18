@@ -5,8 +5,7 @@ Application
 =============
 http://githubplanning.com/
 ```shell 
-forever start app.js
-forever stop app.js
+git pull && grunt build && supervisor app.js
 ```
 
 Developing
