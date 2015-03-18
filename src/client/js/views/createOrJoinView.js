@@ -2,7 +2,10 @@ require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinT
 	window.CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
-			"click .enterRoomBtn" : "createRoom"
+			"click .enterRoomBtn" : "createRoom",
+			"click .roomNameInput" : "openRoomNameList",
+			"click .roomNameListItem" : "chooseProject",
+			"click .currencyType" : "makeRadioChecked"
 		},
 		isNewer: true,
 		initialize: function(){
@@ -25,8 +28,30 @@ require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinT
 			// this.socketInit();
 			// window.location.hash = room;
 		},
+		openRoomNameList: function(){
+			$('.roomNameList').show();
+		},
+		chooseProject: function(target){
+			//pick project and write in input
+			var choosenProject = $(target.target)
+					.closest('.roomNameListItem')
+					.find('.roomNameListItemHeaderTitle')
+					.html()
+					.replace(/\s+/g, '');
+			$('.roomNameInput').html(choosenProject);
+			$('.roomNameList').hide();
+		},
+		makeRadioChecked: function(target){
+			console.log($(target.target));
+			if ($(target.target).hasClass('checked')){				
+				$('.radioBtn').removeClass('checked');
+			}else{
+				$('.radioBtn').removeClass('checked');
+				$(target.target).addClass('checked');
+			}
+		},
 		getProjectData: function(){
-			var projectName = $('select option:selected').text(); 
+			var projectName = $('.roomNameInput').html();
 			var api = this.model.toJSON().playerAPI;
 			//get issues of a project
 			api.get('/repos/' + projectName + '/issues').done(function(data){
@@ -77,4 +102,5 @@ require(['text!/js/templates/createOrJoinTemplate.html'], function(createOrJoinT
 			});
 		}
 	});
+	new CreateOrJoinView({model : window.player});
 });

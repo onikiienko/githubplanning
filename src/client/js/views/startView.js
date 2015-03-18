@@ -34,7 +34,6 @@ require(['text!/js/templates/startTemplate.html', "/js/models/player.js"], funct
 		}
 	});
 	new StartView({model : window.player});
-	new CreateOrJoinView({model : window.player});
 });
 
 

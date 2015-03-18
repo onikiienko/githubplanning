@@ -1,3 +1,7 @@
+<div class="headerBar">
+	<a href="#">SCRUM <p>P<i class="fa fa-clock-o"></i>KER</p></a>
+</div>
+
 <img src=<%= player.avatar_url %> class="avatar">
 <%= player.name %>
 <%= listOfOrganizations %>
@@ -31,11 +35,11 @@
 		<% }); %>
 	</div>
 	<div class="currencyType">
-			<input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="standardCurrency" checked>
+			<div class="radioBtn checked" data="Standard"></div>
 			Standard
-			<input type="radio" name="inlineRadioOptions" id="inlineRadio2" value="tShirtCurrency">
+			<div class="radioBtn" data="T-shirt"></div>
 			T-shirt
-			<input type="radio" name="inlineRadioOptions" id="inlineRadio3" value="fibonacciCurrency">
+			<div class="radioBtn" data="Fibonacci"></div>
 			Fibonacci
 	</div>
 	<div class="enterRoomBtn btn">Enter room</div>
