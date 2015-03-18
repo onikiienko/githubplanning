@@ -1,11 +1,13 @@
 <div class="headerBar">
 	<a href="#">SCRUM <p>P<i class="fa fa-clock-o"></i>KER</p></a>
+	<div class="playerData">
+		<img src=<%= player.avatar_url %> class="avatar">
+		<%= player.name %>
+	</div>
 </div>
 
-<img src=<%= player.avatar_url %> class="avatar">
-<%= player.name %>
 <%= listOfOrganizations %>
-<br>
+
 
 <div class="createRoomForm">
 	<h1>Get Started</h1>
