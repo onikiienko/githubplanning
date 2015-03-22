@@ -25,6 +25,7 @@ require.config({
 		underscore: 'utils/underscore',
 		backbone: 'utils/backbone',
 		oauth: 'utils/oauth',
-		text: 'utils/text'
+		text: 'utils/text',
+		isMobile: 'utils/isMobile'
 	}
 })
