@@ -20,6 +20,10 @@ Install Grunt
 ```shell 
 sudo npm install -g grunt-cli
 ```
+Install Babel CLI
+```shell 
+npm install --global babel
+```
 Enable watch task 
 ```shell 
 grunt

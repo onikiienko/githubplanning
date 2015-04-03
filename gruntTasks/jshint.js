@@ -2,10 +2,10 @@
 
 module.exports = { 
 		beforeconcat: [
-			'src/client/js/views/*.js', 
-			'src/client/js/models/*.js', 
-			'src/client/js/collections/*.js', 
-			'src/server/*.js',
+			'build/client/js/views/*.js', 
+			'build/client/js/models/*.js', 
+			'build/client/js/collections/*.js', 
+			'build/server/*.js',
 			'app.js'
 		],
 		afterconcat: ['build/client/js/githubplanning.js']

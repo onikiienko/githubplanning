@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>Planning Poker</title>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="utils/font-awesome-4.3.0/css/font-awesome.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="/socket.io/socket.io.js"></script>
 	</head>
@@ -11,21 +11,16 @@
 		<div class="content"></div>
 		<script src="utils/require.js"></script>
 		<script>
-			require(["utils/requireConfig.js"], function(){
+			require(["utils/requireConfig"], function(){
 				require(["isMobile"], function(){
 					window.isMobile.loadCss();
 				});
-				$ = require(["jquery"]);
-				_ = require(["underscore"]);
-				Backbone = require(["backbone"], function(){
-					tableModule = new Backbone.Model;
-					gameZoneCollection = new Backbone.Collection();
-					cardsToChooseCollection = new Backbone.Collection();
-					gamersListCollection = new Backbone.Collection();
-					require(["js/githubplanning.js"]);
+				require(["views/startView"], function(view){
+					view.initialize();
 				});
+				// require(["js/githubplanning"]);
 				OAuth = require(["oauth"]);
-			})
+			});
 		</script>
 	</body>
 </html>

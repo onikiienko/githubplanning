@@ -4,13 +4,13 @@ module.exports = {
 	clientModels:{
 	    expand: true,
 	    cwd: 'src/client/js',
-	    src: ['**/*.js', '**/*.html'],
+	    src: ['**/*.html'],
 	    dest: 'build/client/js/'
 	},
 	serverjs: {
 	    expand: true,
 	    cwd: 'src/server',
-	    src: '**',
+	    src: '*',
 	    dest: 'build/server',
 	    flatten: true,
 	    filter: 'isFile',
@@ -18,10 +18,8 @@ module.exports = {
 	utils: {
 		expand: true,
 	    cwd: 'src/client/utils',
-	    src: '**',
-	    dest: 'build/client/utils',
-	    flatten: true,
-	    filter: 'isFile',
+	    src: '**/*',
+	    dest: 'build/client/utils'
 	},
 	html: {
     	src: 'src/client/index.html',

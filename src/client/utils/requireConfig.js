@@ -14,18 +14,18 @@ require.config({
 				'jquery'
 			],
 			exports: 'Backbone'
-		},
-		backboneLocalstorage: {
-			deps: ['backbone'],
-			exports: 'Store'
 		}
 	},
 	paths: {
 		jquery: 'utils/jquery',
 		underscore: 'utils/underscore',
 		backbone: 'utils/backbone',
-		oauth: 'utils/oauth',
+		oauth: 'utils/oauth.min',
 		text: 'utils/text',
-		isMobile: 'utils/isMobile'
+		isMobile: 'utils/isMobile',
+		fontawesome: 'utils/font/css/font-awesome.min',
+		models: 'js/models',
+		views: 'js/views',
+		js: 'js'
 	}
 })

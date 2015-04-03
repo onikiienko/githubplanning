@@ -1,4 +1,4 @@
-define([
+define('models/player', [
 	'underscore',
 	'backbone'
 ], function(_, Backbone){
@@ -6,11 +6,9 @@ define([
 		defaults: {
 			player : '',
 			listOfProjects: '',  
-			listOfOrganizations: '', 
-			issues: '', 
-			collaborators: '',
+			listOfOrganizations: '',
 			playerAPI: ''
 		}
 	});
-	window.player = new Player();
+	return Player;
 });

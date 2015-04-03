@@ -6,7 +6,8 @@ module.exports = function(grunt) {
 		uglify: require('./gruntTasks/uglify'),
 		less: require('./gruntTasks/less'),
 		copy: require('./gruntTasks/copy'),
-		watch: require('./gruntTasks/watch')
+		watch: require('./gruntTasks/watch'),
+		babel: require('./gruntTasks/babel')
 	});
 
 	// Load the plugin that provides the "uglify" task.
@@ -16,9 +17,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-babel');
 
 	// Default task(s).
-	grunt.registerTask('default', ['watch']);
-	grunt.registerTask('devbuild', ['concat', 'jshint', 'less', 'copy']);
+	grunt.registerTask('default', ['devbuild','watch']);
+	grunt.registerTask('devbuild', ['concat', 'babel', 'less', 'copy']);
 	grunt.registerTask('build', ['devbuild', 'uglify']);
 };

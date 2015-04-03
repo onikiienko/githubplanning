@@ -2,9 +2,9 @@ var app = require('express')();
 var express = require('express');
 
 var http = require('http').Server(app);
-var ss = require('./build/server/socketServer');
+var socketServer = require('./build/server/socketServer');
 
-ss.create(http);
+socketServer.create(http);
 
 //plugin server
 app.get('/', function(req, res){
@@ -12,7 +12,6 @@ app.get('/', function(req, res){
 });
 app.use('/styles', express.static(__dirname + '/build/client/css'));
 app.use('/js', express.static(__dirname + '/build/client/js'));
-// app.use('/js/models', express.static(__dirname + '/build/client/js/models'));
 app.use('/utils', express.static(__dirname + '/build/client/utils'));
 app.use('/images', express.static(__dirname + '/build/client/images'));
 

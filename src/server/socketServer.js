@@ -4,31 +4,47 @@ var rc = require('./roomCounter');
 var currencies = require('./currencies');
 var room = require('./room');
 
-exports.create = function(http){	
-	var io = require('socket.io')(http);
-	var Table = bb.Collection.extend();
-	var Gamers = bb.Collection.extend();
-	var gamers = new Gamers();
 
+var serverLists = function(){
+	var playersList = {};
+	var dateFirstRoom = new Date();
+	return {
+		setRoom : function(){
+			roomList = [];
+		},
+		timeDiff : function(){			
+			var dateSecondRoom = new Date();
+			var date1 = new Date(dateFirstRoom);
+			var date2 = new Date(dateSecondRoom);
+			var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+		}
+	};
+};
+
+exports.create = function(http){
+	//create new srver connection
+	var io = require('socket.io')(http);
+	//list of active rooms
+	var roomList = {};
 	// create first stream for unset user
 	io.on('connection', function(socket){
 		// send number of rooms to show on start page
-		socket.emit('numberOfRooms', rc.getNumberOfRooms());
+		socket.emit('sendCurrentDataAbout', {mumberOfRooms: 100, mumberOfPlayears: 100});
 		// room - room name, typeOfCards, login - name of a player
-		socket.on('enter room', function(roomName, typeOfCards, login){
-			// create new player and put him in ALL gamers collection from ALL rooms
-			gamers.add(new bb.Model({name: login, id : socket.id, room : roomName}));
+		socket.on('enter room', function(game, player){
+			var roomName = '/' + game.name;
 			// if there is no rooms with this name -> we create new one
-			if(!socket.server.nsps[roomName]){
-				// define wich 'currency' creator whant
-				var currency = currencies.setCurrency(typeOfCards);
-				// create new socket for new room
+			if(!socket.server.nsps['/' + game.name]){
+				roomList[roomName] = {activePlayers : [], issues: game.issues, collaborators: game.collaborators, typeOfConnection: player.playerAPI.provider};
+				roomList[roomName].activePlayers.push({name: player.player.name, login: player.player.login});
 				var roomSocket = io.of(roomName);
-				// create new table for this room
-				roomSocket.table = new Table();
-				// add one to room counter
-				rc.incNumberOfRooms();
-				room.init(roomSocket, gamers, socket, roomName, currency);
+				console.log(roomList);
+			}else{
+				var activePlayers = roomList[roomName].activePlayers;
+				if (!activePlayers.indexOf({name: player.player.name, login: player.player.login})){
+					roomList[roomName].activePlayers.push({name: player.player.name, login: player.player.login});
+				}
+				console.log(roomList);
 			}
 		});
 	});
