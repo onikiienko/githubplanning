@@ -2,17 +2,19 @@ define('views/startView', [
 		'text!/js/templates/startTemplate.html', 
 		'models/player' , 
 		'models/game', 
-		'models/gitHubHandler',
+		'models/githubHandler',
 		'models/trelloHandler',
+		'models/bitbucketHandler',
 		'views/createOrJoinView',
 		'underscore',
-], function(startTemplate, player, game, github, trello, createOrJoinView, _) {
+], function(startTemplate, player, game, github, trello, bitbucket, createOrJoinView, _) {
 	window.socket = io();
 	window.socket.on('sendCurrentDataAbout', function(data){
 		console.log(data);
 	});
 	var template = _.template(startTemplate);
 	var player = new player;
+	var objectForTemplate;
 	return {
 		el : $('.content'),
 		initialize: function(){
@@ -26,34 +28,30 @@ define('views/startView', [
 			var that = this;
 			var signInBtn = $('.signIn');
 			signInBtn.click(function(){
-				that.singInAndGetData(trello);
+				that.singInAndGetData(bitbucket);
 			});
 		},
 		singInAndGetData: function(provider){
 			provider.signIn()
-			.done(function(api){
+			.then(function(api){
 				player.set('playerAPI', api);
-				window.api = api;
 				return api;
 			})
 			.then(function(api){
 				provider.getRepos(api).done(function(data){
 					player.set('listOfProjects', data);
-					console.log(data);
 				});
 				return api;
 			})
-			// .then(function(api){
-			// 	provider.getOrganizations(api).done(function(data){
-			// 		player.set('listOfOrganizations', data);	
-			// 	})
-			// 	return api;
-			// })
-			// .then(function(api){
-			// 	provider.getUserData(api).done(function(data){
-			// 		player.set('player', data);	
-			// 	})
-			// })
+			.then(function(api){
+				provider.getUserData(api).done(function(data){
+					player.set('player', data);
+					window.player = player;
+					objectForTemplate = provider.prepareObjectForTemplate(player);
+					console.log(objectForTemplate);
+				})
+				return api;
+			})
 		}
 	};
 });

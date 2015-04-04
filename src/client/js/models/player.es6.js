@@ -5,8 +5,7 @@ define('models/player', [
 	var Player = Backbone.Model.extend({
 		defaults: {
 			player : '',
-			listOfProjects: '',  
-			listOfOrganizations: '',
+			listOfProjects: '',
 			playerAPI: ''
 		}
 	});

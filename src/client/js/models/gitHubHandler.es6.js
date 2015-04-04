@@ -1,4 +1,4 @@
-define('models/gitHubHandler', ['underscore'],
+define('models/githubHandler', [],
 	function(){
 		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{
@@ -8,9 +8,6 @@ define('models/gitHubHandler', ['underscore'],
 			},
 			getRepos: function(api){
 				return api.get('/user/repos');
-			},
-			getOrganizations: function(api){
-				return api.get('/user/orgs');
 			},
 			getUserData: function(api){
 				return api.get('/user');
