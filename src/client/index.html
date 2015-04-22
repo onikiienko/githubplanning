@@ -9,6 +9,7 @@
 	<body>
 
 		<div class="content"></div>
+		<div id="example"></div>
 		<script src="utils/require.js"></script>
 		<script>
 			require(["utils/requireConfig"], function(){
@@ -18,7 +19,6 @@
 				require(["views/startView"], function(view){
 					view.initialize();
 				});
-				// require(["js/githubplanning"]);
 				OAuth = require(["oauth"]);
 			});
 		</script>

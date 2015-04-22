@@ -29,7 +29,7 @@ exports.create = function(http){
 	// create first stream for unset user
 	io.on('connection', function(socket){
 		// send number of rooms to show on start page
-		socket.emit('sendCurrentDataAbout', {mumberOfRooms: 100, mumberOfPlayears: 100});
+		socket.emit('sendCurrentDataAbout', {numberOfRooms: 100, mumberOfPlayears: 100});
 		// room - room name, typeOfCards, login - name of a player
 		socket.on('enter room', function(game, player){
 			var roomName = '/' + game.name;

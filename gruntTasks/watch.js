@@ -2,7 +2,7 @@
 
 module.exports = {
 	scripts: {
-		files: ['src/**/*', 'app.js'],
+		files: ['src/**/*', '*.js', 'gruntTasks/*.js'],
 		tasks: ['devbuild']
 	}
 }

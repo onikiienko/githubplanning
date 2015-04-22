@@ -39,6 +39,7 @@
     "grunt-contrib-less": "~1.0.0",
     "grunt-contrib-uglify": "~0.6.0",
     "grunt-contrib-watch": "~0.6.1",
+    "grunt-remove": "^0.1.0",
     "requirejs": "~2.1.16"
   }
 }
