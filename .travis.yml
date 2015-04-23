@@ -6,3 +6,10 @@ node_js:
 before_install: npm install -g grunt-cli
 install: npm install
 before_script: grunt devbuild
+notifications:
+  webhooks:
+    urls:
+      https://webhooks.gitter.im/e/15f028e411998b3570c7
+    on_success: always  # options: [always|never|change] default: always
+    on_failure: always  # options: [always|never|change] default: always
+    on_start: false     # default: false

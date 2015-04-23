@@ -65,7 +65,8 @@ Open  http://127.0.0.1/
 
 Testing
 ==============
-Install mocha
+Start tests
 ```shell 
-npm install -g mocha
+grunt test
 ```
+Tests are running on Travis-CI.
