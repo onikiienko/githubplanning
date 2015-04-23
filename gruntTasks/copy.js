@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
 	clientModels:{
 	    expand: true,
@@ -31,4 +29,4 @@ module.exports = {
 	    src: '*',
 	    dest: 'build/client/images/'
   	}
-}
+};

@@ -1,3 +1,4 @@
+/*jshint globalstrict: true*/
 define('models/bitbucketHandler', ['underscore'],
 	function(_){
 		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
@@ -15,7 +16,7 @@ define('models/bitbucketHandler', ['underscore'],
 				return api.get('/api/1.0/user/');
 			},
 			prepareObjectForTemplate: function(player){
-				var player = player.toJSON();
+				player = player.toJSON();
 				var avatar = player.player.user.avatar;
 				var playerName = player.player.user.display_name;
 				console.log(player.listOfProjects);

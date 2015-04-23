@@ -1,3 +1,4 @@
+/*jshint globalstrict: true*/
 define('models/player', [
 	'underscore',
 	'backbone'

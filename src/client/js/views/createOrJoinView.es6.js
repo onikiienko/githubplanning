@@ -1,4 +1,10 @@
-define('views/createOrJoinView', ['text!/js/templates/createOrJoinTemplate.html', 'backbone'], function(createOrJoinTemplate, Backbone) {
+/*jshint globalstrict: true*/
+define('views/createOrJoinView', [
+	'text!/js/templates/createOrJoinTemplate.html', 
+	'backbone', 
+	'jquery', 
+	'underscore'
+], function(createOrJoinTemplate, Backbone, $, _) {
 	var CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -59,7 +65,7 @@ define('views/createOrJoinView', ['text!/js/templates/createOrJoinTemplate.html'
 			var gameData = window.player.toJSON();
 			var roomName = '/' + this.model.toJSON().name;
 			socket.emit('enter room', playerData, gameData);
-			socket = io(roomName);
+			// socket = io(roomName);
 		}
 	});
 	return CreateOrJoinView;

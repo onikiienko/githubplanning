@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = {
 	development: {
 		options: {
@@ -10,4 +8,4 @@ module.exports = {
 			"build/client/css/mobileStyles.css": "src/client/css/mobileStyles.less"
 		}
 	},
-}
+};

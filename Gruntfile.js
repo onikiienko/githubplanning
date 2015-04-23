@@ -24,7 +24,7 @@ module.exports = function(grunt) {
 
 	// Default task(s).
 	grunt.registerTask('default', ['devbuild', 'mochaTest', 'watch']);
-	grunt.registerTask('devbuild', ['remove', 'concat', 'babel', 'less', 'copy']);
+	grunt.registerTask('devbuild', ['remove', 'babel', 'less', 'copy', 'jshint']);
 	grunt.registerTask('build', ['devbuild', 'uglify']);
 	grunt.registerTask('test', ['mochaTest']);
 };

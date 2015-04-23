@@ -1,19 +1,18 @@
+/*jshint globalstrict: true*/
 define('views/startView', [
 		'text!/js/templates/startTemplate.html', 
 		'models/player' , 
-		'models/game', 
 		'models/githubHandler',
 		'models/trelloHandler',
 		'models/bitbucketHandler',
-		'views/createOrJoinView',
 		'underscore',
-], function(startTemplate, player, game, github, trello, bitbucket, createOrJoinView, _) {
+], function(startTemplate, Player, github, trello, bitbucket, _) {
 	window.socket = io();
 	window.socket.on('sendCurrentDataAbout', function(data){
 		console.log(data);
 	});
 	var template = _.template(startTemplate);
-	var player = new player;
+	var player = new Player();
 	var objectForTemplate;
 	return {
 		el : $('.content'),

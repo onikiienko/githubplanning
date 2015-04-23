@@ -9,7 +9,9 @@ exports.getNumberOfRooms = function(){
 };
 
 exports.incNumberOfRooms = function(){
-	if(!roomsNumber) this.getNumberOfRooms();
+	if(!roomsNumber) {
+		this.getNumberOfRooms()
+	}
 	roomsNumber++;
 	var pkgContent = fs.readFileSync(pkg, 'utf8');
 	pkgContent = JSON.parse(pkgContent);

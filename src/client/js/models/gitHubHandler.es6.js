@@ -1,3 +1,4 @@
+/*jshint globalstrict: true*/
 define('models/githubHandler', [],
 	function(){
 		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';

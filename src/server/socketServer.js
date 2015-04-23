@@ -10,7 +10,7 @@ var serverLists = function(){
 	var dateFirstRoom = new Date();
 	return {
 		setRoom : function(){
-			roomList = [];
+			var roomList = [];
 		},
 		timeDiff : function(){			
 			var dateSecondRoom = new Date();
