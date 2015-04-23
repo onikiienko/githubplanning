@@ -8,10 +8,11 @@ module.exports = function(grunt) {
 		copy: require('./gruntTasks/copy'),
 		watch: require('./gruntTasks/watch'),
 		babel: require('./gruntTasks/babel'),
-		remove: require('./gruntTasks/remove')
+		remove: require('./gruntTasks/remove'),
+		mochaTest: require('./gruntTasks/test')
 	});
 
-	// Load the plugin that provides the "uglify" task.
+	grunt.loadNpmTasks('grunt-mocha-test');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -22,7 +23,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-remove');
 
 	// Default task(s).
-	grunt.registerTask('default', ['devbuild','watch']);
+	grunt.registerTask('default', ['devbuild', 'mochaTest', 'watch']);
 	grunt.registerTask('devbuild', ['remove', 'concat', 'babel', 'less', 'copy']);
 	grunt.registerTask('build', ['devbuild', 'uglify']);
+	grunt.registerTask('test', ['mochaTest']);
 };

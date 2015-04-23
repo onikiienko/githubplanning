@@ -62,3 +62,10 @@ Start process
 sudo node app.js 
 ```
 Open  http://127.0.0.1/
+
+Testing
+==============
+Install mocha
+```shell 
+npm install -g mocha
+```
