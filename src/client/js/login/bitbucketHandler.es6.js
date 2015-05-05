@@ -1,5 +1,5 @@
 /*jshint globalstrict: true*/
-define('models/bitbucketHandler', ['underscore'],
+define('login/bitbucketHandler', ['underscore'],
 	function(_){
 		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		var iplayer = {};

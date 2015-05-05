@@ -24,7 +24,12 @@
       "io"          : false,
       "socket"      : false,
       "OAuth"       : false,
-      "console"       : false
+      "console"     : false,
+      "describe"    : false,
+      "chai"        : false,
+      "it"          : false,
+      "before"      : false,
+      "beforeEach"  : false
     },
     "jquery"        : true,
     "prototypejs"   : false,

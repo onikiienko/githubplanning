@@ -1,12 +1,13 @@
 /*jshint globalstrict: true*/
 define('views/startView', [
-		'text!/js/templates/startTemplate.html', 
+		'text!templates/startTemplate.html', 
 		'models/player' , 
-		'models/githubHandler',
-		'models/trelloHandler',
-		'models/bitbucketHandler',
+		'login/githubHandler',
+		'login/trelloHandler',
+		'login/bitbucketHandler',
 		'underscore',
-], function(startTemplate, Player, github, trello, bitbucket, _) {
+		'https://cdn.socket.io/socket.io-1.3.5.js'
+], function(startTemplate, Player, github, trello, bitbucket, _, io) {
 	window.socket = io();
 	window.socket.on('sendCurrentDataAbout', function(data){
 		console.log(data);

@@ -65,6 +65,10 @@ Open  http://127.0.0.1/
 
 Testing
 ==============
+Install Karma
+```shell 
+npm install -g karma-cli
+```
 Start tests
 ```shell 
 grunt test

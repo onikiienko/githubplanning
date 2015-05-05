@@ -42,6 +42,12 @@
     "grunt-contrib-watch": "~0.6.1",
     "grunt-mocha-test": "^0.12.7",
     "grunt-remove": "^0.1.0",
+    "karma": "^0.12.31",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-mocha": "^0.1.10",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "karma-requirejs": "^0.2.2",
     "mocha": "^2.2.4",
     "requirejs": "~2.1.16"
   }
