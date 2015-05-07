@@ -23,6 +23,7 @@ require.config({
 		oauth: 'utils/oauth.min',
 		text: 'utils/text',
 		isMobile: 'utils/isMobile',
+		socketIO: 'utils/socket.io',
 		fontawesome: 'utils/font/css/font-awesome.min',
 		models: 'js/models',
 		views: 'js/views',

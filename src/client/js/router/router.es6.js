@@ -1,26 +1,38 @@
 /*jshint globalstrict: true*/
 define([
     "backbone",
-    "views/startView"
-], function(Backbone, startView){
-    // var startView = new StartView();
+    "views/startView",
+    "views/createOrJoinView"
+], function(Backbone, StartView, CreateOrJoinView){
     var Router = Backbone.Router.extend({
         routes: {
-            "": "loadMainPage",
-            "admin": "loadAdminPage",
-            "admin/remove/:itemName": "removeItem",
-            "admin/edit/:itemName": "editItem",
-            "admin/new": "newItem",
-            "type/:section/:subsection/:type": "loadTypePage",
-            "manufacture/:parameters": "loadManufacturePage",
+            "login": "loadStartPage",
+            "create_or_join": "loadCreateOrJoinPage",
+            "go_to_room/:roomName" : "loadRoomPage",
+            "*path": "loadStartPage"
         },
-        loadMainPage: function(){
-            startView.initialize();
-            startView.render();
+
+        loadStartPage: function(){
+            this.navigate("#login", {trigger: true});
+            window.startView = new StartView();
         },
-        // loadAdminPage: function(){
-        //     adminView.render();
-        // },
+        loadCreateOrJoinPage: function(){
+            if(typeof window.player !== 'object'){
+                this.navigate("#login", {trigger: true});
+            }
+            // else{
+                // window.createOrJoinView = new CreateOrJoinView();
+            // }
+        },
+        loadRoomPage: function(roomName){
+            console.log(roomName);
+            if(typeof window.player !== 'object'){
+                window.startView = new StartView();
+            }
+            // else{
+                // window.createOrJoinView = new CreateOrJoinView();
+            // }
+        },
         // removeItem: function(itemName){
         //     items.removeItem(itemName);
         // },

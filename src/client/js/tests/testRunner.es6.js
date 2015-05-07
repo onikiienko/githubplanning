@@ -13,16 +13,17 @@ require.config({
   baseUrl: '/base/build/client',
 
   paths: {
-    jquery:     'utils/jquery',
-    underscore: 'utils/underscore',
-    backbone:   'utils/backbone',
-    text:       'utils/text',
-    js:       	'js/',
-    router:  	'js/router',
-    login:  	'js/login',
-    models:  	'js/models',
-    views:  	'js/views',
-    templates:  'js/templates',
+    jquery        : 'utils/jquery',
+    underscore    : 'utils/underscore',
+    backbone      : 'utils/backbone',
+    socketIO      : 'utils/socket.io',
+    text          : 'utils/text',
+    js            : 'js/',
+    router        : 'js/router',
+    login         : 'js/login',
+    models        : 'js/models',
+    views         : 'js/views',
+    templates     : 'js/templates'
   },
 
   // dynamically load all test files

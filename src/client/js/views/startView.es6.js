@@ -5,34 +5,37 @@ define('views/startView', [
 		'login/githubHandler',
 		'login/trelloHandler',
 		'login/bitbucketHandler',
-		'underscore',
-		'https://cdn.socket.io/socket.io-1.3.5.js'
-], function(startTemplate, Player, github, trello, bitbucket, _, io) {
-	window.socket = io();
-	window.socket.on('sendCurrentDataAbout', function(data){
-		console.log(data);
-	});
-	var template = _.template(startTemplate);
-	var player = new Player();
-	var objectForTemplate;
-	return {
-		el : $('.content'),
+		'socketIO',
+		'backbone',
+		'underscore'
+], function(startTemplate, Player, github, trello, bitbucket, io, Backbone, _) {
+	var StartView = Backbone.View.extend({
+		el: '.content',
+		events: {
+			"click .signIn" : "singInAndGetData"
+		},
+		template : _.template(startTemplate),
 		initialize: function(){
+			window.socket = io();
+			window.socket.on('sendCurrentDataAbout', function(data){
+				console.log(data);
+			});
 			this.render();
 			this.createListners();
 		},
 		render: function(){
-			this.el.html(template());
+			$(this.el).html(this.template());
 		},
 		createListners: function(){
 			var that = this;
 			var signInBtn = $('.signIn');
-			signInBtn.click(function(){
-				that.singInAndGetData(bitbucket);
-			});
 		},
-		singInAndGetData: function(provider){
-			provider.signIn()
+		singInAndGetData: function(){
+			window.player = new Player();
+			var player = window.player;
+			var provider = bitbucket;
+			provider
+			.signIn()
 			.then(function(api){
 				player.set('playerAPI', api);
 				return api;
@@ -47,11 +50,19 @@ define('views/startView', [
 				provider.getUserData(api).done(function(data){
 					player.set('player', data);
 					window.player = player;
-					objectForTemplate = provider.prepareObjectForTemplate(player);
-					console.log(objectForTemplate);
 				})
 				return api;
 			})
+			.then(function(){
+				window.createOrJoinDataForTemplate = provider.prepareObjectForTemplate(window.player);
+			})
+			.fail(function (e) {
+		        //handle errors here
+		        console.log(400, 'An error occured');
+		    });
 		}
-	};
+	});
+
+	return StartView;
+
 });

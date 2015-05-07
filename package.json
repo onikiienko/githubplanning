@@ -40,15 +40,20 @@
     "grunt-contrib-less": "~1.0.0",
     "grunt-contrib-uglify": "~0.6.0",
     "grunt-contrib-watch": "~0.6.1",
+    "grunt-karma": "^0.10.1",
     "grunt-mocha-test": "^0.12.7",
     "grunt-remove": "^0.1.0",
     "karma": "^0.12.31",
     "karma-chai": "^0.1.0",
+    "karma-chai-plugins": "^0.5.0",
     "karma-chrome-launcher": "^0.1.8",
     "karma-mocha": "^0.1.10",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-requirejs": "^0.2.2",
+    "karma-sinon-chai": "^0.3.0",
     "mocha": "^2.2.4",
-    "requirejs": "~2.1.16"
+    "requirejs": "~2.1.16",
+    "sinon": "^1.14.1",
+    "sinon-chai": "^2.7.0"
   }
 }

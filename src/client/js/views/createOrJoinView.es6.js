@@ -1,6 +1,6 @@
 /*jshint globalstrict: true*/
 define('views/createOrJoinView', [
-	'text!/js/templates/createOrJoinTemplate.html', 
+	'text!templates/createOrJoinTemplate.html', 
 	'backbone', 
 	'jquery', 
 	'underscore'
@@ -18,7 +18,7 @@ define('views/createOrJoinView', [
 			this.render();
 		},
 		render: function(){
-			$(this.el).html(this.template(window.player.toJSON()));
+			$(this.el).html(this.template(window.createOrJoinDataForTemplate));
 		},
 		createRoom: function(){
 			this.getProjectData();

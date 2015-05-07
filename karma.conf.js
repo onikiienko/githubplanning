@@ -1,11 +1,12 @@
 /*global module*/
+console.log('HI!');
 module.exports = function(config) {
   config.set({
     basePath: '',
 
     // "requirejs" must come before "chai" or Chai will not load properly.
     // Sidenote: Karma loads the listed frameworks backwards.
-    frameworks: ['mocha', 'requirejs', 'chai' ],
+    frameworks: ['mocha', 'requirejs', 'chai'],
 
     // Contrary to what a few stackoverflow and github issue responses
     // suggested, the order of files do not appear to matter at all.
@@ -17,11 +18,6 @@ module.exports = function(config) {
       {pattern: 'build/**/*.map', included: false},
       {pattern: 'build/**/*.js', included: false},
     ],
-
-    // exclude: [
-    //     'app/js/config.js',
-    //     'app/js/main.js'
-    // ],
 
     preprocessors: {},
 
@@ -37,6 +33,6 @@ module.exports = function(config) {
 
     browsers: ['PhantomJS'],
 
-    singleRun: false
+    singleRun: true
   });
 };

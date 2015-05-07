@@ -4,7 +4,6 @@
 		<title>Planning Poker</title>
 		<link rel="stylesheet" href="utils/font-awesome-4.3.0/css/font-awesome.min.css">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="/socket.io/socket.io.js"></script>
 	</head>
 	<body>
 
@@ -16,9 +15,13 @@
 				require(["isMobile"], function(){
 					window.isMobile.loadCss();
 				});
-				require(["views/startView"], function(view){
-					view.initialize();
-				});
+				require(["router/router"], function(AppRouter){
+					app_router = new AppRouter();
+					Backbone.history.start();
+				});				
+				// require(["views/startView"], function(view){
+				// 	view.initialize();
+				// });
 				OAuth = require(["oauth"]);
 			});
 		</script>

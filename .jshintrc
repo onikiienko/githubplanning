@@ -29,7 +29,10 @@
       "chai"        : false,
       "it"          : false,
       "before"      : false,
-      "beforeEach"  : false
+      "after"       : false,
+      "beforeEach"  : false,
+      "afterEach"   : false,
+      "sinon"       : false
     },
     "jquery"        : true,
     "prototypejs"   : false,
