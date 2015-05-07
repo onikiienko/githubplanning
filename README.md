@@ -5,7 +5,7 @@ Application
 =============
 http://githubplanning.com/ (will work after UWC. Sorry)
 ```shell 
-git pull && grunt build && supervisor app.js
+git pull && npm install && grunt build && supervisor app.js
 ```
 
 Developing
