@@ -3,7 +3,7 @@ planningpoker
 
 Application
 =============
-http://githubplanning.com/ (will work after UWC. Sorry)
+http://githubplanning.com/
 ```shell 
 git pull && npm install && grunt build && supervisor app.js
 ```
