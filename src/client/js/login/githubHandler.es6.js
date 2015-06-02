@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 define('models/githubHandler', [],
 	function(){
-		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
+		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{
 			signIn: function(){
 				OAuth.initialize(publicKey);

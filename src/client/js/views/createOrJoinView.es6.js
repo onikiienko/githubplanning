@@ -5,7 +5,7 @@ define('views/createOrJoinView', [
 	'jquery', 
 	'underscore'
 ], function(createOrJoinTemplate, Backbone, $, _) {
-	var CreateOrJoinView = Backbone.View.extend({
+	let CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
 			"click .enterRoomBtn" : "createRoom",
@@ -28,7 +28,7 @@ define('views/createOrJoinView', [
 		},
 		chooseProject: function(target){
 			//pick project and write in input
-			var choosenProject = $(target.target)
+			let choosenProject = $(target.target)
 					.closest('.roomNameListItem')
 					.find('.roomNameListItemHeaderTitle')
 					.html()
@@ -46,9 +46,9 @@ define('views/createOrJoinView', [
 			}
 		},
 		getProjectData: function(){
-			var projectName = $('.roomNameInput').html();
-			var api = window.player.toJSON().playerAPI;
-			var that = this;
+			let projectName = $('.roomNameInput').html();
+			let api = window.player.toJSON().playerAPI;
+			let that = this;
 			//get issues of a project
 			api.get('/repos/' + projectName + '/issues').done(function(data){
 				that.model.set('issues', data);
@@ -61,9 +61,9 @@ define('views/createOrJoinView', [
 			});
 		},
 		socketInit: function(){
-			var playerData = this.model.toJSON();
-			var gameData = window.player.toJSON();
-			var roomName = '/' + this.model.toJSON().name;
+			let playerData = this.model.toJSON();
+			let gameData = window.player.toJSON();
+			let roomName = '/' + this.model.toJSON().name;
 			socket.emit('enter room', playerData, gameData);
 			// socket = io(roomName);
 		}

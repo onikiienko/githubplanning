@@ -1,10 +1,10 @@
 /*jshint globalstrict: true*/
 
-var expect = chai.expect;
+let expect = chai.expect;
 
 define(['router/router', 'backbone'], function(Router, Backbone){
 	
-	var app_router;
+	let app_router = {};
 	
 	describe("Router", function() {
 		

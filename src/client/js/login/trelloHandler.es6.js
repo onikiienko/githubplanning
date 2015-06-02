@@ -1,7 +1,7 @@
 /*jshint globalstrict: true*/
 define('login/trelloHandler', [],
 	function(){
-		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
+		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{
 			//https://trello.com/docs/api/
 			signIn: function(){

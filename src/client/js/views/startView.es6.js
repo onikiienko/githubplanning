@@ -9,7 +9,7 @@ define('views/startView', [
 		'backbone',
 		'underscore'
 ], function(startTemplate, Player, github, trello, bitbucket, io, Backbone, _) {
-	var StartView = Backbone.View.extend({
+	let StartView = Backbone.View.extend({
 		el: '.content',
 		events: {
 			"click .signIn" : "singInAndGetData"
@@ -27,13 +27,13 @@ define('views/startView', [
 			$(this.el).html(this.template());
 		},
 		createListners: function(){
-			var that = this;
-			var signInBtn = $('.signIn');
+			let that = this;
+			let signInBtn = $('.signIn');
 		},
 		singInAndGetData: function(){
 			window.player = new Player();
-			var player = window.player;
-			var provider = bitbucket;
+			let player = window.player;
+			let provider = bitbucket;
 			provider
 			.signIn()
 			.then(function(api){

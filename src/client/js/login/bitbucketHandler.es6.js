@@ -1,8 +1,8 @@
 /*jshint globalstrict: true*/
 define('login/bitbucketHandler', ['underscore'],
 	function(_){
-		var publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
-		var iplayer = {};
+		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
+		let iplayer = {};
 		return{
 			//http://restbrowser.bitbucket.org/
 			signIn: function(){
@@ -18,11 +18,11 @@ define('login/bitbucketHandler', ['underscore'],
 			prepareObjectForTemplate: function(player){
 				player = window.player.toJSON();
 				console.log(player);
-				var avatar = player.player.user.avatar;
-				var playerName = player.player.user.display_name;
-				var firstProjectName = _.first(player.listOfProjects).owner + '/' + _.first(player.listOfProjects).name;
-				var listProjects =  (function(player){
-					var listProjects = {};
+				let avatar = player.player.user.avatar;
+				let playerName = player.player.user.display_name;
+				let firstProjectName = _.first(player.listOfProjects).owner + '/' + _.first(player.listOfProjects).name;
+				let listProjects =  (function(player){
+					let listProjects = {};
 					_.each(player.listOfProjects, function(project){
 						listProjects.name = project.owner + '/' + project.name;
 						listProjects.description = project.description;

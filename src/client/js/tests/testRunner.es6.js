@@ -1,6 +1,6 @@
 /*jshint globalstrict: true*/
-var allTestFiles = [];
-for (var file in window.__karma__.files) {
+let allTestFiles = [];
+for (let file in window.__karma__.files) {
   if (window.__karma__.files.hasOwnProperty(file)) {
     if (/Test\.js$/.test(file)) {
       allTestFiles.push(file);
