@@ -1,6 +1,6 @@
 planningpoker
 =============
-
+[![Build Status](https://travis-ci.org/onikiienko/githubplanning.svg?branch=master)](https://travis-ci.org/onikiienko/githubplanning)
 Application
 =============
 http://githubplanning.com/
