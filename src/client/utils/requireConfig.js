@@ -20,7 +20,7 @@ require.config({
 		jquery: 'utils/jquery',
 		underscore: 'utils/underscore',
 		backbone: 'utils/backbone',
-		oauth: 'utils/oauth.min',
+		oauth: 'utils/oauth',
 		text: 'utils/text',
 		isMobile: 'utils/isMobile',
 		socketIO: 'utils/socket.io',

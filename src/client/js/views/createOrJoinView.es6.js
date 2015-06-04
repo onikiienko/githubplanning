@@ -2,9 +2,10 @@
 define('views/createOrJoinView', [
 	'text!templates/createOrJoinTemplate.html', 
 	'backbone', 
-	'jquery', 
+	'jquery',
+	'socketIO',
 	'underscore'
-], function(createOrJoinTemplate, Backbone, $, _) {
+], function(createOrJoinTemplate, Backbone, $, io, _) {
 	let CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -15,10 +16,11 @@ define('views/createOrJoinView', [
 		},
 		template: _.template(createOrJoinTemplate),
 		initialize: function(){
-			this.render();
+    		_.bindAll(this, 'render');
+    		this.model.bind('change:listOfProjects', this.render);
 		},
 		render: function(){
-			$(this.el).html(this.template(window.createOrJoinDataForTemplate));
+			$(this.el).html(this.template(this.model.toJSON()));
 		},
 		createRoom: function(){
 			this.getProjectData();
@@ -50,22 +52,32 @@ define('views/createOrJoinView', [
 			let api = window.player.toJSON().playerAPI;
 			let that = this;
 			//get issues of a project
-			api.get('/repos/' + projectName + '/issues').done(function(data){
-				that.model.set('issues', data);
-				//get collaborators of a project
-				api.get('/repos/' + projectName + '/collaborators').done(function(data){
-					that.model.set('collaborators', data);
-					that.socketInit();
-					window.game = that.model;
+			api.get('/repos/' + projectName + '/issues')
+				.then(function(data){
+					console.log(data);
+					that.model.set('issues', data);
+					return api;
+				})
+				.then(function(api){
+					api.get('/repos/' + projectName + '/collaborators').done(function(data){
+						console.log(data);
+						that.model.set('collaborators', data);
+						that.socketInit();
+					});
 				});
-			});
 		},
 		socketInit: function(){
-			let playerData = this.model.toJSON();
+			let playerData = this.model.toJSON().player;
 			let gameData = window.player.toJSON();
-			let roomName = '/' + this.model.toJSON().name;
-			socket.emit('enter room', playerData, gameData);
-			// socket = io(roomName);
+			let roomName = '/' + $('.roomNameInput').html();
+			console.log(playerData, gameData, roomName);
+			window.socket.emit('enter room', playerData, gameData);
+			window.socket = io(roomName);
+			window.socket.on('connectionReady', function(currency, table, gamersList){
+				console.log(currency);
+				console.log(table);
+				console.log(gamersList);
+			});
 		}
 	});
 	return CreateOrJoinView;

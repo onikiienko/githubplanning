@@ -1,25 +1,25 @@
 <div class="headerBar">
 	<a href="#">SCRUM <p>P<i class="fa fa-clock-o"></i>KER</p></a>
 	<div class="playerData">
-		<img src=<%= player.avatar_url %> class="avatar">
+		<img src="<%= player.avatar %>" class="avatar">
 		<%= player.name %>
 	</div>
 </div>
 <div class="createRoomForm">
 	<h1>Get Started</h1>
 	<div class="roomNameInput">
-	    <%=  _.first(listOfProjects).full_name %>
+	    <%=  _.first(listOfProjects).owner %>/<%=  _.first(listOfProjects).name %>
 	</div>
 	<div class="roomNameList">
 		<% _.each(listOfProjects, function(project) { %> 
 	    	<div class="roomNameListItem">
 		    	<div class="roomNameListItemHeader">
 		    		<span class="roomNameListItemHeaderTitle">
-		    			<%= project.full_name %>
+		    			<%= project.owner %>/<%= project.name %>
 		    		</span>
 		    		<span class="roomNameListItemHeaderIssuesCounter">
-		    			<i class="fa fa-tasks"></i> <%= project.open_issues %> 
-		    			<% if (project.open_issues !== 1) { %>
+		    			<i class="fa fa-tasks"></i> <%= project.numberOfOpenIssues %> 
+		    			<% if (project.numberOfOpenIssues !== 1) { %>
 		    				Tasks
 		    			<% }else{ %>
 		    				Task

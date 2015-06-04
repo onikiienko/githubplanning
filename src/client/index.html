@@ -3,18 +3,16 @@
 	<head>
 		<title>Planning Poker</title>
 		<link rel="stylesheet" href="utils/font-awesome-4.3.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/styles/styles.css">
+		<script src="utils/require.js"></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 
 		<div class="content"></div>
 		<div id="example"></div>
-		<script src="utils/require.js"></script>
 		<script>
 			require(["utils/requireConfig"], function(){
-				require(["isMobile"], function(){
-					window.isMobile.loadCss();
-				});
 				require(["router/router"], function(AppRouter){
 					app_router = new AppRouter();
 					Backbone.history.start();

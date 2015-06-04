@@ -3,12 +3,10 @@ define('views/startView', [
 		'text!templates/startTemplate.html', 
 		'models/player' , 
 		'login/githubHandler',
-		'login/trelloHandler',
-		'login/bitbucketHandler',
 		'socketIO',
 		'backbone',
 		'underscore'
-], function(startTemplate, Player, github, trello, bitbucket, io, Backbone, _) {
+], function(startTemplate, Player, github, io, Backbone, _) {
 	let StartView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -20,46 +18,15 @@ define('views/startView', [
 			window.socket.on('sendCurrentDataAbout', function(data){
 				console.log(data);
 			});
-			this.render();
-			this.createListners();
 		},
 		render: function(){
 			$(this.el).html(this.template());
 		},
-		createListners: function(){
-			let that = this;
-			let signInBtn = $('.signIn');
-		},
 		singInAndGetData: function(){
 			window.player = new Player();
-			let player = window.player;
-			let provider = bitbucket;
-			provider
-			.signIn()
-			.then(function(api){
-				player.set('playerAPI', api);
-				return api;
-			})
-			.then(function(api){
-				provider.getRepos(api).done(function(data){
-					player.set('listOfProjects', data);
-				});
-				return api;
-			})
-			.then(function(api){
-				provider.getUserData(api).done(function(data){
-					player.set('player', data);
-					window.player = player;
-				})
-				return api;
-			})
-			.then(function(){
-				window.createOrJoinDataForTemplate = provider.prepareObjectForTemplate(window.player);
-			})
-			.fail(function (e) {
-		        //handle errors here
-		        console.log(400, 'An error occured');
-		    });
+			window.provider = github;
+			window.provider.signInAndFillData(window.player);
+			window.app_router.navigate('#create_or_join', {trigger: true});
 		}
 	});
 

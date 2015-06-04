@@ -6,7 +6,7 @@ module.exports = function(config) {
 
     // "requirejs" must come before "chai" or Chai will not load properly.
     // Sidenote: Karma loads the listed frameworks backwards.
-    frameworks: ['mocha', 'requirejs', 'chai'],
+    frameworks: ['mocha', 'requirejs', 'chai', 'sinon'],
 
     // Contrary to what a few stackoverflow and github issue responses
     // suggested, the order of files do not appear to matter at all.

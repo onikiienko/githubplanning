@@ -5,16 +5,22 @@ let expect = chai.expect;
 define(['router/router', 'backbone'], function(Router, Backbone){
 	
 	let app_router = {};
-	
+
 	describe("Router", function() {
 		
+	var time2013_10_01;
+ 
+    time2013_10_01 = (new Date(2013, 10-1, 1)).getTime();
+	
 		before(function(){
     		app_router = new Router();
     		Backbone.history.start();
+        this.fakeTimer = new sinon.useFakeTimers(time2013_10_01);
 		});
 		after(function(){
 			app_router = null;
 			Backbone.history.stop();
+			this.fakeTimer.restore();
 		});
 	  	
 	  	describe("should redirect to", function() {
@@ -43,14 +49,18 @@ define(['router/router', 'backbone'], function(Router, Backbone){
 			    });
 
 			    it("if customer enter by link but not logged in", function() {
+					window.player = undefined;
+		  			localStorage.setItem("player", undefined);
 					app_router.navigate("#go_to_room/testRoomName", {trigger: true});
-		  			localStorage.setItem("player", null);
+			    	
+					// setTimeout(console.log(Backbone.history.getFragment()), 1000)
 			    	expect(Backbone.history.getFragment()).to.equal("login");
 			    });
 
 			    it("if go to create page but not logged in", function() {
+					window.player = undefined;
+			    	localStorage.setItem("player", undefined);
 					app_router.navigate("#create_or_join", {trigger: true});
-			    	localStorage.setItem("player", null);
 			    	expect(Backbone.history.getFragment()).to.equal("login");
 			    });
 
@@ -60,6 +70,8 @@ define(['router/router', 'backbone'], function(Router, Backbone){
 
 			    it("logged in", function() {
 					app_router.navigate("#create_or_join", {trigger: true});
+					window.player = "login";
+			    	localStorage.setItem("player", "login");
 			    	expect(Backbone.history.getFragment()).to.equal("create_or_join");
 			    });
 

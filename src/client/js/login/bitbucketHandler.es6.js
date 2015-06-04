@@ -15,6 +15,10 @@ define('login/bitbucketHandler', ['underscore'],
 			getUserData: function(api){
 				return api.get('/api/1.0/user/');
 			},
+			getIssues: function(api, project){
+				console.log('/1.0/repositories/' + project.owner + '/' + project.name);
+				return api.get('/api/1.0/repositories/' + project.owner + '/' + project.name);
+			},
 			prepareObjectForTemplate: function(player){
 				player = window.player.toJSON();
 				console.log(player);
