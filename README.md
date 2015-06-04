@@ -1,6 +1,7 @@
 planningpoker
 =============
 [![Build Status](https://travis-ci.org/onikiienko/githubplanning.svg?branch=master)](https://travis-ci.org/onikiienko/githubplanning)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 Application
 =============
 http://githubplanning.com/
