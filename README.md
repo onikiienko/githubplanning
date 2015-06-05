@@ -35,7 +35,7 @@ sudo node app.js
 ```
 Or install pm2. he works even better
 ```shell 
-sudo pm2 start app.js
+sudo npm install pm2 -g
 ```
 Then run
 ```shell 
