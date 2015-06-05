@@ -6,7 +6,7 @@ Application
 =============
 http://githubplanning.com/
 ```shell 
-git pull && npm install && grunt build && supervisor app.js
+git pull && npm install && grunt build && pm2 start app.js
 ```
 
 Developing
@@ -33,13 +33,13 @@ Start process
 ```shell 
 sudo node app.js 
 ```
-Or install supervisor. he works even better
+Or install pm2. he works even better
 ```shell 
-sudo npm install supervisor -g
+sudo pm2 start app.js
 ```
 Then run
 ```shell 
-sudo supervisor app.js
+sudo pm2 start app.js
 ```
 Open http://127.0.0.1/
 
