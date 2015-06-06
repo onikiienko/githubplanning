@@ -78,6 +78,7 @@ define('views/createOrJoinView', [
 				console.log(table);
 				console.log(gamersList);
 			});
+			window.app_router.navigate('#go_to_room/:roomName', {trigger: true});
 		}
 	});
 	return CreateOrJoinView;

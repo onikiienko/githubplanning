@@ -2,8 +2,9 @@
 define([
     "backbone",
     "views/startView",
-    "views/createOrJoinView"
-], function(Backbone, StartView, CreateOrJoinView){
+    "views/createOrJoinView",
+    "views/roomView"
+], function(Backbone, StartView, CreateOrJoinView, RoomView){
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
@@ -29,6 +30,9 @@ define([
         loadRoomPage: function(roomName){
             if(!window.player){
                 window.startView = new StartView();
+            }else{
+                window.roomView = (window.roomView) ? window.roomView : new RoomView({model: window.player});
+                window.roomView.render();
             }
         },
     });
