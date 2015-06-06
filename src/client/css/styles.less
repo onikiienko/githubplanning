@@ -49,10 +49,14 @@ body{
     float: right;
     .playerName{
       display: inline-block;
+      position: relative;
+      top: -20px;
     }
     .avatar{
       border-radius: 50%;
       width: 50px;
+      border: 3px solid white;
+      box-sizing: border-box;
     }
   }
 }
@@ -258,14 +262,69 @@ body{
         }
       }
       .tabPanelBody{
-        border: 1px solid rgb(126, 130, 135);
         .tabPanelBodyItem{
           background: rgb(234, 234, 234);
           display: none;
+          input{
+            width: 90%;
+            margin: 5%;
+            box-sizing: border-box;
+          }
+          .send{
+            float: right;
+            margin-right: 5%;
+          }
         }
         .active{
           background: white;
           display: block;
+        }
+        .post{
+          .postHeader{
+            padding: 10px 10px 10px 0;
+            .postHeaderAvatar{
+              border-radius: 50%;
+              width: 40px;
+              border: 3px solid white;
+              box-sizing: border-box;
+            }
+            .postHeaderPlayerName{
+              display: inline-block;
+              position: relative;
+              top: -15px;
+            }
+            .postHeaderDate{
+              display: inline-block;
+              float: right;
+              position: relative;
+              top: 10px;
+            }
+          }
+          .postBody{
+            padding: 0 20px;
+            font-weight: 300;
+          }
+        }
+        .issue{
+          .issueHeader{
+            padding: 10px 10px 10px 0;
+            .issueHeaderTitle{
+              display: inline-block;
+              position: relative;
+              top: -15px;
+              color: rgb(125, 119, 178);
+            }
+            .issueHeaderAuthor{
+              display: inline-block;
+              float: right;
+              position: relative;
+              top: 10px;
+            }
+          }
+          .issueBody{
+            padding: 0 20px;
+            font-weight: 300;
+          }
         }
       }
     }
@@ -278,6 +337,9 @@ body{
     width: -webkit-calc(~"100% - "@rightSideWidth);
     width: -o-calc(~"100% - "@rightSideWidth);
     .players{
+      background: rgb(234, 234, 234);
+      text-align: center;
+      padding: 10px;
       .playerData{
         margin-left: 5%;
         display: inline-block;
@@ -285,6 +347,41 @@ body{
         .avatar{
           border-radius: 50%;
           width: 50px;
+          border: 3px solid white;
+          box-sizing: border-box;
+        }
+      }
+    }
+    .tableDesk{
+      background: rgb(242, 242, 242);
+      background-color: rgb(242, 242, 242);
+    }
+    .cardsSet{
+      background: #eaeaea;
+      background-color: #eaeaea;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      .card{
+        background: white;
+        width: 7vw;
+        height: 9vw;
+        display: inline-block;
+        border-radius: 10px;
+        margin-left: 15px;
+        cursor: pointer;
+        box-shadow: 0px 2px 2px #888888;
+        margin-top: 15px;
+        &:hover{
+          background: rgba(255, 255, 255, 0.62);
+        }
+        span {
+          font-size: 4vw;
+        }
+        i {
+          font-size: 3vw;
+          display: block;
         }
       }
     }

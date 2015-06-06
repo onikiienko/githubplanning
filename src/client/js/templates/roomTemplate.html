@@ -19,8 +19,36 @@
 			</div>
 			<div class="tabPanelBody">
 				<div class="tabPanelBodyItem active" bind="conversation">
+					<% _.each(conversation, function(post) { %> 
+						<div class="post">
+							<div class="postHeader">
+								<img src="<%= post.avatar %>" class="postHeaderAvatar">
+								<div class="postHeaderPlayerName"><%= post.name %></div>
+								<div class="postHeaderDate">
+									<%= new Date(post.date).toTimeString().split(' ')[0] %>
+								</div>
+							</div>
+							<div class="postBody">
+								<%= post.body %>
+							</div>
+						</div>
+					<% }); %>
+					<textarea rows="4" cols="50"></textarea>
+					<div class="sendBtn btnPurple">Send</div>
 				</div>
 				<div class="tabPanelBodyItem" bind="tasks">
+					<% _.each(issues, function(issue) { %> 
+						<div class="issue">
+							<div class="issueHeader">
+								<div class="issueHeaderTitle"><%= issue.title %></div>
+								<div class="issueHeaderAuthor">Created by: <%= issue.creator.login %></div>
+							</div>
+							<div class="issueBody">
+								<%= issue.body %>
+							</div>
+						</div>
+					<% }); %>
+					<div class="sendBtn btnPurple">Send</div>
 				</div>
 			</div>
 		</div>
@@ -37,6 +65,12 @@
 		<div class="tableDesk">
 		</div>
 		<div class="cardsSet">
+			<% _.map(cardsSet, function(number, key) { %> 
+				<div class="card" data="<%= number %>">
+					<span><%= key %></span>
+					<i class="fa fa-clock-o"></i>
+				</div>
+			<% }); %>
 		</div>
 	</div>
 </div>
