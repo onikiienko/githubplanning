@@ -10,7 +10,7 @@ define([
             "#": "loadStartPage",
             "login": "loadStartPage",
             "create_or_join": "loadCreateOrJoinPage",
-            "go_to_room/:roomName" : "loadRoomPage",
+            "room/:roomName" : "loadRoomPage",
             "*path": "loadStartPage"
         },
 
@@ -29,9 +29,9 @@ define([
         },
         loadRoomPage: function(roomName){
             if(!window.player){
-                window.startView = new StartView();
+                this.navigate("#login", {trigger: true});
             }else{
-                window.roomView = (window.roomView) ? window.roomView : new RoomView({model: window.player});
+                window.roomView = (window.roomView) ? window.roomView : new RoomView({model: window.game});
                 window.roomView.render();
             }
         },

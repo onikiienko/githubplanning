@@ -37,7 +37,7 @@ body{
     text-decoration: none;
   }
   .projectName{
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 300;
     display: inline-block;
     margin: 0 30px;
@@ -57,7 +57,7 @@ body{
   }
 }
 
-.btn{
+.btnPurple{
   cursor: pointer;
   position: relative;
   display: inline-block;
@@ -71,8 +71,8 @@ body{
   }
   i{
     position: absolute;
-    top: 3px;
-    left: 4px;
+    top: 5px;
+    left: 8px;
   }
 }
 
@@ -89,7 +89,7 @@ body{
   width: 40%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 3vw;
+  margin-top: 8vw;
   margin-bottom: 3vw;
   font-weight: 300;
   opacity: 0.7;
@@ -102,17 +102,18 @@ body{
   margin-bottom: 3vw;
   i{
     position: relative;
-    left: -50px;
-    top: 20px;
+    left: -36px;
+    top: 25px;
     font-size: 1.5em;
+    color: #7d77b2;
   }
   .landingHeadAd{
     font-size: 1.5em;
     margin-bottom: 10px;
   }
   .landingItem{
-    padding-left: 40px;
-    width: 44%;
+    padding-left: 60px;
+    width: 40%;
     display: inline-block;
     span{
       font-weight: 300;
@@ -144,7 +145,7 @@ body{
   border-radius: 30px;
   padding: 10px;
   width: 100%;
-  color: rgb(52, 92, 98);
+  color: rgb(255, 255, 255);
 }
 .roomNameList{
   display: none;
@@ -225,43 +226,41 @@ body{
 
 /*create room view END*/
 
-.cardToChoose, .flipper{
-  width: 50px;
-  border: 1px solid;
-  border-radius: 8px;
-  margin-right: 16px;
-  float: left;
-  line-height: 50px;
-}
+@rightSideWidth: 400px;
 
-.leftCol{
-  position: absolute;
-  height: 100%;
-  width: 75%;
-  float: left;
-  border-right: 1px solid;
-  .deckView{
-    margin-top: 45px;
-    height: 50%;
-  }
-  .table{
-    border-top: 1px solid;
-    height: 45%;
-  }
-}
 
-.rightCol{
-  position: absolute;
-  height: 100%;
-  margin-left: 75%;
-  float: right;
-  width: 25%;
-  .infoView{
-    margin-top: 45px;
-    height: 50%;
+/* roomView START */
+.table{  
+  .rightPartOfTable{
+    width: @rightSideWidth;
+    color: #7e8287;
+    float: right;
+    .tabPanel{
+      .navBar{
+        .navBarItem{
+          background: rgb(234, 234, 234);
+        }
+        .active{
+          background: white;
+        }
+      }
+      .tabPanelBody{
+        .tabPanelBodyItem{
+          background: white;
+        }
+        .active{
+          background: rgb(234, 234, 234);
+        }
+      }
+    }
   }
-  .chatView{
-    border-top: 1px solid;
-    height: 45%;
+  .leftPartOfTable{
+    color: #7e8287;
+    float: left;
+    width: calc(~"100% - "@rightSideWidth);
+    width: -moz-calc(~"100% - "@rightSideWidth);
+    width: -webkit-calc(~"100% - "@rightSideWidth);
+    width: -o-calc(~"100% - "@rightSideWidth);
   }
 }
+/* roomView END */

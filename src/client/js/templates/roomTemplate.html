@@ -1,44 +1,27 @@
 <div class="headerBar">
-	<a href="#">SCRUM <p>P<i class="fa fa-clock-o"></i>KER</p></a>
+	<a href="#">
+		<div class="logoSquare">
+			<i class="fa fa-clock-o fa-2x"></i>
+		</div>
+	</a>
+	<div class="projectName"><%= nameOfProject %></div>
 	<div class="playerData">
 		<img src="<%= player.avatar %>" class="avatar">
-		<%= player.name %>
+		<div class="playerName"><%= player.name %></div>
 	</div>
 </div>
-<div class="createRoomForm">
-	<h1>Get Started</h1>
-	<div class="roomNameInput">
-	    <%=  _.first(listOfProjects).owner %>/<%=  _.first(listOfProjects).name %>
+<div class="table">
+	<div class="rightPartOfTable">
+		<div class="tabPanel">
+			<div class="navBar">
+				<div class="navBarItem active" bind="conversation">CONVERSATION</div>
+				<div class="navBarItem" bind="tasks">TASKS</div>
+			</div>
+			<div class="tabPanelBody">
+				<div class="tabPanelBodyItem active" bind="conversation">1</div>
+				<div class="tabPanelBodyItem" bind="tasks">2</div>
+			</div>
+		</div>
 	</div>
-	<div class="roomNameList">
-		<% _.each(listOfProjects, function(project) { %> 
-	    	<div class="roomNameListItem">
-		    	<div class="roomNameListItemHeader">
-		    		<span class="roomNameListItemHeaderTitle">
-		    			<%= project.owner %>/<%= project.name %>
-		    		</span>
-		    		<span class="roomNameListItemHeaderIssuesCounter">
-		    			<i class="fa fa-tasks"></i> <%= project.numberOfOpenIssues %> 
-		    			<% if (project.numberOfOpenIssues !== 1) { %>
-		    				Tasks
-		    			<% }else{ %>
-		    				Task
-		    			<% } %>
-		    		</span>
-		    	</div>
-		    	<div class="roomNameListItemBody">
-		    		<%= project.description %>
-		    	</div>
-	    	</div>
-		<% }); %>
-	</div>
-	<div class="currencyType">
-			<div class="radioBtn checked" data="Standard"></div>
-			Standard
-			<div class="radioBtn" data="T-shirt"></div>
-			T-shirt
-			<div class="radioBtn" data="Fibonacci"></div>
-			Fibonacci
-	</div>
-	<div class="enterRoomBtn btn">Enter room</div>
+	<div class="leftPartOfTable">b</div>
 </div>

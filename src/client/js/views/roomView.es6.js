@@ -1,32 +1,27 @@
 /*jshint globalstrict: true*/
 define('views/roomView', [
-		'text!templates/startTemplate.html', 
+		'text!templates/roomTemplate.html', 
 		'models/player' , 
 		'login/githubHandler',
-		'socketIO',
 		'backbone',
 		'underscore'
-], function(startTemplate, Player, github, io, Backbone, _) {
+], function(roomTemplate, Player, github, Backbone, _) {
 	let RoomView = Backbone.View.extend({
 		el: '.content',
 		events: {
-			"click .signIn" : "singInAndGetData"
+			// "click .signIn" : "singInAndGetData"
 		},
-		template : _.template(startTemplate),
+		template : _.template(roomTemplate),
 		initialize: function(){
-			window.socket = io();
-			window.socket.on('sendCurrentDataAbout', function(data){
-				console.log(data);
-			});
+			_.bindAll(this, 'render');
+    		this.model.bind('change', this.render);
 		},
 		render: function(){
-			$(this.el).html(this.template());
-		},
-		singInAndGetData: function(){
-			window.player = new Player();
-			window.provider = github;
-			window.provider.signInAndFillData(window.player);
-			window.app_router.navigate('#create_or_join', {trigger: true});
+			try{
+				$(this.el).html(this.template(this.model.toJSON()));
+			}catch(e){
+				console.log(e);
+			}
 		}
 	});
 

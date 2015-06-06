@@ -1,11 +1,12 @@
 /*jshint globalstrict: true*/
 define('views/createOrJoinView', [
 	'text!templates/createOrJoinTemplate.html', 
+	'models/game',
 	'backbone', 
 	'jquery',
 	'socketIO',
 	'underscore'
-], function(createOrJoinTemplate, Backbone, $, io, _) {
+], function(createOrJoinTemplate, Game, Backbone, $, io, _) {
 	let CreateOrJoinView = Backbone.View.extend({
 		el: '.content',
 		events: {
@@ -17,13 +18,21 @@ define('views/createOrJoinView', [
 		template: _.template(createOrJoinTemplate),
 		initialize: function(){
     		_.bindAll(this, 'render');
-    		this.model.bind('change:listOfProjects', this.render);
+    		this.model.bind('change', this.render);
 		},
 		render: function(){
-			$(this.el).html(this.template(this.model.toJSON()));
+			try{
+				$(this.el).html(this.template(this.model.toJSON()));
+			}catch(e){
+				console.log(e);
+			}
 		},
 		createRoom: function(){
+			window.game = new Game();
 			this.getProjectData();
+			let roomName = $.trim($('.roomNameInput').html()).replace('/', '');
+			let roomUrl = '#room/' + roomName;
+			window.app_router.navigate(roomUrl, {trigger: true});
 		},
 		openRoomNameList: function(){
 			$('.roomNameList').show();
@@ -36,7 +45,6 @@ define('views/createOrJoinView', [
 					.html()
 					.replace(/\s+/g, '');
 			$('.roomNameInput').html(choosenProject);
-			this.model.set('name', choosenProject);
 			$('.roomNameList').hide();
 		},
 		makeRadioChecked: function(target){
@@ -48,38 +56,29 @@ define('views/createOrJoinView', [
 			}
 		},
 		getProjectData: function(){
-			let projectName = $('.roomNameInput').html();
+			let project = $.trim($('.roomNameInput').html());
 			let api = window.player.toJSON().playerAPI;
-			let that = this;
+			
+			window.game.set('nameOfProject', project);
+			window.game.set('player', window.player.toJSON().player);
 			//get issues of a project
-			api.get('/repos/' + projectName + '/issues')
-				.then(function(data){
-					console.log(data);
-					that.model.set('issues', data);
-					return api;
-				})
-				.then(function(api){
-					api.get('/repos/' + projectName + '/collaborators').done(function(data){
-						console.log(data);
-						that.model.set('collaborators', data);
-						that.socketInit();
-					});
-				});
+			window.provider.getIssues(api, project, window.game);
+			window.provider.getCollaborators(api, project, window.game);
 		},
-		socketInit: function(){
-			let playerData = this.model.toJSON().player;
-			let gameData = window.player.toJSON();
-			let roomName = '/' + $('.roomNameInput').html();
-			console.log(playerData, gameData, roomName);
-			window.socket.emit('enter room', playerData, gameData);
-			window.socket = io(roomName);
-			window.socket.on('connectionReady', function(currency, table, gamersList){
-				console.log(currency);
-				console.log(table);
-				console.log(gamersList);
-			});
-			window.app_router.navigate('#go_to_room/:roomName', {trigger: true});
-		}
+		// socketInit: function(){
+			// let playerData = this.model.toJSON().player;
+			// let gameData = window.player.toJSON();
+			// let roomName = '/' + $('.roomNameInput').html();
+			// console.log(playerData, gameData, roomName);
+			// window.socket.emit('enter room', playerData, gameData);
+			// window.socket = io(roomName);
+			// window.socket.on('connectionReady', function(currency, table, gamersList){
+			// 	console.log(currency);
+			// 	console.log(table);
+			// 	console.log(gamersList);
+			// });
+			// window.app_router.navigate('#go_to_room/:roomName', {trigger: true});
+		// }
 	});
 	return CreateOrJoinView;
 });

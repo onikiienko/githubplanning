@@ -8,14 +8,14 @@ define('login/githubHandler', ['underscore'],
 				let that = this;
 				let projectList = [];
 				let user = {};
+				let playerAPI = {};
 				// let player = window.player;
-				that.signIn()
+				this.signIn()
 				.then(function(api){
 					player.set('playerAPI', api);
-					return api;
-				})
-				.then(function(api){
-					that.getRepos(api)
+					playerAPI = api;
+				}).then(function(){					
+					that.getRepos(playerAPI)
 					.then(function(projects){
 						_.each(projects, function(project){
 							projectList.push({
@@ -26,11 +26,9 @@ define('login/githubHandler', ['underscore'],
 							});
 						});
 						player.set('listOfProjects', projectList);
-					})
-					return api;
-				})
-				.then(function(api){
-					that.getUserData(api)
+					});
+
+					that.getUserData(playerAPI)
 					.then(function(data){
 						user = {
 							login: data.login,
@@ -38,13 +36,9 @@ define('login/githubHandler', ['underscore'],
 							avatar: data.avatar_url
 						};
 						player.set('player', user);
-					})
-					return api;
+					});
 				})
-				.fail(function (e) {
-			        //handle errors here
-			        console.log(400, 'An error occured', e);
-			    });
+				
 			},
 			signIn: function(){
 				OAuth.initialize(publicKey);
@@ -56,11 +50,19 @@ define('login/githubHandler', ['underscore'],
 			getUserData: function(api){
 				return api.get('/user');
 			},
-			getIssues: function(api, project){
-				return api.get('/repos/' + project.owner + '/' + project.name + '/issues');
+			getIssues: function(api, project, model){
+				api
+				.get('/repos/' + project + '/issues')
+				.then(function(data){
+					model.set('issues', data);
+				});
 			},
-			getCollaborators: function(api, project){
-				return api.get('/repos/' + project.owner + '/' + project.name + '/collaborators');
+			getCollaborators: function(api, project, model){
+				api
+				.get('/repos/' + project + '/collaborators')
+				.then(function(data){
+					model.set('collaborators', data);
+				});
 			}
 		}
 	}
