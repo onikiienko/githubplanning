@@ -18,10 +18,25 @@
 				<div class="navBarItem" bind="tasks">TASKS</div>
 			</div>
 			<div class="tabPanelBody">
-				<div class="tabPanelBodyItem active" bind="conversation">1</div>
-				<div class="tabPanelBodyItem" bind="tasks">2</div>
+				<div class="tabPanelBodyItem active" bind="conversation">
+				</div>
+				<div class="tabPanelBodyItem" bind="tasks">
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="leftPartOfTable">b</div>
+	<div class="leftPartOfTable">
+		<div class="players">
+			<% _.each(collaborators, function(collaborator) { %> 
+				<div class="playerData">
+					<img src="<%= collaborator.avatar %>" class="avatar">
+					<div class="playerName"><%= collaborator.login %></div>
+				</div>
+			<% }); %>
+		</div>
+		<div class="tableDesk">
+		</div>
+		<div class="cardsSet">
+		</div>
+	</div>
 </div>

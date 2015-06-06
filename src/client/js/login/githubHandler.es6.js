@@ -9,7 +9,7 @@ define('login/githubHandler', ['underscore'],
 				let projectList = [];
 				let user = {};
 				let playerAPI = {};
-				// let player = window.player;
+				
 				this.signIn()
 				.then(function(api){
 					player.set('playerAPI', api);
@@ -54,14 +54,33 @@ define('login/githubHandler', ['underscore'],
 				api
 				.get('/repos/' + project + '/issues')
 				.then(function(data){
-					model.set('issues', data);
+					var issues = [];
+					_.each(data, function(issue){
+						issues.push({
+							title: issue.title,
+							body: issue.body,
+							date: issue.created_at,
+							creator: {
+								login: issue.user.login,
+								avatar: issue.user.avatar_url
+							}
+						});
+					});
+					model.set('issues', issues);
 				});
 			},
 			getCollaborators: function(api, project, model){
+				let collaborators = [];
 				api
 				.get('/repos/' + project + '/collaborators')
 				.then(function(data){
-					model.set('collaborators', data);
+					_.each(data, function(collaborator){
+						collaborators.push({
+							login: collaborator.login,
+							avatar: collaborator.avatar_url
+						});
+					});
+					model.set('collaborators', collaborators);
 				});
 			}
 		}

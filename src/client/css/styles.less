@@ -230,7 +230,8 @@ body{
 
 
 /* roomView START */
-.table{  
+.table{
+  margin-top: 5px;
   .rightPartOfTable{
     width: @rightSideWidth;
     color: #7e8287;
@@ -238,18 +239,33 @@ body{
     .tabPanel{
       .navBar{
         .navBarItem{
-          background: rgb(234, 234, 234);
+          background: #eaeaea;
+          display: inline-block;
+          padding: 15px 30px;
+          cursor: pointer;
+          width: 49%;
+          color: black;
+          font-weight: 700;
+          border-bottom: 7px solid #eaeaea;
+          text-align: center;
+          box-shadow: 1px 1px 1px #888888;
+          box-sizing: border-box;
         }
         .active{
           background: white;
+          cursor: initial;
+          border-bottom: 7px solid rgb(125, 119, 178);
         }
       }
       .tabPanelBody{
+        border: 1px solid rgb(126, 130, 135);
         .tabPanelBodyItem{
-          background: white;
+          background: rgb(234, 234, 234);
+          display: none;
         }
         .active{
-          background: rgb(234, 234, 234);
+          background: white;
+          display: block;
         }
       }
     }
@@ -261,6 +277,17 @@ body{
     width: -moz-calc(~"100% - "@rightSideWidth);
     width: -webkit-calc(~"100% - "@rightSideWidth);
     width: -o-calc(~"100% - "@rightSideWidth);
+    .players{
+      .playerData{
+        margin-left: 5%;
+        display: inline-block;
+        text-align: center;
+        .avatar{
+          border-radius: 50%;
+          width: 50px;
+        }
+      }
+    }
   }
 }
 /* roomView END */
