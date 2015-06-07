@@ -250,7 +250,13 @@ body{
     width: @rightSideWidth;
     color: #7e8287;
     float: right;
+    border-left: 1px solid #7e8287;
+    box-sizing: border-box;
     .tabPanel{
+      height: calc(~"100vh - 70px");
+      height: -moz-calc(~"100vh - 70px");
+      height: -webkit-calc(~"100vh - 70px");
+      height: -o-calc(~"100vh - 70px");
       .navBar{
         .navBarItem{
           background: #eaeaea;
@@ -270,47 +276,68 @@ body{
         }
       }
       .tabPanelBody{
+        height: calc(~"100vh - 126px");
+        height: -moz-calc(~"100vh - 126px");
+        height: -webkit-calc(~"100vh - 126px");
+        height: -o-calc(~"100vh - 126px");
         .tabPanelBodyItem{
+          height: calc(~"100vh - 126px");
+          height: -moz-calc(~"100vh - 126px");
+          height: -webkit-calc(~"100vh - 126px");
+          height: -o-calc(~"100vh - 126px");
           background: rgb(234, 234, 234);
           display: none;
-          textarea {
-            width: 90%;
-            margin: 5%;
-            box-sizing: border-box;
-          }
-          .send{
-            float: right;
-            margin-right: 5%;
+          .sendForm{
+              position: absolute;
+              bottom: 0;
+              width: 400px!important;
+              padding-bottom: 10px;     
+            .textInputForChat {
+              width: 90%;
+              margin: 5%;
+              box-sizing: border-box;
+            }
+            .sendBtn{
+              float: right;
+              margin-right: 5%;
+            }
           }
         }
         .active{
           background: white;
           display: block;
         }
-        .post{
-          .postHeader{
-            padding: 10px 10px 0px 10px;
-            .postHeaderAvatar{
-              border-radius: 50%;
-              width: 40px;
-              border: 3px solid white;
-              box-sizing: border-box;
+        .posts{
+          height: calc(~"100vh - 126px - 148px");
+          height: -moz-calc(~"100vh - 126px - 148px");
+          height: -webkit-calc(~"100vh - 126px - 148px");
+          height: -o-calc(~"100vh - 126px - 148px");
+          overflow: auto;
+          .post{
+            .postHeader{
+              padding: 10px 10px 0px 10px;
+              .postHeaderAvatar{
+                border-radius: 50%;
+                width: 40px;
+                border: 3px solid white;
+                box-sizing: border-box;
+              }
+              .postHeaderPlayerName{
+                display: inline-block;
+                position: relative;
+                top: -15px;
+              }
+              .postHeaderDate{
+                display: inline-block;
+                float: right;
+                position: relative;
+                top: 10px;
+              }
             }
-            .postHeaderPlayerName{
-              display: inline-block;
-              position: relative;
-              top: -15px;
+            .postBody{
+              padding: 0 20px;
+              font-weight: 300;
             }
-            .postHeaderDate{
-              display: inline-block;
-              float: right;
-              position: relative;
-              top: 10px;
-            }
-          }
-          .postBody{
-            padding: 0 20px;
-            font-weight: 300;
           }
         }
         .issue{
@@ -373,6 +400,10 @@ body{
     .tableDesk{
       background: rgb(242, 242, 242);
       background-color: rgb(242, 242, 242);
+      .issueTitleOnDesk{
+        text-align: center;
+        font-size: 2em;
+      }
       .setofCradsOnDesk{
         text-align: center;
         .cardOnDesk {

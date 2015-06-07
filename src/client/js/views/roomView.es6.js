@@ -1,17 +1,19 @@
 /*jshint globalstrict: true*/
 define('views/roomView', [
 		'text!templates/roomTemplate.html', 
-		'models/player' , 
 		'login/githubHandler',
 		'backbone',
 		'underscore'
-], function(roomTemplate, Player, github, Backbone, _) {
+], function(roomTemplate, github, Backbone, _) {
 	let RoomView = Backbone.View.extend({
 		el: '.content',
 		events: {
 			"click .navBarItem" : "showTab",
 			"click .issue" : "setIssue",
-			"click .deleteCard" : "deleteCardFromDesk"
+			"click .deleteCard" : "deleteCardFromDesk",
+			"click .sendBtn" : "sendMessage",
+			"keyup .textInputForChat" : "keyPressEventHandler",
+			"click .card" : "setCard"
 		},
 		template : _.template(roomTemplate),
 		initialize: function(){
@@ -21,9 +23,55 @@ define('views/roomView', [
 		render: function(){
 			try{
 				$(this.el).html(this.template(this.model.toJSON()));
+				$(".posts").scrollTop($(".posts")[0].scrollHeight);
 			}catch(e){
 				console.log(e);
 			}
+		},
+		sendMessage: function(){
+			let body = $('.textInputForChat').val();
+			let player = window.player.toJSON().player;
+			let playerObject = {
+				name: player.name,
+				avatar: player.avatar,
+				login: player.login
+			};
+
+			let conversation = this.model.toJSON().conversation;
+			conversation.push({
+				name: playerObject.name,
+				avatar: playerObject.avatar,
+				date: new Date(),
+				body: body
+			})
+			this.model.set('conversation', conversation);
+			this.render();
+		},
+		keyPressEventHandler: function(e){
+			if(e.keyCode === 13){
+				this.sendMessage();
+			}
+		},
+		setCard: function(e){
+			let target = $(e.target).closest('.card');
+			let key = target.attr('data');
+			let number = $.trim(target.find('span').html());
+			let player = window.player.toJSON().player;
+			let playerObject = {
+				name: player.name,
+				avatar: player.avatar,
+				login: player.login
+			};
+			let cardsOnDesk = this.model.toJSON().cardsOnDesk;
+			cardsOnDesk.push({
+				player: playerObject,
+				card: {
+					key: key,
+					number: number
+				}
+			})
+			this.model.set('cardsOnDesk', cardsOnDesk);
+			this.render();
 		},
 		setIssue: function(e){
 			let issueName = $.trim($(e.target).closest('.issue').find('.issueHeaderTitle').html());

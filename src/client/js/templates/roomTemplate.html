@@ -19,22 +19,26 @@
 			</div>
 			<div class="tabPanelBody">
 				<div class="tabPanelBodyItem active" bind="conversation">
-					<% _.each(conversation, function(post) { %> 
-						<div class="post">
-							<div class="postHeader">
-								<img src="<%= post.avatar %>" class="postHeaderAvatar">
-								<div class="postHeaderPlayerName"><%= post.name %></div>
-								<div class="postHeaderDate">
-									<%= new Date(post.date).toTimeString().split(' ')[0] %>
+					<div class="posts">
+						<% _.each(conversation, function(post) { %> 
+							<div class="post">
+								<div class="postHeader">
+									<img src="<%= post.avatar %>" class="postHeaderAvatar">
+									<div class="postHeaderPlayerName"><%= post.name %></div>
+									<div class="postHeaderDate">
+										<%= new Date(post.date).toTimeString().split(' ')[0] %>
+									</div>
+								</div>
+								<div class="postBody">
+									<%= post.body %>
 								</div>
 							</div>
-							<div class="postBody">
-								<%= post.body %>
-							</div>
-						</div>
-					<% }); %>
-					<textarea rows="4" cols="50"></textarea>
-					<div class="sendBtn btnPurple">Send</div>
+						<% }); %>
+					</div>
+					<div class="sendForm">
+						<textarea rows="4" cols="50" class="textInputForChat"></textarea>
+						<div class="sendBtn btnPurple">Send</div>
+					</div>
 				</div>
 				<div class="tabPanelBodyItem" bind="tasks">
 					<% _.each(issues, function(issue) { %> 
@@ -48,7 +52,6 @@
 							</div>
 						</div>
 					<% }); %>
-					<div class="sendBtn btnPurple">Send</div>
 				</div>
 			</div>
 		</div>
@@ -64,7 +67,7 @@
 		</div>
 		<div class="tableDesk">
 			<div class="issueTitleOnDesk">
-				<% if (currentIssue){%>
+				<% if (currentIssue.name){%>
 					<%= currentIssue.name %>
 				<% }else{ %>
 					Please, choose your task.
@@ -94,8 +97,8 @@
 		<div class="cardsSet">
 			<% _.each(cardsSet, function(card) { %> 
 				<% _.map(card, function(number, key) { %> 
-					<div class="card" data="<%= key %>">
-						<span><%= number %></span>
+					<div class="card" data="<%= number %>">
+						<span><%= key %></span>
 						<i class="fa fa-clock-o"></i>
 					</div>
 				<% }); %>
