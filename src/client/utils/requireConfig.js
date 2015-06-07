@@ -25,6 +25,7 @@ require.config({
 		isMobile: 'utils/isMobile',
 		socketIO: 'utils/socket.io',
 		fontawesome: 'utils/font/css/font-awesome.min',
+		showdown: 'utils/showdown',
 		models: 'js/models',
 		views: 'js/views',
 		login: 'js/login',

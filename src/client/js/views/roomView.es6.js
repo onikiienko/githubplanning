@@ -9,7 +9,9 @@ define('views/roomView', [
 	let RoomView = Backbone.View.extend({
 		el: '.content',
 		events: {
-			"click .navBarItem" : "showTab"
+			"click .navBarItem" : "showTab",
+			"click .issue" : "setIssue",
+			"click .deleteCard" : "deleteCardFromDesk"
 		},
 		template : _.template(roomTemplate),
 		initialize: function(){
@@ -22,6 +24,13 @@ define('views/roomView', [
 			}catch(e){
 				console.log(e);
 			}
+		},
+		setIssue: function(e){
+			let issueName = $.trim($(e.target).closest('.issue').find('.issueHeaderTitle').html());
+			this.model.set('currentIssue', {name: issueName})
+		},
+		deleteCardFromDesk: function(e){
+			let login = $(e.target).closest('.cardOnDesk').attr('login');
 		},
 		showTab: function(e){
 			let target = $(e.target);

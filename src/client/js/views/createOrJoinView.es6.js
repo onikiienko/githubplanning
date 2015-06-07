@@ -13,7 +13,7 @@ define('views/createOrJoinView', [
 			"click .enterRoomBtn" : "createRoom",
 			"click .roomNameInput" : "openRoomNameList",
 			"click .roomNameListItem" : "chooseProject",
-			"click .currencyType" : "makeRadioChecked"
+			"click .currency" : "makeRadioChecked"
 		},
 		template: _.template(createOrJoinTemplate),
 		initialize: function(){
@@ -48,12 +48,14 @@ define('views/createOrJoinView', [
 			$('.roomNameList').hide();
 		},
 		makeRadioChecked: function(target){
-			if ($(target.target).hasClass('checked')){				
-				$('.radioBtn').removeClass('checked');
-			}else{
-				$('.radioBtn').removeClass('checked');
-				$(target.target).addClass('checked');
-			}
+			let currency = $(target.target).closest('.currency');
+			let circle = $(currency).find('.radioBtn');
+			$('.radioBtn').removeClass('checked');
+			$(circle).toggleClass('checked');
+			// if ($(circle).hasClass('checked')){				
+			// 	return
+			// }else{
+			// }
 		},
 		getProjectData: function(){
 			let project = $.trim($('.roomNameInput').html());

@@ -63,13 +63,42 @@
 			<% }); %>
 		</div>
 		<div class="tableDesk">
+			<div class="issueTitleOnDesk">
+				<% if (currentIssue){%>
+					<%= currentIssue.name %>
+				<% }else{ %>
+					Please, choose your task.
+				<% }; %>
+			</div>
+			<div class="setofCradsOnDesk">
+				<% if (cardsOnDesk){%>
+						<%  _.each(cardsOnDesk, function(card){ %>
+							<div class="cardOnDesk" login="<% card.player.login %>">
+									<img src="<%= card.player.avatar %>" class="playerAvatarOnCard">
+									<div class="numberOnCardOnDesk" data="<%= card.card.key %>">
+										<span><%= card.card.number %></span>
+										<i class="fa fa-clock-o"></i>
+									</div>
+									<div class="playerNameOnCard">
+										<% if (card.player.login == window.player.toJSON().player.login){%>
+											<i class="fa fa-times-circle deleteCard"></i>
+										<% }else{ %>
+											<%= card.player.name %>
+										<% }; %>
+									</div>
+							</div>
+						<%  }); %> 
+				<% }; %>
+			</div>
 		</div>
 		<div class="cardsSet">
-			<% _.map(cardsSet, function(number, key) { %> 
-				<div class="card" data="<%= number %>">
-					<span><%= key %></span>
-					<i class="fa fa-clock-o"></i>
-				</div>
+			<% _.each(cardsSet, function(card) { %> 
+				<% _.map(card, function(number, key) { %> 
+					<div class="card" data="<%= key %>">
+						<span><%= number %></span>
+						<i class="fa fa-clock-o"></i>
+					</div>
+				<% }); %>
 			<% }); %>
 		</div>
 	</div>

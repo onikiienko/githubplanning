@@ -32,7 +32,8 @@
       "after"       : false,
       "beforeEach"  : false,
       "afterEach"   : false,
-      "sinon"       : false
+      "sinon"       : false,
+      "markdownit"    : false
     },
     "jquery"        : true,
     "prototypejs"   : false,

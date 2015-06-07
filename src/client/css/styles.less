@@ -4,14 +4,13 @@
 
 html, body{
   font-family: 'Lato', sans-serif;
-  font-size: 15px;
-  color: #fff;
 }
 
 body{
-  background-size: cover;
   margin: 0;
-  color: rgb(126, 130, 135);
+  color: #7e8287;
+  background: rgb(242, 242, 242);
+  background-color: rgb(242, 242, 242);
 }
 
 .headerBar{
@@ -86,7 +85,7 @@ body{
   margin-left: auto;
   margin-right: auto;
   display: block;
-  width: 125px;
+  width: 130px;
 }
 .description{
   font-size: 2em;
@@ -130,9 +129,14 @@ body{
 /*create room view BEGIN*/
 
 .createRoomForm{
-  width: 60%;
+  width: 45%;
   margin: 10% auto;
   position: relative;
+  background: white;
+  background-color: white;
+  padding: 20px 60px 20px 30px;
+  box-shadow: 2px 3px 8px #888888;
+  border-radius: 5px;
   h1{
     border-bottom: 1px solid;
     padding-bottom: 7px;
@@ -144,33 +148,32 @@ body{
 }
 
 .roomNameInput{
-  background-color: black;
-  background: rgba(0, 0, 0, 0.5);
-  border-radius: 30px;
+  border: 1px solid;
+  border-radius: 8px;
   padding: 10px;
   width: 100%;
-  color: rgb(255, 255, 255);
+  color: rgb(126, 130, 135);
 }
 .roomNameList{
   display: none;
   width: 470px;
-  width: ~"-webkit-calc(100% + 20px)";
-  width: ~"-moz-calc(100% + 20px)";
-  width: ~"calc(100% + 20px)";
-  margin-top: 5px;
-  background-color: rgb(34, 40, 48);
-  background: rgb(34, 40, 48);
-  border-radius: 8px;
+  width: ~"-webkit-calc(88% + 20px)";
+  width: ~"-moz-calc(88% + 20px)";
+  width: ~"calc(88% + 20px)";
+  background-color: white;
+  background: white;
   overflow: auto;
-  max-height: 40vh;
+  max-height: 400px;
   position: absolute;
   z-index: 2;
+  box-shadow: 2px 3px 8px #888888;
   .roomNameListItem{
     padding: 17px;
-    /*min-height: 60px;*/
     &:hover{
-      background-color: rgb(43, 48, 56);
-      background: rgb(43, 48, 56);
+      background-color: rgb(235, 235, 242);
+      background: rgb(235, 235, 242);
+      cursor: pointer;
+      color: rgb(77, 196, 234);
     }
     .roomNameListItemHeader{
       font-size: 17px;
@@ -206,24 +209,23 @@ body{
   width: ~"-webkit-calc(100% + 20px)";
   width: ~"-moz-calc(100% + 20px)";
   width: ~"calc(100% + 20px)";
-  .radioBtn{
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background-color: rgba(0, 0, 0, 0.5);
-    background: rgba(0, 0, 0, 0.5);
+  .currency{
     display: inline-block;
-    margin-left: 20px;
-    margin-right: 5px;
-    box-sizing: border-box;
-    &:hover{
-      border: 2px solid #fff;
-    }
-    &.checked{
-      background-color: rgb(0, 221, 249);
-      background: rgb(0, 221, 249);
-      border: 2px solid #fff;
-      opacity: 1;
+    cursor: pointer;
+    .radioBtn{
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: white;
+      background-color: white;
+      display: inline-block;
+      margin-left: 20px;
+      margin-right: 5px;
+      border: 1px solid;
+      &.checked{
+        background-color: rgb(125, 119, 178);
+        background: rgb(125, 119, 178);
+      }
     }
   }
 }
@@ -235,8 +237,16 @@ body{
 
 /* roomView START */
 .table{
-  margin-top: 5px;
+  margin-top: 2px;
+  height: calc(~"100vh - 70px");
+  height: -moz-calc(~"100vh - 70px");
+  height: -webkit-calc(~"100vh - 70px");
+  height: -o-calc(~"100vh - 70px");
   .rightPartOfTable{
+    height: calc(~"100vh - 70px");
+    height: -moz-calc(~"100vh - 70px");
+    height: -webkit-calc(~"100vh - 70px");
+    height: -o-calc(~"100vh - 70px");
     width: @rightSideWidth;
     color: #7e8287;
     float: right;
@@ -248,11 +258,9 @@ body{
           padding: 15px 30px;
           cursor: pointer;
           width: 49%;
-          color: black;
           font-weight: 700;
           border-bottom: 7px solid #eaeaea;
           text-align: center;
-          box-shadow: 1px 1px 1px #888888;
           box-sizing: border-box;
         }
         .active{
@@ -265,7 +273,7 @@ body{
         .tabPanelBodyItem{
           background: rgb(234, 234, 234);
           display: none;
-          input{
+          textarea {
             width: 90%;
             margin: 5%;
             box-sizing: border-box;
@@ -281,7 +289,7 @@ body{
         }
         .post{
           .postHeader{
-            padding: 10px 10px 10px 0;
+            padding: 10px 10px 0px 10px;
             .postHeaderAvatar{
               border-radius: 50%;
               width: 40px;
@@ -306,24 +314,30 @@ body{
           }
         }
         .issue{
+          padding-top: 30px;
+          &:hover {
+            background: rgba(125, 119, 178, 0.04);
+            background-color: rgba(125, 119, 178, 0.04);
+            cursor: pointer;
+          }
           .issueHeader{
-            padding: 10px 10px 10px 0;
+            margin-bottom: -10px;
             .issueHeaderTitle{
               display: inline-block;
-              position: relative;
               top: -15px;
-              color: rgb(125, 119, 178);
+              color: #7d77b2;
             }
             .issueHeaderAuthor{
               display: inline-block;
               float: right;
-              position: relative;
-              top: 10px;
             }
           }
           .issueBody{
             padding: 0 20px;
             font-weight: 300;
+            ul{
+              margin-bottom: 0px;
+            }
           }
         }
       }
@@ -332,6 +346,10 @@ body{
   .leftPartOfTable{
     color: #7e8287;
     float: left;
+    height: calc(~"100vh - 70px");
+    height: -moz-calc(~"100vh - 70px");
+    height: -webkit-calc(~"100vh - 70px");
+    height: -o-calc(~"100vh - 70px");
     width: calc(~"100% - "@rightSideWidth);
     width: -moz-calc(~"100% - "@rightSideWidth);
     width: -webkit-calc(~"100% - "@rightSideWidth);
@@ -355,6 +373,46 @@ body{
     .tableDesk{
       background: rgb(242, 242, 242);
       background-color: rgb(242, 242, 242);
+      .setofCradsOnDesk{
+        text-align: center;
+        .cardOnDesk {
+          background: white;
+          width: 7vw;
+          height: 9vw;
+          display: inline-block;
+          border-radius: 10px;
+          margin-left: 15px;
+          box-shadow: 1px 3px 6px #888888;
+          margin-top: 15px;
+          .playerAvatarOnCard {
+            border-radius: 50%;
+            width: 40px;
+            border: 3px solid white;
+            box-sizing: border-box;
+            position: relative;
+            top: -1vw;
+          }
+          .numberOnCardOnDesk{
+            position: relative;
+            top: -2vw;
+            span {
+              font-size: 4vw;
+              font-weight: 700;
+              color: rgb(125, 119, 178);
+            }
+            i {
+              display: block;
+              font-size: 2vw;
+            }
+          }
+          .playerNameOnCard {
+            position: relative;
+            .deleteCard {
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
     .cardsSet{
       background: #eaeaea;

@@ -13,7 +13,7 @@
 <div class="createRoomForm">
 	<h1>Get Started</h1>
 	<div class="roomNameInput">
-	    <%=  _.first(listOfProjects).owner %>/<%=  _.first(listOfProjects).name %>
+	    Select a Project
 	</div>
 	<div class="roomNameList">
 		<% _.each(listOfProjects, function(project) { %> 
@@ -38,12 +38,18 @@
 		<% }); %>
 	</div>
 	<div class="currencyType">
-			<div class="radioBtn checked" data="Standard"></div>
-			Standard
-			<div class="radioBtn" data="T-shirt"></div>
-			T-shirt
-			<div class="radioBtn" data="Fibonacci"></div>
-			Fibonacci
+			<div class="currency">
+				<div class="radioBtn checked" data="Standard"></div>
+				Standard
+			</div>
+			<div class="currency">
+				<div class="radioBtn" data="T-shirt"></div>
+				T-shirt
+			</div>
+			<div class="currency">
+				<div class="radioBtn" data="Fibonacci"></div>
+				Fibonacci
+			</div>
 	</div>
 	<div class="enterRoomBtn btnPurple">Enter room</div>
 </div>

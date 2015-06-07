@@ -56,9 +56,12 @@ define('login/githubHandler', ['underscore'],
 				.then(function(data){
 					var issues = [];
 					_.each(data, function(issue){
+						let issueBodyMD = issue.body;
+						let md = window.markdownit();
+    					let body = md.render(issueBodyMD);
 						issues.push({
 							title: issue.title,
-							body: issue.body,
+							body: body,
 							date: issue.created_at,
 							creator: {
 								login: issue.user.login,
