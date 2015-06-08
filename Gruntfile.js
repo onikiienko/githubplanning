@@ -27,7 +27,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-postcss');
 
 	// Default task(s).
-	grunt.registerTask('default', ['browserSync', 'devbuild', 'watch']);
+	grunt.registerTask('default', ['devbuild', 'watch']);
 	grunt.registerTask('devbuild', ['remove', 'babel', 'less', 'styles', 'copy', 'jshint']);
 	grunt.registerTask('build', ['remove', 'babel', 'less', 'copy', 'jshint', 'uglify']);
 	grunt.registerTask('test', ['karma']);
