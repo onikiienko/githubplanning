@@ -1,0 +1,22 @@
+// Content module
+// ------------------------------
+
+
+.content {
+
+  &__items {
+    margin-top: 5%;
+    padding-left: rem(100);
+  }
+
+  &__title {
+    font-family: $base-font;
+    color: #7e8287;
+    font-weight: 300;
+    text-align: center;
+  }
+  &__login {
+    text-align: center;
+    padding-top: rem(30);
+  }
+}

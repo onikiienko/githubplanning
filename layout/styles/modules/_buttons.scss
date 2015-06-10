@@ -1,0 +1,21 @@
+// Buttons module
+// ------------------------------
+
+.btn-login {
+  border: none;
+  outline: none;
+  background-color: #7D77B2;
+  font-family: $base-font;
+  color: #fff;
+  padding: rem(15) rem(25) rem(15) rem(66);
+  font-size: rem(20);
+  border-radius: rem(28);
+  position: relative;
+    i {
+      font-size: rem(38);
+      position: absolute;
+      top: 50%;
+      left: 10%;
+      transform: translateY(-50%);
+    }
+}

@@ -1,0 +1,30 @@
+// List-items module
+// ------------------------------
+
+.list-items {
+  @extend %clearfix;
+}
+
+.list__item {
+  position: relative;
+  width: 50%;
+  float: left;
+  padding: 0 rem(40);
+  padding-left: rem(40);
+  margin-bottom: rem(12);
+  font-family: $base-font;
+  color: #7e8287;
+  font-size: rem(25);
+  .sub-text {
+    font-size: rem(15);
+    font-weight: 300;
+    padding-top: rem(20);
+  }
+  i {
+    color: #7d77b2;
+    font-size: rem(30);
+    position: absolute;
+    top: 0%;
+    left: 0;
+  }
+}

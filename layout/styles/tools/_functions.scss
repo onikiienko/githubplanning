@@ -1,0 +1,32 @@
+
+// Strip the units from a value
+// ----------------------------
+@function strip-units($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// Calculate rems from a px value
+// ------------------------------
+@function rem($px, $base-val: $base-px-default) {
+  @if not unitless($px) {
+    $px: strip-units($px);
+  }
+  @if not unitless($base-val) {
+    $base-val: strip-units($base-val);
+  }
+  @return ($px / $base-val) * 1rem;
+
+}
+
+// Clearfix
+// ------------------------------
+%clearfix {
+  //*zoom: 1;
+  &:before, &:after {
+    content: " ";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
