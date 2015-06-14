@@ -1,0 +1,46 @@
+// User comment module
+// ------------------------------
+
+.users-comments {
+  padding: 0 rem(38) 0 rem(25);
+}
+
+.user-comment {
+  @extend %clearfix;
+  margin: rem(40) 0;
+  &__avatar {
+    width: 42px;
+    height: 42px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: rem(15);
+      img {
+        border-radius: 50%;
+        border: 1px solid #ccc;
+      }
+  }
+
+  &__time {
+    font-weight: 300;
+    font-family: $secondary-font;
+    color: #72777C;
+    font-size: rem(12);
+    float: right;
+    line-height: 40px;
+  }
+
+  &__name {
+    font-weight: 600;
+    font-family: $secondary-font;
+    color: #72777C;
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  &__body {
+    font-size: rem(13);
+    line-height: 16px;
+    font-family: $secondary-font;
+    margin-top: rem(20);
+  }
+}

@@ -1,0 +1,69 @@
+// Project-select module
+// ------------------------------
+
+.project-select {
+  width: 50%;  //set width only to element that containe this module
+  background-color: #fff;
+  text-align: center;
+  padding: rem(40) 0;
+  box-shadow: 2px 3px 8px #888888;
+
+  &__select {
+    width: 85%;
+    margin: 0 auto;
+    margin-bottom: rem(40);
+  }
+
+  &__title {
+    font-family : $secondary-font;
+    font-weight: bold;
+    margin-bottom: rem(30);
+    color: #30333A;
+  }
+
+  &__btn {
+    margin-top: rem(80);
+  }
+
+  &__controls {
+
+    input[type="radio"] {
+        display:none;
+    }
+
+    label {
+      font-family : $secondary-font;
+      font-size : rem(16);
+      color : #30333A;
+      margin-right: rem(60);
+    }
+
+    input[type="radio"] + label span {
+        display: inline-block;
+        width: 28px;
+        height: 28px;
+        margin-right: rem(10);
+        vertical-align: middle;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 2px solid #A8AAAD;
+        position: relative;
+        background-color: #fff;
+    }
+
+    input[type="radio"]:checked + label span{
+         &:after {
+          content: ' ';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 15px;
+          height: 15px;
+          border-radius: 50%;
+          background-color: #7D77B2;
+         }
+    }
+
+  }
+}

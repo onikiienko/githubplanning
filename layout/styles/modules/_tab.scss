@@ -1,0 +1,40 @@
+// Tab module
+// ------------------------------
+
+.tab__nav--active {
+  position: relative;
+  cursor: normal;
+  &:after {
+    content: ' ';
+    width: 101%;
+    height: 4px;
+    background-color: #7D77B2;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.tab {
+  width: 30%;
+  background-color: #fff;
+  box-shadow: 2px 3px 8px #888888;
+  &__nav {
+    background-color: #F2F2F2;
+    @extend %clearfix;
+      li {
+        text-transform: uppercase;
+        width: 50%;
+        text-align: center;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: rem(12);
+        font-family: $secondary-font;
+        float: left;
+        color: #30333A;
+        padding: rem(28) rem(45);
+        border: 1px solid #D9D9DB;
+      }
+  }
+}
+

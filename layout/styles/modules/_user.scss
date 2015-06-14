@@ -13,6 +13,9 @@ line-height: 50px;
     display: inline-block;
     margin-right: rem(10);
     vertical-align: middle;
+      img {
+        border-radius: 50%;
+      }
   }
 
   &__name {

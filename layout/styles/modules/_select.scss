@@ -1,0 +1,50 @@
+// Select module
+// ------------------------------
+
+.select {
+  text-align: left;
+  position: relative;
+  &__title {
+    font-family: $secondary-font;
+    font-size: rem(14);
+    color: #999999;
+    border: 2px solid #A8AAAD;
+    border-radius: 10px;
+    padding: rem(15);
+    cursor: pointer;
+  }
+
+  &__items {
+    display: none; /////Visual toggle
+    color: #5F6477;
+    font-family: $secondary-font;
+    font-size: rem(14);
+    box-shadow: 2px 3px 8px #888888;
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+    background-color: #fff;
+    height: rem(250);
+    overflow-y: scroll;
+  }
+}
+
+.select__item {
+  @extend %clearfix;
+  padding: rem(12) rem(30);
+  cursor: pointer;
+    &:hover {
+      background-color: rgba(152, 158, 175, .1);
+      color: #4DC4EA;
+    }
+}
+
+.item__desc {
+  opacity: 0.5;
+}
+
+.item__tasks {
+  font-weight: 300;
+  font-size: rem(12);
+  float: right;
+}
