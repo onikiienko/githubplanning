@@ -3,7 +3,6 @@
 
 .main-header {
   background-color: #7D77B2;
-  margin-bottom: rem(100);
   box-shadow: 0px 2px 5px #888888;
   @extend %clearfix;
 
@@ -16,5 +15,32 @@
         float: right;
         margin-right: rem(20);
         margin-top: rem(10);
+    }
+    &__project {
+      margin-left: rem(30);
+      display: inline-block;
+      vertical-align: top;
+      font-family: $secondary-font;
+      color: #fff;
+      font-size: rem(18);
+      line-height: 70px;
+      position: relative;
+      padding: 0 rem(20);
+        &:before, &:after  {
+          content: " ";
+          position: absolute;
+          width: 1px;
+          height: 44px;
+          background-color: #6C6A93;
+          transform: translateY(-50%);
+        }
+        &:before {
+          top: 50%;
+          left: 0;
+        }
+        &:after {
+          top: 50%;
+          right: 0;
+        }
     }
 }

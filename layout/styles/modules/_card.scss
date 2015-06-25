@@ -1,0 +1,41 @@
+// card module
+// ------------------------------
+
+.card {
+  width: 100px;
+  height: 150px;
+  text-align: center;
+  background-color: #fff;
+  box-shadow: 1px 3px 6px #888888;
+  border-radius: 10px;
+  position: relative;
+  display: inline-block;
+  margin-right: rem(18);
+    &__user {
+      position: absolute;
+      top: -18%;
+      left: 50%;
+      transform: translateX(-45%);
+    }
+    &__rate {
+      color: #7D77B2;
+      font-family : $secondary-font;
+      font-weight : bold;
+      font-size : rem(56);
+      padding-top: 30%;
+    }
+    &__rate--dis {
+      color: #8F9399;
+    }
+    &__btn {
+      border: none;
+      outline: none;
+      background-color: transparent;
+      color: #8E8D8D;
+      text-align: center;
+      position: absolute;
+      bottom: -30px;
+      left: 50%;
+      transform: translateX(-45%);
+    }
+}
