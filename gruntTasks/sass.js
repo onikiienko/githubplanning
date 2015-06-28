@@ -1,7 +1,7 @@
 module.exports =  {
     dist: {
         files: {
-            'build/client/css/main.css' : 'src/client/css/*.scss'
+            'build/client/css/style.css' : 'src/client/css/*.css'
         }
     }
 };

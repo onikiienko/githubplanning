@@ -8,7 +8,7 @@ define('views/startView', [
 		'underscore'
 ], function(startTemplate, Player, github, io, Backbone, _) {
 	let StartView = Backbone.View.extend({
-		el: '.content',
+		el: '.wrapper',
 		events: {
 			"click .signIn" : "singInAndGetData"
 		},

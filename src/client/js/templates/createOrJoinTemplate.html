@@ -1,55 +1,50 @@
-<div class="headerBar">
-	<a href="#">
-		<div class="logoSquare">
-			<i class="fa fa-clock-o fa-2x"></i>
-		</div>
-	</a>
-	<div class="projectName">Planning poker</div>
-	<div class="playerData">
-		<img src="<%= player.avatar %>" class="avatar">
-		<div class="playerName"><%= player.name %></div>
-	</div>
-</div>
-<div class="createRoomForm">
-	<h1>Get Started</h1>
-	<div class="roomNameInput">
-	    Select a Project
-	</div>
-	<div class="roomNameList">
-		<% _.each(listOfProjects, function(project) { %> 
-	    	<div class="roomNameListItem">
-		    	<div class="roomNameListItemHeader">
-		    		<span class="roomNameListItemHeaderTitle">
-		    			<%= project.owner %>/<%= project.name %>
-		    		</span>
-		    		<span class="roomNameListItemHeaderIssuesCounter">
-		    			<i class="fa fa-tasks"></i> <%= project.numberOfOpenIssues %> 
-		    			<% if (project.numberOfOpenIssues !== 1) { %>
-		    				Tasks
-		    			<% }else{ %>
-		    				Task
-		    			<% } %>
-		    		</span>
-		    	</div>
-		    	<div class="roomNameListItemBody">
-		    		<%= project.description %>
-		    	</div>
-	    	</div>
-		<% }); %>
-	</div>
-	<div class="currencyType">
-			<div class="currency">
-				<div class="radioBtn checked" data="Standard"></div>
-				Standard
-			</div>
-			<div class="currency">
-				<div class="radioBtn" data="T-shirt"></div>
-				T-shirt
-			</div>
-			<div class="currency">
-				<div class="radioBtn" data="Fibonacci"></div>
-				Fibonacci
-			</div>
-	</div>
-	<div class="enterRoomBtn btnPurple">Enter room</div>
-</div>
+<header class="main-header">
+    <div class="main-header__logo">
+        <div class="logo">
+            <a href="/"><img src="/images/logo.svg"></a> <!--//todo - paste plain svg -->
+        </div><!-- /.logo -->
+    </div><!-- /.main-header__logo -->
+    <div class="main-header__user">
+        <div class="user">
+            <div class="user__avatar">
+                <img src="<%= player.avatar %>">
+            </div><!-- /.user__avatar -->
+            <div class="user__name"><%= player.name %></div>
+        </div>
+    </div><!-- /.main-header__user -->
+</header><!-- /.main-header -->
+
+<div class="project-select__wrapper">
+    <div class="project-select">
+        <h2 class="project-select__title">Get Started</h2><!-- /.project-select__title -->
+        <div class="project-select__select">
+            <div class="select">
+                <div class="select__title">Select a Project</div>
+                <ul class="select__items">
+                    <% _.each(listOfProjects, function(project) { %>
+                    <li class="select__item">
+                    <span class="item__tasks">
+                        <%= project.numberOfOpenIssues %>
+                              <% if (project.numberOfOpenIssues !== 1) { %>
+                            Tasks
+                        <% }else{ %>
+                            Task
+                        <% } %>
+                    </span>
+                        <div class="item__name"><%= project.owner %>/<%= project.name %></div>
+                        <div class="item__desc"><%= project.description %></div>
+                    </li>
+                    <% }); %>
+                </ul><!-- /.select__items -->
+            </div><!-- /.select -->
+        </div>
+        <div class="project-select__controls">
+            <input data="Standard" type="radio" checked name="controls" id="standart"><label for="standart"><span></span>Standart</label>
+            <input data="T-shirt" type="radio" name="controls" id="t-shirt"><label for="t-shirt"><span></span>T-shirt</label>
+            <input data="Fibonacci" type="radio" name="controls" id="fib"><label for="fib"><span></span>Fibonacci</label>
+        </div><!-- /.project-select__controls -->
+        <div class="project-select__btn">
+            <button class="btn-enter enterRoomBtn">Enter Room</button>
+        </div><!-- /.project-select__btn -->
+    </div><!-- /.project-select -->
+</div><!-- /.project-select__wrapper -->

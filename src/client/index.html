@@ -1,37 +1,31 @@
 <!doctype html>
-<html>
-	<head>
-		<title>Planning Poker</title>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Planning Poker</title>
 
-		<!-- Latest compiled and minified JavaScript -->
-		<link rel="stylesheet" href="utils/font-awesome-4.3.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="/styles/styles.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
-		<script src="https://cdn.jsdelivr.net/markdown-it/4.2.1/markdown-it.min.js"></script>
-		<script src="utils/require.js"></script>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-	</head>
-	<body>
+    <link rel="stylesheet" href="/styles/style.css">
 
-		<div class="content"></div>
-		<div id="example"></div>
-		<script>
-			require(["utils/requireConfig"], function(){
-				require(["router/router"], function(AppRouter){
-					app_router = new AppRouter();
-					Backbone.history.start();
-				});
-				OAuth = require(["oauth"]);
-			});
-		</script>
-		<script>
-		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <script src="https://cdn.jsdelivr.net/markdown-it/4.2.1/markdown-it.min.js"></script>
+    <script src="utils/require.js"></script>
 
-		  ga('create', 'UA-62734429-1', 'auto');
-		  ga('send', 'pageview');
-		</script>
-	</body>
+</head>
+    <body>
+        <div class="wrapper"></div>
+        <div id="example"></div>
+        <script>
+            require(["utils/requireConfig"], function(){
+                require(["router/router"], function(AppRouter){
+                    app_router = new AppRouter();
+                    Backbone.history.start();
+                });
+                OAuth = require(["oauth"]);
+            });
+        </script>
+
+    </body>
 </html>

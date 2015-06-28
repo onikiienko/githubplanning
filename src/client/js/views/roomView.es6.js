@@ -6,7 +6,7 @@ define('views/roomView', [
 		'underscore'
 ], function(roomTemplate, github, Backbone, _) {
 	let RoomView = Backbone.View.extend({
-		el: '.content',
+		el: '.wrapper',
 		events: {
 			"click .navBarItem" : "showTab",
 			"click .issue" : "setIssue",
