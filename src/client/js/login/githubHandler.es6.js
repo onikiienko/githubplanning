@@ -1,7 +1,10 @@
 /*jshint globalstrict: true*/
 
-define('login/githubHandler', ['underscore'],
-	function(_){
+define('login/githubHandler', [
+	'underscore', 
+	'models/contributor',
+	'models/issue'
+], function(_, Contributor, Issue){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{
 			signInAndFillData: function(player){
@@ -50,40 +53,40 @@ define('login/githubHandler', ['underscore'],
 			getUserData: function(api){
 				return api.get('/user');
 			},
-			getIssues: function(api, project, model){
+			getIssues: function(api, project, collection){
 				api
 				.get('/repos/' + project + '/issues')
 				.then(function(data){
-					var issues = [];
 					_.each(data, function(issue){
 						let issueBodyMD = issue.body;
 						let md = window.markdownit();
     					let body = md.render(issueBodyMD);
-						issues.push({
-							title: issue.title,
-							body: body,
-							date: issue.created_at,
-							creator: {
-								login: issue.user.login,
-								avatar: issue.user.avatar_url
-							}
-						});
+						collection.add(
+							new Issue({
+								title: issue.title,
+								body: body,
+								date: issue.created_at,
+								creator: {
+									login: issue.user.login,
+									avatar: issue.user.avatar_url
+								}
+							})
+						);
 					});
-					model.set('issues', issues);
 				});
 			},
-			getCollaborators: function(api, project, model){
-				let collaborators = [];
+			getCollaborators: function(api, project, collection){
 				api
 				.get('/repos/' + project + '/collaborators')
 				.then(function(data){
 					_.each(data, function(collaborator){
-						collaborators.push({
-							login: collaborator.login,
-							avatar: collaborator.avatar_url
-						});
+						collection.add(
+							new Contributor({
+  								login: collaborator.login,
+  								avatar: collaborator.avatar_url
+  							})
+  						);
 					});
-					model.set('collaborators', collaborators);
 				});
 			}
 		}

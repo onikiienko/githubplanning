@@ -14,7 +14,7 @@ define('views/startView', [
 		},
 		template : _.template(startTemplate),
 		initialize: function(){
-			window.socket = io();
+			// window.socket = io();
 			// window.socket.on('sendCurrentDataAbout', function(data){
 			// 	console.log(data);
 			// });

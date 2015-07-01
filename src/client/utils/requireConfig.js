@@ -27,6 +27,7 @@ require.config({
 		fontawesome: 'utils/font/css/font-awesome.min',
 		showdown: 'utils/showdown',
 		models: 'js/models',
+		collections: 'js/collections',
 		views: 'js/views',
 		login: 'js/login',
 		router: 'js/router',

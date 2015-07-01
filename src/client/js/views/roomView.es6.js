@@ -1,24 +1,26 @@
 /*jshint globalstrict: true*/
 define('views/roomView', [
-		'text!templates/roomTemplate.html', 
+		'text!templates/roomTemplates/roomLayout.html', 
 		'login/githubHandler',
+		'collections/playgroundCards',
 		'backbone',
 		'underscore'
-], function(roomTemplate, github, Backbone, _) {
+], function(roomTemplate, github, PlaygroundCards, Backbone, _) {
 	let RoomView = Backbone.View.extend({
 		el: '.wrapper',
 		events: {
-			"click .navBarItem" : "showTab",
-			"click .issue" : "setIssue",
-			"click .deleteCard" : "deleteCardFromDesk",
-			"click .sendBtn" : "sendMessage",
-			"keyup .textInputForChat" : "keyPressEventHandler",
-			"click .card" : "setCard"
+			// "click .navBarItem" : "showTab",
+			// "click .issue" : "setIssue",
+			// "click .deleteCard" : "deleteCardFromDesk",
+			// "click .sendBtn" : "sendMessage",
+			// "keyup .textInputForChat" : "keyPressEventHandler",
+			// "click .card" : "setCard"
 		},
 		template : _.template(roomTemplate),
 		initialize: function(){
 			_.bindAll(this, 'render');
-    		this.model.bind('change', this.render);
+
+    		window.playgroundCards = new PlaygroundCards();
 		},
 		render: function(){
 			try{

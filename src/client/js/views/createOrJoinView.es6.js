@@ -2,11 +2,14 @@
 define('views/createOrJoinView', [
   'text!templates/createOrJoinTemplate.html',
   'models/game',
+  'collections/contributors',
+  'collections/issues',
+  'collections/selectCards',
   'backbone',
   'jquery',
   'socketIO',
   'underscore'
-], function(createOrJoinTemplate, Game, Backbone, $, io, _) {
+], function(createOrJoinTemplate, Game, Contributors, Issues, SelectCards, Backbone, $, io, _) {
   let CreateOrJoinView = Backbone.View.extend({
     el: '.wrapper',
     events: {
@@ -28,21 +31,30 @@ define('views/createOrJoinView', [
     },
     createRoom: function(){
       window.game = new Game();
+      window.contributors = new Contributors();
+
+      window.issues = new Issues();
+
+      window.selectCardCollection = new SelectCards();
+      window.selectCardCollection.add([{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'?' : 12}]);
+
       this.getProjectData();
+      
       let roomName = $.trim($('.select__title').html()).replace('/', '');
       let roomUrl = '#room/' + roomName;
+
       window.app_router.navigate(roomUrl, {trigger: true});
     },
     openRoomNameList: function(){
       $('.select__items').show();
     },
     chooseProject: function(target){
-      //pick project and write in input
       let choosenProject = $(target.target)
           .closest('.select__item')
           .find('.item__name')
           .html()
           .replace(/\s+/g, '');
+
       $('.select__title').html(choosenProject);
       $('.select__items').hide();
     },
@@ -52,9 +64,9 @@ define('views/createOrJoinView', [
 
       window.game.set('nameOfProject', project);
       window.game.set('player', window.player.toJSON().player);
-      //get issues of a project
-      window.provider.getIssues(api, project, window.game);
-      window.provider.getCollaborators(api, project, window.game);
+
+      window.provider.getIssues(api, project, window.issues);
+      window.provider.getCollaborators(api, project, window.contributors);
     }
     // socketInit: function(){
       // let playerData = this.model.toJSON().player;
@@ -71,5 +83,7 @@ define('views/createOrJoinView', [
       // window.app_router.navigate('#go_to_room/:roomName', {trigger: true});
     // }
   });
+
   return CreateOrJoinView;
+
 });
