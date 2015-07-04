@@ -1,5 +1,5 @@
 /*jshint globalstrict: true*/
-define('login/trelloHandler', [],
+define('login/trello', [],
 	function(){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{

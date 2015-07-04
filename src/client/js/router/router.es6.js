@@ -1,51 +1,42 @@
 /*jshint globalstrict: true*/
 define([
     "backbone",
-    "views/startView",
-    "views/createOrJoinView",
-    "views/roomView",
-    'views/roomHeaderView',
-    'views/playgroundUserView',
-    'views/playgroundCardView',
-    'views/selectCardView'
-], function(Backbone, StartView, CreateOrJoinView, RoomView, RoomHeaderView, PlaygroundUserView, PlaygroundCardView, SelectCardView){
+    "views/start",
+    "views/create",
+    "views/room",
+    "views/header",
+    "views/contributor",
+    "views/card",
+    "views/selectCard"
+], function(Backbone, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, SelectCardView){
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
-            "login": "loadStartPage",
-            "create_or_join": "loadCreateOrJoinPage",
+            "create": "loadCreatePage",
             "room/:roomName" : "loadRoomPage",
             "*path": "loadStartPage"
         },
 
         loadStartPage: function(){
-            this.navigate("#login", {trigger: true});
+            this.navigate("#", {trigger: true});
             window.startView = (window.startView) ? window.startView : new StartView();
-            window.startView.render();
         },
-        loadCreateOrJoinPage: function(){
-            if(!window.player){
-                this.navigate("#login", {trigger: true});
+        loadCreatePage: function(){
+            if(!window.playerModel){
+                this.navigate("#", {trigger: true});
             }else{
-                window.createOrJoinView = (window.createOrJoinView) ? window.createOrJoinView : new CreateOrJoinView({model: window.player});
-                window.createOrJoinView.render();
+                window.createView = (window.createView) ? window.createView : new CreateView({model: window.playerModel});
             }
         },
         loadRoomPage: function(roomName){
-            if(!window.player){
-                this.navigate("#login", {trigger: true});
+            if(!window.playerModel){
+                this.navigate("#", {trigger: true});
             }else{
-                window.roomView = (window.roomView) ? window.roomView : new RoomView({model: window.game});
-                window.roomView.render();
-
-                window.roomHeaderView = (window.roomHeaderView) ? window.roomHeaderView : new RoomHeaderView({model: window.player});
-                window.roomHeaderView.render();
-
-                window.playgroundUserView = (window.playgroundUserView) ? window.playgroundUserView : new PlaygroundUserView({collection: window.contributors});
-                
-                window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardCollection});
-                
-                window.playgroundCardView = (window.playgroundCardView) ? window.playgroundCardView : new PlaygroundCardView({collection: window.playgroundCards});
+                window.roomView = (window.roomView) ? window.roomView : new RoomView({model: window.gameModel});
+                window.headerView = (window.headerView) ? window.headerView : new HeaderView({model: window.playerModel});
+                window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});
+                window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardsCollection});
+                window.cardView = (window.cardView) ? window.cardView : new CardView({collection: window.cardsCollection});
             }
         },
     });

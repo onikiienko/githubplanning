@@ -1,12 +1,12 @@
 /*jshint globalstrict: true*/
-define('views/playgroundCardView', [
-		'text!templates/roomTemplates/playgroundCard.html',
+define('views/card', [
+		'text!templates/roomTemplates/card.html',
 		'backbone',
 		'underscore'
-], function(playgroundCardTemplate, Backbone, _) {
+], function(cardTemplate, Backbone, _) {
 	let PlaygroundCard = Backbone.View.extend({
 		el: '.cards',
-		template : _.template(playgroundCardTemplate),
+		template : _.template(cardTemplate),
 		initialize: function(){
 			this.listenTo(this.collection, "add", function(card){
 				this.model = card;

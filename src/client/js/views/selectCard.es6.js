@@ -1,5 +1,5 @@
 /*jshint globalstrict: true*/
-define('views/selectCardView', [
+define('views/selectCard', [
 		'text!templates/roomTemplates/selectCard.html',
 		'backbone',
 		'underscore'
@@ -22,12 +22,12 @@ define('views/selectCardView', [
 		clickInCard: function(e){
 			let value = $($($(e.target).closest(".card")).find(".card__rate")).attr("data");
 			let content = $($($(e.target).closest(".card")).find(".card__rate")).text();
-			let player = window.player.toJSON().player;
+			let player = window.playerModel.toJSON().player;
 			let playerObject = {
 				avatar: player.avatar,
 				login: player.login
 			}
-			window.playgroundCards.add({
+			window.cardsCollection.add({
 				contributor: playerObject,
 				card: {
 					value: value,

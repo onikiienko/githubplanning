@@ -1,5 +1,5 @@
 /*jshint globalstrict: true*/
-define('models/playGroundCard.es6', [
+define('models/card', [
 	'underscore',
 	'backbone'
 ], function(_, Backbone){

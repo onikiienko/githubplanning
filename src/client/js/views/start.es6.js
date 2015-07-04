@@ -1,12 +1,12 @@
 /*jshint globalstrict: true*/
-define('views/startView', [
-		'text!templates/startTemplate.html', 
+define('views/start', [
+		'text!templates/start.html', 
 		'models/player' , 
-		'login/githubHandler',
+		'login/github',
 		'socketIO',
 		'backbone',
 		'underscore'
-], function(startTemplate, Player, github, io, Backbone, _) {
+], function(startTemplate, PlayerModel, github, io, Backbone, _) {
 	let StartView = Backbone.View.extend({
 		el: '.wrapper',
 		events: {
@@ -14,6 +14,7 @@ define('views/startView', [
 		},
 		template : _.template(startTemplate),
 		initialize: function(){
+			this.render();
 			// window.socket = io();
 			// window.socket.on('sendCurrentDataAbout', function(data){
 			// 	console.log(data);
@@ -23,10 +24,10 @@ define('views/startView', [
 			$(this.el).html(this.template());
 		},
 		singInAndGetData: function(){
-			window.player = new Player();
+			window.playerModel = new PlayerModel();
 			window.provider = github;
-			window.provider.signInAndFillData(window.player);
-			window.app_router.navigate('#create_or_join', {trigger: true});
+			window.provider.signInAndFillData(window.playerModel);
+			window.app_router.navigate('#create', {trigger: true});
 		}
 	});
 

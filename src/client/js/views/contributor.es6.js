@@ -1,12 +1,12 @@
 /*jshint globalstrict: true*/
-define('views/playgroundUserView', [
-		'text!templates/roomTemplates/playgroundUser.html',
+define('views/contributor', [
+		'text!templates/roomTemplates/contributor.html',
 		'backbone',
 		'underscore'
-], function(playgroundUserTemplate, Backbone, _) {
+], function(cotributorTemplate, Backbone, _) {
 	let PlaygroundUser = Backbone.View.extend({
 		el: '.playground__users',
-		template : _.template(playgroundUserTemplate),
+		template : _.template(cotributorTemplate),
 		initialize: function(){
 			this.listenTo(this.collection, "add", function(cotributor){
 				this.model = cotributor;

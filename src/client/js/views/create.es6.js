@@ -1,26 +1,27 @@
 /*jshint globalstrict: true*/
-define('views/createOrJoinView', [
-  'text!templates/createOrJoinTemplate.html',
+define('views/create', [
+  'text!templates/create.html',
   'models/game',
   'collections/contributors',
-  'collections/issues',
+  'collections/tasks',
   'collections/selectCards',
   'backbone',
   'jquery',
   'socketIO',
   'underscore'
-], function(createOrJoinTemplate, Game, Contributors, Issues, SelectCards, Backbone, $, io, _) {
-  let CreateOrJoinView = Backbone.View.extend({
+], function(createTemplate, GameModel, ContributorsCollection, TasksCollection, SelectCardsCollection, Backbone, $, io, _) {
+  let Create = Backbone.View.extend({
     el: '.wrapper',
     events: {
       "click .enterRoomBtn" : "createRoom",
       "click .select__title" : "openRoomNameList",
       "click .select__item" : "chooseProject"
     },
-    template: _.template(createOrJoinTemplate),
+    template: _.template(createTemplate),
     initialize: function(){
         _.bindAll(this, 'render');
         this.model.bind('change', this.render);
+        this.render();
     },
     render: function(){
       try{
@@ -30,13 +31,13 @@ define('views/createOrJoinView', [
       }
     },
     createRoom: function(){
-      window.game = new Game();
-      window.contributors = new Contributors();
+      window.gameModel = new GameModel();
+      window.contributorsCollection = new ContributorsCollection();
 
-      window.issues = new Issues();
+      window.tasksCollection = new TasksCollection();
 
-      window.selectCardCollection = new SelectCards();
-      window.selectCardCollection.add([{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'?' : 12}]);
+      window.selectCardsCollection = new SelectCardsCollection();
+      window.selectCardsCollection.add([{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'?' : 12}]);
 
       this.getProjectData();
       
@@ -60,13 +61,13 @@ define('views/createOrJoinView', [
     },
     getProjectData: function(){
       let project = $.trim($('.select__title').html());
-      let api = window.player.toJSON().playerAPI;
+      let api = window.playerModel.toJSON().playerAPI;
 
-      window.game.set('nameOfProject', project);
-      window.game.set('player', window.player.toJSON().player);
+      window.gameModel.set('nameOfProject', project);
+      window.gameModel.set('player', window.playerModel.toJSON().player);
 
-      window.provider.getIssues(api, project, window.issues);
-      window.provider.getCollaborators(api, project, window.contributors);
+      window.provider.getIssues(api, project, window.tasksCollection);
+      window.provider.getCollaborators(api, project, window.contributorsCollection);
     }
     // socketInit: function(){
       // let playerData = this.model.toJSON().player;
@@ -84,6 +85,6 @@ define('views/createOrJoinView', [
     // }
   });
 
-  return CreateOrJoinView;
+  return Create;
 
 });

@@ -1,9 +1,9 @@
 /*jshint globalstrict: true*/
-define('models/issue', [
+define('models/task', [
 	'underscore',
 	'backbone'
 ], function(_, Backbone){
-	let Issue = Backbone.Model.extend({
+	let Task = Backbone.Model.extend({
 		defaults: {
 			body : '',
 			creator: '',
@@ -11,5 +11,5 @@ define('models/issue', [
 			title: ''
 		}
 	});
-	return Issue;
+	return Task;
 });

@@ -1,5 +1,5 @@
 /*jshint globalstrict: true*/
-define('collections/playgroundCards', ['backbone'],
+define('collections/cards', ['backbone'],
 	function(Backbone){
 		var PlaygroundCards = Backbone.Collection;
 

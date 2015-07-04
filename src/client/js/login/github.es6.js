@@ -1,10 +1,10 @@
 /*jshint globalstrict: true*/
 
-define('login/githubHandler', [
+define('login/github', [
 	'underscore', 
 	'models/contributor',
-	'models/issue'
-], function(_, Contributor, Issue){
+	'models/task'
+], function(_, ContributorModel, Task){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{
 			signInAndFillData: function(player){
@@ -62,7 +62,7 @@ define('login/githubHandler', [
 						let md = window.markdownit();
     					let body = md.render(issueBodyMD);
 						collection.add(
-							new Issue({
+							new Task({
 								title: issue.title,
 								body: body,
 								date: issue.created_at,
@@ -81,7 +81,7 @@ define('login/githubHandler', [
 				.then(function(data){
 					_.each(data, function(collaborator){
 						collection.add(
-							new Contributor({
+							new ContributorModel({
   								login: collaborator.login,
   								avatar: collaborator.avatar_url
   							})
