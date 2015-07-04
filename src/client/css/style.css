@@ -732,6 +732,7 @@ img {
 }
 
 .users-comments {
+  display: none;
   height: 100vh;
   overflow: auto;
   padding: 0 2.375rem 1.25rem 1.5625rem;
@@ -976,6 +977,10 @@ img {
 }
 .card-select__cards .card {
   margin-bottom: 0.75rem;
+}
+
+.content--active {
+  display: block;
 }
 
 /* Media*/
