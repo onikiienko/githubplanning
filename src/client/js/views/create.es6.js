@@ -1,15 +1,14 @@
 /*jshint globalstrict: true*/
 define('views/create', [
   'text!templates/create.html',
-  'models/game',
   'collections/contributors',
   'collections/tasks',
   'collections/selectCards',
+  'io/main',
   'backbone',
   'jquery',
-  'socketIO',
   'underscore'
-], function(createTemplate, GameModel, ContributorsCollection, TasksCollection, SelectCardsCollection, Backbone, $, io, _) {
+], function(createTemplate, ContributorsCollection, TasksCollection, SelectCardsCollection, io, Backbone, $, _) {
   let Create = Backbone.View.extend({
     el: '.wrapper',
     events: {
@@ -31,7 +30,6 @@ define('views/create', [
       }
     },
     createRoom: function(){
-      window.gameModel = new GameModel();
       window.contributorsCollection = new ContributorsCollection();
 
       window.tasksCollection = new TasksCollection();
@@ -43,6 +41,7 @@ define('views/create', [
       
       let roomName = $.trim($('.select__title').html()).replace('/', '');
       let roomUrl = '#room/' + roomName;
+      io.enterRoom(roomName);
 
       window.app_router.navigate(roomUrl, {trigger: true});
     },
@@ -63,26 +62,9 @@ define('views/create', [
       let project = $.trim($('.select__title').html());
       let api = window.playerModel.toJSON().playerAPI;
 
-      window.gameModel.set('nameOfProject', project);
-      window.gameModel.set('player', window.playerModel.toJSON().player);
-
       window.provider.getIssues(api, project, window.tasksCollection);
       window.provider.getCollaborators(api, project, window.contributorsCollection);
     }
-    // socketInit: function(){
-      // let playerData = this.model.toJSON().player;
-      // let gameData = window.player.toJSON();
-      // let roomName = '/' + $('.roomNameInput').html();
-      // console.log(playerData, gameData, roomName);
-      // window.socket.emit('enter room', playerData, gameData);
-      // window.socket = io(roomName);
-      // window.socket.on('connectionReady', function(currency, table, gamersList){
-      // 	console.log(currency);
-      // 	console.log(table);
-      // 	console.log(gamersList);
-      // });
-      // window.app_router.navigate('#go_to_room/:roomName', {trigger: true});
-    // }
   });
 
   return Create;

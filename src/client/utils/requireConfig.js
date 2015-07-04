@@ -1,9 +1,6 @@
 'use strict';
 
-// Require.js allows us to configure shortcut alias
 require.config({
-	// The shim config allows us to configure dependencies for
-	// scripts that do not call define() to register a module
 	shim: {
 		underscore: {
 			exports: '_'
@@ -31,6 +28,7 @@ require.config({
 		views: 'js/views',
 		login: 'js/login',
 		router: 'js/router',
+		io: 'js/io',
 		js: 'js',
 		templates: 'js/templates'
 	}

@@ -1,9 +1,9 @@
 /*jshint globalstrict: true*/
 define('views/start', [
-		'text!templates/start.html', 
-		'models/player' , 
+		'text!templates/start.html',
+		'models/player',
 		'login/github',
-		'socketIO',
+		'io/main',
 		'backbone',
 		'underscore'
 ], function(startTemplate, PlayerModel, github, io, Backbone, _) {
@@ -15,10 +15,6 @@ define('views/start', [
 		template : _.template(startTemplate),
 		initialize: function(){
 			this.render();
-			// window.socket = io();
-			// window.socket.on('sendCurrentDataAbout', function(data){
-			// 	console.log(data);
-			// });
 		},
 		render: function(){
 			$(this.el).html(this.template());

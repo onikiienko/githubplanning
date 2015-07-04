@@ -3,12 +3,7 @@ define('models/player', [
 	'underscore',
 	'backbone'
 ], function(_, Backbone){
-	let Player = Backbone.Model.extend({
-		defaults: {
-			player : '',
-			listOfProjects: '',
-			playerAPI: ''
-		}
-	});
+	let Player = Backbone.Model;
+	
 	return Player;
 });

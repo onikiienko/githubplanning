@@ -32,7 +32,7 @@ define([
             if(!window.playerModel){
                 this.navigate("#", {trigger: true});
             }else{
-                window.roomView = (window.roomView) ? window.roomView : new RoomView({model: window.gameModel});
+                window.roomView = (window.roomView) ? window.roomView : new RoomView();
                 window.headerView = (window.headerView) ? window.headerView : new HeaderView({model: window.playerModel});
                 window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});
                 window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardsCollection});
