@@ -1,10 +1,11 @@
 /*jshint globalstrict: true*/
 define('views/selectCard', [
 		'text!templates/roomTemplates/selectCard.html',
+		'models/card',
 		'io/main',
 		'backbone',
 		'underscore'
-], function(selectCardTemplate, io, Backbone, _) {
+], function(selectCardTemplate, CardModel, io, Backbone, _) {
 	let SelectCardView = Backbone.View.extend({
 		el: '.card-select__cards',
 		template : _.template(selectCardTemplate),
@@ -23,26 +24,20 @@ define('views/selectCard', [
 		clickInCard: function(e){
 			let value = $($($(e.target).closest(".card")).find(".card__rate")).attr("data");
 			let content = $($($(e.target).closest(".card")).find(".card__rate")).text();
-			let player = window.playerModel.toJSON().player;
+			let player = window.playerModel.get('player');
 			let playerObject = {
 				avatar: player.avatar,
-				login: player.login
-			}
-
-			io.selectCard({
-				contributor: playerObject,
-				card: {
-					value: value,
-					content: content
+				name: player.name
+			};
+			let model = new CardModel({ 
+				contributor: playerObject, 
+				card: { 
+					value: value, 
+					content: content 
 				}
 			});
-			// window.cardsCollection.add({
-			// 	contributor: playerObject,
-			// 	card: {
-			// 		value: value,
-			// 		content: content
-			// 	}
-			// });
+
+			io.selectCard(model);
 		}
 	});
 

@@ -21,8 +21,8 @@ define('views/contributor', [
 			$(this.el).append(this.template(this.model.toJSON()));
 		},
 		removeUser: function(){
-			let login = this.model.toJSON().login;
-			let usernameBlock = $(this.el).find('.user__name:contains(' + login + ')');
+			let name = this.model.get('name');
+			let usernameBlock = $(this.el).find('.user__name:contains(' + name + ')');
 			let user = $(usernameBlock).closest('.user');
 
 			$(user).remove();

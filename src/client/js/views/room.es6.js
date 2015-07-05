@@ -12,18 +12,11 @@ define('views/room', [
 		},
 		template : _.template(roomTemplate),
 		initialize: function(){
-			_.bindAll(this, 'render');
-
     		window.cardsCollection = new CardsCollection();
     		this.render();
 		},
 		render: function(){
-			// try{
-				$(this.el).html(this.template(/*this.model.toJSON()*/));
-			// 	$(".posts").scrollTop($(".posts")[0].scrollHeight);
-			// }catch(e){
-			// 	console.log(e);
-			// }
+			$(this.el).html(this.template());
 		},
 		showTab: function(e){
 			let target = $(e.target);

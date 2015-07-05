@@ -12,11 +12,15 @@ define('io/main', ['socketIO'],
 				socket = io(roomName);
 				
 				socket.on('ready', function(model){
-					console.log(model);
+					socket.emit('me', window.playerModel.get('player'));
+				});
+
+				socket.on('newEnter', function(model){
+					window.contributorsCollection.addMember(model);
 				});
 				
 				socket.on('selectCard', function(model){
-					window.cardsCollection.add(model);
+					window.cardsCollection.addCard(model);
 				});
 
 				socket.on('removeCard', function(model){

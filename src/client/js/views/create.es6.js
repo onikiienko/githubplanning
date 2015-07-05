@@ -25,9 +25,7 @@ define('views/create', [
     render: function(){
       try{
         $(this.el).html(this.template(this.model.toJSON()));
-      }catch(e){
-        console.log(e);
-      }
+      }catch(e){}
     },
     createRoom: function(){
       window.contributorsCollection = new ContributorsCollection();
@@ -60,10 +58,9 @@ define('views/create', [
     },
     getProjectData: function(){
       let project = $.trim($('.select__title').html());
-      let api = window.playerModel.toJSON().playerAPI;
+      let api = window.playerModel.get('playerAPI');
 
       window.provider.getIssues(api, project, window.tasksCollection);
-      window.provider.getCollaborators(api, project, window.contributorsCollection);
     }
   });
 

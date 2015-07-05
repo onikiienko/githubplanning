@@ -7,7 +7,7 @@ define('login/github', [
 ], function(_, ContributorModel, Task){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 		return{
-			signInAndFillData: function(player){
+			signInAndFillData: function(playerModel){
 				let that = this;
 				let projectList = [];
 				let user = {};
@@ -15,7 +15,7 @@ define('login/github', [
 				
 				this.signIn()
 				.then(function(api){
-					player.set('playerAPI', api);
+					playerModel.set('playerAPI', api);
 					playerAPI = api;
 				}).then(function(){					
 					that.getRepos(playerAPI)
@@ -28,7 +28,7 @@ define('login/github', [
 								description: project.description
 							});
 						});
-						player.set('listOfProjects', projectList);
+						playerModel.set('listOfProjects', projectList);
 					});
 
 					that.getUserData(playerAPI)
@@ -38,7 +38,7 @@ define('login/github', [
 							name: data.name,
 							avatar: data.avatar_url
 						};
-						player.set('player', user);
+						playerModel.set('player', user);
 					});
 				})
 				
