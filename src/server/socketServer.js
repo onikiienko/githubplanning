@@ -15,9 +15,32 @@ exports.create = function(http){
 			console.log(data.name);
 			if(!socket.server.nsps[data.name]){
 				var roomSocket = io.of(data.name);
+
 				roomSocket.on('connection', function(socket){
-					roomSocket.emit('ready', {text: 'ready'});
+					roomSocket.emit('ready', {text: 'readygdg'});
+
+					// roomSocket.on('selectCard', function(model){
+					// 	console.log(model);
+					// 	roomSocket.emit('selectCard', model);
+					// });
+
+					socket.on('selectCard', function(model){
+						console.log(model);
+						roomSocket.emit('selectCard', model);
+					});
+
 				});
+				
+				// roomSocket.on('selectCard', function(model){
+				// 	console.log(model);
+				// 	roomSocket.emit('selectCard', model);
+				// });
+
+				// socket.on('selectCard', function(model){
+				// 	console.log(model);
+				// 	roomSocket.emit('selectCard', model);
+				// });
+
 			}
 		});
 	});

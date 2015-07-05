@@ -1,9 +1,10 @@
 /*jshint globalstrict: true*/
 define('views/selectCard', [
 		'text!templates/roomTemplates/selectCard.html',
+		'io/main',
 		'backbone',
 		'underscore'
-], function(selectCardTemplate, Backbone, _) {
+], function(selectCardTemplate, io, Backbone, _) {
 	let SelectCardView = Backbone.View.extend({
 		el: '.card-select__cards',
 		template : _.template(selectCardTemplate),
@@ -27,13 +28,21 @@ define('views/selectCard', [
 				avatar: player.avatar,
 				login: player.login
 			}
-			window.cardsCollection.add({
+
+			io.selectCard({
 				contributor: playerObject,
 				card: {
 					value: value,
 					content: content
 				}
 			});
+			// window.cardsCollection.add({
+			// 	contributor: playerObject,
+			// 	card: {
+			// 		value: value,
+			// 		content: content
+			// 	}
+			// });
 		}
 	});
 

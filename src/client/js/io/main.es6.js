@@ -15,8 +15,12 @@ define('io/main', ['socketIO'],
 					console.log(model);
 				});
 				
-				socket.on('card', function(model){
-					console.log(model);
+				socket.on('selectCard', function(model){
+					window.cardsCollection.add(model);
+				});
+
+				socket.on('removeCard', function(model){
+					window.cardsCollection.remove(model);
 				});
 				
 				socket.on('message', function(model){
@@ -31,7 +35,10 @@ define('io/main', ['socketIO'],
 				socket.emit('message', model);
 			},
 			selectCard: function(model){
-				socket.emit('card', model)
+				socket.emit('selectCard', model);
+			},
+			removeCard: function(model){
+				socket.emit('removeCard', model);
 			}
 		}
 	}
