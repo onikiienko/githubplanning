@@ -978,6 +978,18 @@ img {
   margin-bottom: 0.75rem;
 }
 
+.card__user-name {
+  width: 100%;
+  color: #72777C;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  position: absolute;
+  bottom: -30px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 /* Media*/
 
 
