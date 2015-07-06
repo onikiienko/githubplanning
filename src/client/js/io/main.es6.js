@@ -24,7 +24,7 @@ define('io/main', ['socketIO'],
 				});
 
 				socket.on('removeCard', function(model){
-					window.cardsCollection.remove(model);
+					window.cardsCollection.removeCard(model);
 				});
 				
 				socket.on('message', function(model){

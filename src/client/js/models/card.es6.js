@@ -3,11 +3,11 @@ define('models/card', [
 	'underscore',
 	'backbone'
 ], function(_, Backbone){
-	let PlayGroundCard = Backbone.Model.extend({
+	let Card = Backbone.Model.extend({
 		defaults: {
 			contributor : '',
 			card: ''
 		}
 	});
-	return PlayGroundCard;
+	return Card;
 });

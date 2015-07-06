@@ -27,7 +27,7 @@ define('views/card', [
 		},
 		removeCardFromLayout: function(){
 			let avatar = this.model.get('contributor').avatar;
-			let userBlock = $(this.el).find('.user img ["src=' + avatar + '"])');
+			let userBlock = $(this.el).find('[src="' + avatar + '"]');
 			let card = $(userBlock).closest('.card');
 
 			$(card).remove();
