@@ -28,14 +28,14 @@ define('io/main', ['socketIO'],
 				});
 				
 				socket.on('message', function(model){
-					console.log(model);
+					window.chatCollection.addMessage(model);
 				});
 
 				socket.on('gameData', function(model){
 					console.log(model);
 				});
 			},
-			sentMessage: function(model){
+			sendMessage: function(model){
 				socket.emit('message', model);
 			},
 			selectCard: function(model){

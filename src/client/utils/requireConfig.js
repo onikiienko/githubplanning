@@ -21,6 +21,7 @@ require.config({
 		text: 'utils/text',
 		isMobile: 'utils/isMobile',
 		socketIO: 'utils/socket.io',
+		marionette: 'utils/backboneMarionette',
 		fontawesome: 'utils/font/css/font-awesome.min',
 		showdown: 'utils/showdown',
 		models: 'js/models',

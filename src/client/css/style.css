@@ -732,7 +732,6 @@ img {
 }
 
 .users-comments {
-  display: none;
   height: 100vh;
   overflow: auto;
   padding: 0 2.375rem 1.25rem 1.5625rem;
@@ -989,6 +988,10 @@ img {
   bottom: -30px;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.content--active {
+  display: block; 
 }
 
 /* Media*/

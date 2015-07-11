@@ -7,8 +7,9 @@ define([
     "views/header",
     "views/contributor",
     "views/card",
+    "views/chat",
     "views/selectCard"
-], function(Backbone, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, SelectCardView){
+], function(Backbone, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, SelectCardView){
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
@@ -37,6 +38,7 @@ define([
                 window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});
                 window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardsCollection});
                 window.cardView = (window.cardView) ? window.cardView : new CardView({collection: window.cardsCollection});
+                window.chatView = (window.chatView) ? window.chatView : new ChatView({collection: window.chatCollection});
             }
         },
     });
