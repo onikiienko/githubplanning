@@ -50,6 +50,7 @@ define('views/room', [
 				name: player.name
 			};
 			let text = $('.textarea').val();
+			$('.textarea').val('');
 
 			let model = new ChatModel({
 				contributor: playerObject,
