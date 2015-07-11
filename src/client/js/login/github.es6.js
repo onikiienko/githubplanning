@@ -66,8 +66,8 @@ define('login/github', [
 								title: issue.title,
 								body: body,
 								date: issue.created_at,
-								creator: {
-									login: issue.user.login,
+								contributor: {
+									name: issue.user.login,
 									avatar: issue.user.avatar_url
 								}
 							})
