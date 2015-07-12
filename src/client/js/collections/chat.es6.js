@@ -6,8 +6,8 @@ define('collections/chat', [
 	],
 	function(ChatModel, Backbone, _){
 		var Chat = Backbone.Collection.extend({
-			addMessage: function(model){
-				this.add(new ChatModel(model));
+			addMessage: function(data){
+				this.add(data);
 			}
 		});
 

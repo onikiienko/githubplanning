@@ -15,6 +15,22 @@ define('io/main', ['socketIO'],
 					socket.emit('me', window.playerModel.get('player'));
 				});
 
+				socket.on('oldCardsCollection', function(collection){
+					if(!window.cardsCollection.toJSON().length){
+						window.cardsCollection.addCard(collection);
+					}
+				});
+				socket.on('oldContributorsCollection', function(collection){
+					if(!window.contributorsCollection.toJSON().length){
+						window.contributorsCollection.addMember(collection);
+					}
+				});
+				socket.on('oldChatCollection', function(collection){
+					if(!window.chatCollection.toJSON().length){
+						window.chatCollection.addMessage(collection);
+					}
+				});
+
 				socket.on('newEnter', function(model){
 					window.contributorsCollection.addMember(model);
 				});

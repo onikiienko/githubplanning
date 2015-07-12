@@ -6,11 +6,11 @@ define('collections/cards', [
 	], function(CardModel, Backbone, _){
 		var Cards = Backbone.Collection.extend({
 			addCard: function(model){
-				if(this.filter(function (nextCard) { return _.isEqual(nextCard.get("contributor"), model.contributor);})){
+				if(this.filter(function (nextCard) { return _.isEqual(nextCard.get("contributor"), model.contributor);}).length){
 					this.remove(this.filter(function (nextCard) { return _.isEqual(nextCard.get("contributor"), model.contributor);}));
-					this.add(new CardModel(model));
+					this.add(model);
 				}else{
-					this.add(new CardModel(model));
+					this.add(model);
 				}
 			},
 			removeCard: function(model){
