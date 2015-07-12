@@ -1,7 +1,6 @@
 var _ = require('underscore');
 var Backbone = require('backbone');
 var currencies = require('./currencies');
-var room = require('./room');
 
 
 
