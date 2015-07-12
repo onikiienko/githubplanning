@@ -5,7 +5,7 @@ define('views/chat', [
 		'underscore'
 ], function(commentTemplate, Backbone, _) {
 	let RoomHeaderView = Backbone.View.extend({
-		el: '.users-comments',
+		el: '.msg-container',
 		template : _.template(commentTemplate),
 		initialize: function(){
 			this.listenTo(this.collection, "add", function(message){

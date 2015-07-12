@@ -1,25 +1,38 @@
 <div class="content-wrapper">
     <div class="content__header">
-        <!-- Paste RoomHeader -->
-    </div><!-- /.content__header -->
+        <header class="main-header">
+            <div class="main-header__logo">
+                <div class="logo">
+                    <a href="/"><img src="/images/logo.svg"></a> <!--//todo - paste plain svg -->
+                </div><!-- /.logo -->
+            </div><!-- /.main-header__logo -->
+            <div class="main-header__project">Project Title</div><!-- /.main-header__project -->
+            <div class="main-header__user">
+                <div class="user">
+                    <div class="user__avatar">
+                        <img src="https://avatars.githubusercontent.com/u/3904240?v=3">
+                    </div><!-- /.user__avatar -->
+                    <div class="user__name">Alexander Mykolaichuk</div>
+                </div>
+            </div><!-- /.main-header__user -->
+        </header><!-- /.main-header -->
+    </div><!-- /.head -->
+
     <div class="main-content">
         <div class="col-1">
             <div class="main-content__playground">
                 <section class="playground">
                     <div class="playground__users">
-                        <!-- Paste playgroundUser -->
                     </div><!-- /.playground__users -->
                     <h2 class="playground__title">Task title with very long multilined text (yes, it can be) goes here </h2>
                     <div class="playground__cards">
                         <div class="cards">
-                            <!-- Paste playgroundCard -->
                         </div><!-- /.cards -->
                     </div><!-- /.playground__cards -->
                 </section><!-- /.playground -->
                 <div class="main-content__cardSelect">
                     <section class="card-select">
                         <div class="card-select__cards">
-                            <!-- Paste selectCard -->
                         </div><!-- /.card-select__cards -->
                     </section><!-- /.card-select -->
                 </div>
@@ -32,25 +45,26 @@
                     <li bind="tasks">Tasks</li>
                 </ul><!-- /.tabs__nav -->
                 <div class="tab__content">
-                    <div class="users-comments tab__content--item content--active" bind="conversation">
-                        <!-- paste user comment-->
-                        <div class="users-comments__chat">
-                            <div class="users-comments__textarea">
-                                <textarea class="textarea"></textarea>
-                            </div><!-- /.users-comments__textarea -->
-                            <div class="users-comments__btn">
-                                <button class="btn-enter">Comment</button>
-                            </div><!-- /.users-comments__btn -->
-                        </div>
-                    </div><!-- /.users-comments -->
-                    <div  class="tasks tab__content--item" bind="tasks">
-                        <!-- paste task-->
-                        <div class="tasks__btn">
+                    <div class="chat tab__content--item content--active" bind="conversation">
+                        <div class="msg-container">
+                        </div><!-- /.msg-container -->
+                        <div class="msg-input">
+                            <textarea class="textarea"></textarea>
+                            <button id="sendMsg" class="btn-enter">Comment</button>
+                        </div><!-- /.msg-input -->
+                    </div><!-- /.chat -->
+                    <div class="tasks tab__content--item" bind="tasks">
+                        <div class="task__container" >
+
+                        </div><!-- /.task-container -->
+                        <div class="task__btn">
                             <button class="btn-enter">Add New Task</button>
-                        </div><!-- /.tasks__btn -->
+                        </div><!-- /.task__btn -->
                     </div><!-- /.tasks -->
                 </div><!-- /.tab__content -->
-            </div><!-- /.tabs -->
+            </div><!-- /.tab -->
+
         </div>
     </div>
-</div><!-- /.content-wrapper -->
+
+</div>

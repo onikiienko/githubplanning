@@ -5,7 +5,7 @@ define('views/task', [
 		'underscore'
 ], function(taskTemplate, Backbone, _) {
 	let Task = Backbone.View.extend({
-		el: '.tasks',
+		el: '.task__container',
 		template : _.template(taskTemplate),
 		initialize: function(){
 			var self = this;
