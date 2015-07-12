@@ -46,9 +46,6 @@ define('views/room', [
     sendMessage: function(){
       let player = window.playerModel.get('player');
 
-      $('.msg-container').animate({
-        scrollTop: $('.msg-container')[0].scrollHeight}, 1);
-
       let playerObject = {
         avatar: player.avatar,
         name: player.name

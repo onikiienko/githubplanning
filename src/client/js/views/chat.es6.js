@@ -10,7 +10,7 @@ define('views/chat', [
 		initialize: function(){
 			this.listenTo(this.collection, "add", function(message){
 				this.model = message;
-				this.addCard();
+				this.addMessage();
 			});
 			this.render();
 		},
@@ -21,9 +21,10 @@ define('views/chat', [
 				$(self.el).append(self.template(message));
 			});
 		},
-		addCard: function(){
+		addMessage: function(){
 			this.model.set('time', this.getTime(this.model.get('date')));
 			$(this.el).append(this.template(this.model.toJSON()));
+			$('.msg-container').animate({scrollTop: $('.msg-container')[0].scrollHeight}, 1);
 		},
 		getTime: function(time){
 			let date = new Date(time);
