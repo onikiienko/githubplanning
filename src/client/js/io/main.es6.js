@@ -22,7 +22,7 @@ define('io/main', ['socketIO'],
 				});
 				socket.on('oldContributorsCollection', function(collection){
 					if(!window.contributorsCollection.toJSON().length){
-						window.contributorsCollection.addMember(collection);
+						window.contributorsCollection.addContributor(collection);
 					}
 				});
 				socket.on('oldChatCollection', function(collection){
@@ -31,8 +31,12 @@ define('io/main', ['socketIO'],
 					}
 				});
 
-				socket.on('newEnter', function(model){
-					window.contributorsCollection.addMember(model);
+				socket.on('addContributor', function(model){
+					window.contributorsCollection.addContributor(model);
+				});
+
+				socket.on('removeContributor', function(model){
+					window.contributorsCollection.removeContributor(model);
 				});
 				
 				socket.on('selectCard', function(model){

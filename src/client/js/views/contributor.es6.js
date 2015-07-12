@@ -8,12 +8,12 @@ define('views/contributor', [
 		el: '.playground__users',
 		template : _.template(cotributorTemplate),
 		initialize: function(){
-			this.listenTo(this.collection, "add", function(cotributor){
-				this.model = cotributor;
+			this.listenTo(this.collection, "add", function(contributor){
+				this.model = contributor;
 				this.addUser();
 			});
-			this.listenTo(this.collection, "remove", function(cotributor){
-				this.model = cotributor;
+			this.listenTo(this.collection, "remove", function(contributor){
+				this.model = contributor;
 				this.removeUser();
 			});
 		},
