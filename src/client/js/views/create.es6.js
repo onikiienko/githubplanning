@@ -15,7 +15,6 @@ define('views/create', [
     },
     template: _.template(createTemplate),
     initialize: function(options){
-        this.render();
         this.provider = options.provider;
         _.bindAll(this, 'render');
         this.model.bind('change', this.render);
