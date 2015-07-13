@@ -35,16 +35,16 @@ define([
             window.startView = (window.startView) ? window.startView : new StartView({provider: provider});
         },
         loadCreatePage: function(){
-            if(!OAuth.create('github')){
-                this.navigate("#", {trigger: true});
-            }else{
+            // if(!OAuth.create('github')){
+                // this.navigate("#", {trigger: true});
+            // }else{
                 
                 if(_.isEmpty(window.playerModel.toJSON())){ 
                     provider.signInAndFillData();
                 }
 
                 window.createView = (window.createView) ? window.createView : new CreateView({model: window.playerModel, provider: provider});
-            }
+            // }
         },
         loadRoomPage: function(roomName){
             if(!OAuth.create('github')){
