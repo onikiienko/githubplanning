@@ -31,38 +31,40 @@ define([
         },
 
         loadStartPage: function(){
+            if(!OAuth.create('github')){
+                this.navigate("#create", {trigger: true});
+                return;
+            }
             this.navigate("#", {trigger: true});
             window.startView = (window.startView) ? window.startView : new StartView({provider: provider});
         },
         loadCreatePage: function(){
-            // if(!OAuth.create('github')){
-                // this.navigate("#", {trigger: true});
-            // }else{
-                
                 if(_.isEmpty(window.playerModel.toJSON())){ 
                     provider.signInAndFillData();
                 }
 
                 window.createView = (window.createView) ? window.createView : new CreateView({model: window.playerModel, provider: provider});
-            // }
         },
         loadRoomPage: function(roomName){
             if(!OAuth.create('github')){
                 this.navigate("#", {trigger: true});
-            }else{
-                if(_.isEmpty(window.playerModel.toJSON())){
-                    provider.signInAndFillData();
-                    provider.getIssues(roomName.replace(';)', '/'));
-                }
-
-                window.roomView = (window.roomView) ? window.roomView : new RoomView({roomName: roomName});
-                window.headerView = (window.headerView) ? window.headerView : new HeaderView({model: window.playerModel});
-                window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});
-                window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardsCollection});
-                window.cardView = (window.cardView) ? window.cardView : new CardView({collection: window.cardsCollection});
-                window.chatView = (window.chatView) ? window.chatView : new ChatView({collection: window.chatCollection});
-                window.taskView = (window.taskView) ? window.taskView : new TaskView({collection: window.tasksCollection});
+                return;
             }
+
+            if(_.isEmpty(window.playerModel.toJSON())){
+                provider.signInAndFillData();
+                provider.getIssues(roomName.replace(';)', '/'));
+                setTimeout(function(){io.enterRoom(roomName)}, 1000);
+            }
+
+
+            window.roomView = (window.roomView) ? window.roomView : new RoomView({roomName: roomName});
+            window.headerView = (window.headerView) ? window.headerView : new HeaderView({model: window.playerModel});
+            window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});
+            window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardsCollection});
+            window.cardView = (window.cardView) ? window.cardView : new CardView({collection: window.cardsCollection});
+            window.chatView = (window.chatView) ? window.chatView : new ChatView({collection: window.chatCollection});
+            window.taskView = (window.taskView) ? window.taskView : new TaskView({collection: window.tasksCollection});
         },
     });
     return Router;
