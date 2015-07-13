@@ -1,6 +1,7 @@
 /*jshint globalstrict: true*/
 define([
     "backbone",
+    "underscore",
     "views/start",
     "views/create",
     "views/room",
@@ -9,8 +10,18 @@ define([
     "views/card",
     "views/chat",
     "views/task",
-    "views/selectCard"
-], function(Backbone, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView){
+    "views/selectCard",
+    'collections/contributors',
+    'collections/selectCards',
+    'login/github',
+    'io/main'
+], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, ContributorsCollection, SelectCardsCollection, github, io){
+    
+    window.contributorsCollection = new ContributorsCollection();
+    window.selectCardsCollection = new SelectCardsCollection();
+    window.selectCardsCollection.add([{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'?' : 12}]);
+    let provider = github;
+    
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
@@ -21,19 +32,30 @@ define([
 
         loadStartPage: function(){
             this.navigate("#", {trigger: true});
-            window.startView = (window.startView) ? window.startView : new StartView();
+            window.startView = (window.startView) ? window.startView : new StartView({provider: provider});
         },
         loadCreatePage: function(){
-            if(!window.playerModel){
+            if(!OAuth.create('github')){
                 this.navigate("#", {trigger: true});
             }else{
-                window.createView = (window.createView) ? window.createView : new CreateView({model: window.playerModel});
+                
+                if(_.isEmpty(window.playerModel.toJSON())){ 
+                    provider.signInAndFillData();
+                }
+
+                window.createView = (window.createView) ? window.createView : new CreateView({model: window.playerModel, provider: provider});
             }
         },
         loadRoomPage: function(roomName){
-            if(!window.playerModel){
+            if(!OAuth.create('github')){
                 this.navigate("#", {trigger: true});
             }else{
+                if(_.isEmpty(window.playerModel.toJSON())){
+                    provider.signInAndFillData();
+                    provider.getIssues(roomName.replace(';)', '/'));
+                    io.enterRoom(roomName);
+                }
+
                 window.roomView = (window.roomView) ? window.roomView : new RoomView();
                 window.headerView = (window.headerView) ? window.headerView : new HeaderView({model: window.playerModel});
                 window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});

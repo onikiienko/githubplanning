@@ -17,6 +17,7 @@ require.config({
 		jquery: 'utils/jquery',
 		underscore: 'utils/underscore',
 		backbone: 'utils/backbone',
+		localsStorage:'utils/backbone.localStorage-min',
 		oauth: 'utils/oauth',
 		text: 'utils/text',
 		isMobile: 'utils/isMobile',

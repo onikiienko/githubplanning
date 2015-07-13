@@ -1,68 +1,79 @@
 /*jshint globalstrict: true*/
 
 define('login/github', [
-	'underscore', 
+	'underscore',
+	'collections/tasks', 
 	'models/contributor',
+	'models/player',
 	'models/task'
-], function(_, ContributorModel, Task){
+], function(_, TasksCollection, ContributorModel, PlayerModel, TaskModel){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
+		window.playerModel = new PlayerModel();
+		window.tasksCollection = new TasksCollection();
+
 		return{
-			signInAndFillData: function(playerModel){
+			signInAndFillData: function(){
 				let that = this;
-				let projectList = [];
-				let user = {};
 				let playerAPI = {};
 				
-				this.signIn()
-				.then(function(api){
-					playerModel.set('playerAPI', api);
-					playerAPI = api;
-				}).then(function(){					
-					that.getRepos(playerAPI)
-					.then(function(projects){
-						_.each(projects, function(project){
-							projectList.push({
-								name: project.name,
-								owner: project.owner.login,
-								numberOfOpenIssues: project.open_issues,
-								description: project.description
-							});
-						});
-						playerModel.set('listOfProjects', projectList);
-					});
-
-					that.getUserData(playerAPI)
-					.then(function(data){
-						user = {
-							login: data.login,
-							name: data.name,
-							avatar: data.avatar_url
-						};
-						playerModel.set('player', user);
-					});
-				})
-				
+				if(OAuth.create('github')){
+					this.getRepos();
+					this.getUserData();
+				}else{
+					this.signIn()
+					.then(function(){					
+						that.getRepos();
+						that.getUserData();
+					})
+				}
 			},
+
 			signIn: function(){
 				OAuth.initialize(publicKey);
-				return OAuth.popup('github');
+				return OAuth.popup('github', {cache: true});
 			},
-			getRepos: function(api){
-				return api.get('/user/repos');
+
+			getRepos: function(){
+				let projectList = [];
+
+				return OAuth.create('github').get('/user/repos')
+				.then(function(projects){
+					_.each(projects, function(project){
+						projectList.push({
+							name: project.name,
+							owner: project.owner.login,
+							numberOfOpenIssues: project.open_issues,
+							description: project.description
+						});
+					});
+					window.playerModel.set('listOfProjects', projectList);
+				});
 			},
-			getUserData: function(api){
-				return api.get('/user');
+
+			getUserData: function(){
+				let user = {};
+
+				OAuth.create('github').get('/user')
+				.then(function(data){
+					user = {
+						login: data.login,
+						name: data.name,
+						avatar: data.avatar_url
+					};
+					window.playerModel.set('player', user);
+				});
 			},
-			getIssues: function(api, project, collection){
-				api
+
+			getIssues: function(project){
+				OAuth.create('github')
 				.get('/repos/' + project + '/issues')
 				.then(function(data){
 					_.each(data, function(issue){
 						let issueBodyMD = issue.body;
 						let md = window.markdownit();
     					let body = md.render(issueBodyMD);
-						collection.add(
-							new Task({
+						window.tasksCollection.add(
+							new TaskModel({
 								title: issue.title,
 								body: body,
 								date: issue.created_at,
@@ -75,8 +86,9 @@ define('login/github', [
 					});
 				});
 			},
-			getCollaborators: function(api, project, collection){
-				api
+
+			getCollaborators: function(project, collection){
+				OAuth.create('github')
 				.get('/repos/' + project + '/collaborators')
 				.then(function(data){
 					_.each(data, function(collaborator){

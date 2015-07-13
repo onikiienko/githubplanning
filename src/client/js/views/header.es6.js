@@ -9,9 +9,13 @@ define('views/header', [
 		template : _.template(headerTemplate),
 		initialize: function(){
 			this.render();
+			_.bindAll(this, 'render');
+        	this.model.bind('change', this.render);
 		},
 		render: function(){
-			$(this.el).html(this.template(this.model.toJSON()));
+      		try{
+        		$(this.el).html(this.template(this.model.toJSON()));
+      		}catch(e){}
 		}
 	});
 

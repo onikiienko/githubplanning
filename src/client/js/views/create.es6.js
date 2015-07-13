@@ -1,14 +1,11 @@
 /*jshint globalstrict: true*/
 define('views/create', [
   'text!templates/create.html',
-  'collections/contributors',
-  'collections/tasks',
-  'collections/selectCards',
   'io/main',
   'backbone',
   'jquery',
   'underscore'
-], function(createTemplate, ContributorsCollection, TasksCollection, SelectCardsCollection, io, Backbone, $, _) {
+], function(createTemplate, io, Backbone, $, _) {
   let Create = Backbone.View.extend({
     el: '.wrapper',
     events: {
@@ -17,10 +14,11 @@ define('views/create', [
       "click .select__item" : "chooseProject"
     },
     template: _.template(createTemplate),
-    initialize: function(){
+    initialize: function(options){
+        this.render();
+        this.provider = options.provider;
         _.bindAll(this, 'render');
         this.model.bind('change', this.render);
-        this.render();
     },
     render: function(){
       try{
@@ -28,16 +26,9 @@ define('views/create', [
       }catch(e){}
     },
     createRoom: function(){
-      window.contributorsCollection = new ContributorsCollection();
-
-      window.tasksCollection = new TasksCollection();
-
-      window.selectCardsCollection = new SelectCardsCollection();
-      window.selectCardsCollection.add([{'0': 0}, {'0.5' : 1}, {'1' : 2}, {'2' : 3}, {'3' : 4}, {'5' : 5}, {'8' : 6}, {'13' : 7}, {'20' : 8}, {'40' : 9}, {'100' : 10}, {'?' : 12}]);
-
       this.getProjectData();
       
-      let roomName = $.trim($('.select__title').html()).replace('/', '');
+      let roomName = $.trim($('.select__title').html()).replace('/', ';)');
       let roomUrl = '#room/' + roomName;
       io.enterRoom(roomName);
 
@@ -58,9 +49,8 @@ define('views/create', [
     },
     getProjectData: function(){
       let project = $.trim($('.select__title').html());
-      let api = window.playerModel.get('playerAPI');
 
-      window.provider.getIssues(api, project, window.tasksCollection);
+      this.provider.getIssues(project);
     }
   });
 
