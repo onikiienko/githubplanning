@@ -26,7 +26,7 @@ define('views/room', [
       $(this.el).html(this.template());
     },
     createSocketForRoom: function(){
-      io.enterRoom(this.roomName);
+      // io.enterRoom(this.roomName);
     },
     showTab: function(e){
       let target = $(e.target);
