@@ -15,13 +15,18 @@ define('views/room', [
       "click #sendMsg" : "sendMessage"
     },
     template : _.template(roomTemplate),
-    initialize: function(){
+    initialize: function(options){
+        this.roomName = options.roomName;
+        this.createSocketForRoom();
         window.cardsCollection = new CardsCollection();
         window.chatCollection = new ChatCollection();
         this.render();
     },
     render: function(){
       $(this.el).html(this.template());
+    },
+    createSocketForRoom: function(){
+      io.enterRoom(this.roomName);
     },
     showTab: function(e){
       let target = $(e.target);

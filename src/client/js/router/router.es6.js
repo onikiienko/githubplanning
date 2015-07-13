@@ -53,10 +53,9 @@ define([
                 if(_.isEmpty(window.playerModel.toJSON())){
                     provider.signInAndFillData();
                     provider.getIssues(roomName.replace(';)', '/'));
-                    io.enterRoom(roomName);
                 }
 
-                window.roomView = (window.roomView) ? window.roomView : new RoomView();
+                window.roomView = (window.roomView) ? window.roomView : new RoomView({roomName: roomName});
                 window.headerView = (window.headerView) ? window.headerView : new HeaderView({model: window.playerModel});
                 window.contributorView = (window.contributorView) ? window.contributorView : new ContributorView({collection: window.contributorsCollection});
                 window.selectCardView = (window.selectCardView) ? window.selectCardView : new SelectCardView({collection: window.selectCardsCollection});

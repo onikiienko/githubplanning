@@ -30,7 +30,6 @@ define('views/create', [
       
       let roomName = $.trim($('.select__title').html()).replace('/', ';)');
       let roomUrl = '#room/' + roomName;
-      io.enterRoom(roomName);
 
       window.app_router.navigate(roomUrl, {trigger: true});
     },
