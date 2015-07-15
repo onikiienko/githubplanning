@@ -48,7 +48,7 @@ define([
             if(_.isEmpty(data.playerModel.toJSON())){
                 provider.signInAndFillData();
                 provider.getIssues(roomName.replace(';)', '/'));
-                setTimeout(function(){io.enterRoom(roomName)}, 1);
+                setTimeout(function(){io.enterRoom(roomName)}, 1000);
             }
 
 
