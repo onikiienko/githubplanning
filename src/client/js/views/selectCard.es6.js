@@ -4,8 +4,9 @@ define('views/selectCard', [
 		'models/card',
 		'io/main',
 		'backbone',
-		'underscore'
-], function(selectCardTemplate, CardModel, io, Backbone, _) {
+		'underscore',
+		'data/service'
+], function(selectCardTemplate, CardModel, io, Backbone, _, appData) {
 	let SelectCardView = Backbone.View.extend({
 		el: '.card-select__cards',
 		template : _.template(selectCardTemplate),
@@ -26,8 +27,8 @@ define('views/selectCard', [
 			let content = $($($(e.target).closest(".card")).find(".card__rate")).text();
 
 			let playerObject = {
-        		avatar: window.headerModel.get('avatar'),
-        		name: window.headerModel.get('name')
+        		avatar: appData.headerModel.get('avatar'),
+        		name: appData.headerModel.get('name')
 			};
 
 			let model = new CardModel({ 

@@ -1,6 +1,9 @@
 /*jshint globalstrict: true*/
-define('io/main', ['socketIO'],
-	function(io){
+define('io/main', [
+	'socketIO',
+	'data/service'
+],
+	function(io, appData){
 		let socket = io();
 
 		return {
@@ -12,43 +15,43 @@ define('io/main', ['socketIO'],
 				socket = io(roomName);
 				
 				socket.on('ready', function(model){
-					socket.emit('me', window.headerModel);
+					socket.emit('me', appData.headerModel);
 				});
 
 				socket.on('oldCardsCollection', function(collection){
-					if(!window.cardsCollection.toJSON().length){
-						window.cardsCollection.addCard(collection);
+					if(!appData.cardsCollection.toJSON().length){
+						appData.cardsCollection.addCard(collection);
 					}
 				});
 				socket.on('oldContributorsCollection', function(collection){
-					if(!window.contributorsCollection.toJSON().length){
-						window.contributorsCollection.addContributor(collection);
+					if(!appData.contributorsCollection.toJSON().length){
+						appData.contributorsCollection.addContributor(collection);
 					}
 				});
 				socket.on('oldChatCollection', function(collection){
-					if(!window.chatCollection.toJSON().length){
-						window.chatCollection.addMessage(collection);
+					if(!appData.chatCollection.toJSON().length){
+						appData.chatCollection.addMessage(collection);
 					}
 				});
 
 				socket.on('addContributor', function(model){
-					window.contributorsCollection.addContributor(model);
+					appData.contributorsCollection.addContributor(model);
 				});
 
 				socket.on('removeContributor', function(model){
-					window.contributorsCollection.removeContributor(model);
+					appData.contributorsCollection.removeContributor(model);
 				});
 				
 				socket.on('selectCard', function(model){
-					window.cardsCollection.addCard(model);
+					appData.cardsCollection.addCard(model);
 				});
 
 				socket.on('removeCard', function(model){
-					window.cardsCollection.removeCard(model);
+					appData.cardsCollection.removeCard(model);
 				});
 				
 				socket.on('message', function(model){
-					window.chatCollection.addMessage(model);
+					appData.chatCollection.addMessage(model);
 				});
 
 				socket.on('gameData', function(model){

@@ -2,13 +2,13 @@
     <div class="card__user">
         <div class="user">
             <div class="user__avatar">
-                <img src="<%= contributor.avatar %>">
+                <img src="<%= model.contributor.avatar %>">
             </div><!-- /.user__avatar -->
         </div>
     </div>
-    <div class="card__rate" data="<%= card.value %>"><%= card.content %></div>
-    <%if(contributor.name !== window.headerModel.get('name')){%>
-        <div class="card__user-name"><%= contributor.name %></div>
+    <div class="card__rate" data="<%= model.card.value %>"><%= model.card.content %></div>
+    <%if(model.contributor.name !== headerModel.get('name')){%>
+        <div class="card__user-name"><%= model.contributor.name %></div>
     <%}else{%>
         <button class="card__btn"><i class="fa fa-times-circle"></i></button>
     <%}%> 

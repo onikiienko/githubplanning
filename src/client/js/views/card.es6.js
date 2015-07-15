@@ -4,8 +4,9 @@ define('views/card', [
 		'models/card',
 		'io/main',
 		'backbone',
-		'underscore'
-], function(cardTemplate, CardModel, io, Backbone, _) {
+		'underscore',
+		'data/service'
+], function(cardTemplate, CardModel, io, Backbone, _, appData) {
 	let PlaygroundCard = Backbone.View.extend({
 		el: '.cards',
 		template : _.template(cardTemplate),
@@ -23,7 +24,7 @@ define('views/card', [
 			});
 		},
 		addCard: function(){
-			$(this.el).append(this.template(this.model.toJSON()));
+			$(this.el).append(this.template({model: this.model.toJSON(), headerModel: appData.headerModel}));
 		},
 		removeCardFromLayout: function(){
 			let avatar = this.model.get('contributor').avatar;

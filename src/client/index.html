@@ -10,7 +10,7 @@
 
     <link rel="stylesheet" href="/styles/style.css">
 
-    <script src="https://cdn.jsdelivr.net/markdown-it/4.2.1/markdown-it.min.js"></script>
+    <script src="//cdn.jsdelivr.net/markdown-it/4.2.1/markdown-it.min.js"></script>
     <script src="utils/require.js"></script>
 
 </head>
@@ -24,7 +24,7 @@
         </div>
         <script>
             require(["utils/requireConfig"], function(){
-                require(["router/router"]);
+                require(["router"]);
                 OAuth = require(["oauth"]);
             });
         </script>

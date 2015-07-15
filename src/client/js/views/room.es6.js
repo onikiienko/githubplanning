@@ -4,8 +4,9 @@ define('views/room', [
     'models/chat',
     'io/main',
     'backbone',
-    'underscore'
-], function(roomTemplate, ChatModel, io, Backbone, _) {
+    'underscore',
+    'data/service'
+], function(roomTemplate, ChatModel, io, Backbone, _, appData) {
   let RoomView = Backbone.View.extend({
     el: '.main-content',
     events: {
@@ -41,8 +42,8 @@ define('views/room', [
     },
     sendMessage: function(){  
       let playerObject = {
-        avatar: window.headerModel.get('avatar'),
-        name: window.headerModel.get('name')
+        avatar: appData.headerModel.get('avatar'),
+        name: appData.headerModel.get('name')
       };
 
       let text = $('.textarea').val();

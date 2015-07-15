@@ -12,6 +12,7 @@ define('views/start', [
 		},
 		template : _.template(startTemplate),
 		initialize: function(options){
+			this.router = options.router;
 			this.provider = options.provider;
 			this.render();
 		},
@@ -19,7 +20,7 @@ define('views/start', [
 			$(this.el).html(this.template());
 		},
 		singInAndGetData: function(){
-			window.app_router.navigate('#create', {trigger: true});
+			this.router.navigate('#create', {trigger: true});
 			this.provider.signInAndFillData();
 		}
 	});

@@ -1,10 +1,10 @@
 /*jshint globalstrict: true*/
 
 define('login/github', [
+	'backbone',
 	'underscore',
-	'models/contributor',
-	'models/task'
-], function(_, ContributorModel, TaskModel){
+	'data/service'
+], function(Backbone, _, appData){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
 
 		return{
@@ -42,7 +42,7 @@ define('login/github', [
 							description: project.description
 						});
 					});
-					window.playerModel.set('listOfProjects', projectList);
+					appData.playerModel.set('listOfProjects', projectList);
 				});
 			},
 
@@ -51,7 +51,7 @@ define('login/github', [
 
 				OAuth.create('github').get('/user')
 				.then(function(data){
-					window.headerModel.set({
+					appData.headerModel.set({
 						login: data.login,
 						name: data.name,
 						avatar: data.avatar_url
@@ -67,17 +67,15 @@ define('login/github', [
 						let issueBodyMD = issue.body;
 						let md = window.markdownit();
     					let body = md.render(issueBodyMD);
-						window.tasksCollection.add(
-							new TaskModel({
-								title: issue.title,
-								body: body,
-								date: issue.created_at,
-								contributor: {
-									name: issue.user.login,
-									avatar: issue.user.avatar_url
-								}
-							})
-						);
+						appData.tasksCollection.add({
+							title: issue.title,
+							body: body,
+							date: issue.created_at,
+							contributor: {
+								name: issue.user.login,
+								avatar: issue.user.avatar_url
+							}
+						});
 					});
 				});
 			},
@@ -87,12 +85,10 @@ define('login/github', [
 				.get('/repos/' + project + '/collaborators')
 				.then(function(data){
 					_.each(data, function(collaborator){
-						collection.add(
-							new ContributorModel({
-  								login: collaborator.login,
-  								avatar: collaborator.avatar_url
-  							})
-  						);
+						collection.add({
+							login: collaborator.login,
+							avatar: collaborator.avatar_url
+						});
 					});
 				});
 			}

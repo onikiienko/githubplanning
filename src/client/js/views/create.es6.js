@@ -18,6 +18,7 @@ define('views/create', [
         _.bindAll(this, 'render');
         this.model.bind('change', this.render);
         this.provider = options.provider;
+        this.router = options.router;
         this.render();
     },
     render: function(){
@@ -32,7 +33,7 @@ define('views/create', [
       let roomUrl = '#room/' + roomName;
       io.enterRoom(roomName);
 
-      window.app_router.navigate(roomUrl, {trigger: true});
+      this.router.navigate(roomUrl, {trigger: true});
     },
     openRoomNameList: function(){
       $('.select__items').show();
