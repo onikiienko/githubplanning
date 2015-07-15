@@ -8,9 +8,9 @@ define('views/header', [
 		el: '.content__header',
 		template : _.template(headerTemplate),
 		initialize: function(){
-			this.render();
 			_.bindAll(this, 'render');
         	this.model.bind('change', this.render);
+			this.render();
 		},
 		render: function(){
       		try{

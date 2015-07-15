@@ -2,14 +2,10 @@
 
 define('login/github', [
 	'underscore',
-	'collections/tasks', 
 	'models/contributor',
-	'models/player',
 	'models/task'
-], function(_, TasksCollection, ContributorModel, PlayerModel, TaskModel){
+], function(_, ContributorModel, TaskModel){
 		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
-		window.playerModel = new PlayerModel();
-		window.tasksCollection = new TasksCollection();
 
 		return{
 			signInAndFillData: function(){
@@ -55,12 +51,11 @@ define('login/github', [
 
 				OAuth.create('github').get('/user')
 				.then(function(data){
-					user = {
+					window.headerModel.set({
 						login: data.login,
 						name: data.name,
 						avatar: data.avatar_url
-					};
-					window.playerModel.set('player', user);
+					});
 				});
 			},
 

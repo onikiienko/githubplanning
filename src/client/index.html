@@ -15,14 +15,16 @@
 
 </head>
     <body>
-        <div class="wrapper"></div>
-        <div id="example"></div>
+        <div class="content-wrapper">
+            <div class="content__header">
+            </div><!-- /.head -->
+
+            <div class="main-content">
+            </div>
+        </div>
         <script>
             require(["utils/requireConfig"], function(){
-                require(["router/router"], function(AppRouter){
-                    app_router = new AppRouter();
-                    Backbone.history.start();
-                });
+                require(["router/router"]);
                 OAuth = require(["oauth"]);
             });
         </script>

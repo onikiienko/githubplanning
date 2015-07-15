@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="card__rate" data="<%= card.value %>"><%= card.content %></div>
-    <%if(contributor.name !== window.playerModel.get('player').name){%>
+    <%if(contributor.name !== window.headerModel.get('name')){%>
         <div class="card__user-name"><%= contributor.name %></div>
     <%}else{%>
         <button class="card__btn"><i class="fa fa-times-circle"></i></button>

@@ -4,13 +4,19 @@
             <a href="/"><img src="/images/logo.svg"></a> <!--//todo - paste plain svg -->
         </div><!-- /.logo -->
     </div><!-- /.main-header__logo -->
-    <div class="main-header__project">Project Title</div><!-- /.main-header__project -->
+    <%if(typeof projectname !== "undefined"){%>
+        <div class="main-header__project">Project Title</div><!-- /.main-header__project -->
+    <%}%>
     <div class="main-header__user">
         <div class="user">
-            <div class="user__avatar">
-                <img src="<%= player.avatar %>">
-            </div><!-- /.user__avatar -->
-            <div class="user__name"><%= player.name %></div>
+            <%if(typeof avatar !== "undefined"){%>
+                <div class="user__avatar">
+                    <img src="<%=avatar%>">
+                </div><!-- /.user__avatar -->
+            <%}%>
+            <%if(typeof name !== "undefined"){%>
+                <div class="user__name"><%=name%></div>
+            <%}%>
         </div>
     </div><!-- /.main-header__user -->
 </header><!-- /.main-header -->

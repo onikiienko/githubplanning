@@ -7,7 +7,7 @@ define('views/create', [
   'underscore'
 ], function(createTemplate, io, Backbone, $, _) {
   let Create = Backbone.View.extend({
-    el: '.wrapper',
+    el: '.main-content',
     events: {
       "click .enterRoomBtn" : "createRoom",
       "click .select__title" : "openRoomNameList",

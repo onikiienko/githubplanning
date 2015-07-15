@@ -12,7 +12,7 @@ define('io/main', ['socketIO'],
 				socket = io(roomName);
 				
 				socket.on('ready', function(model){
-					socket.emit('me', window.playerModel.get('player'));
+					socket.emit('me', window.headerModel);
 				});
 
 				socket.on('oldCardsCollection', function(collection){

@@ -1,23 +1,19 @@
 /*jshint globalstrict: true*/
 define('views/room', [
     'text!templates/roomTemplates/room.html',
-    'collections/cards',
-    'collections/chat',
     'models/chat',
     'io/main',
     'backbone',
     'underscore'
-], function(roomTemplate, CardsCollection, ChatCollection, ChatModel, io, Backbone, _) {
+], function(roomTemplate, ChatModel, io, Backbone, _) {
   let RoomView = Backbone.View.extend({
-    el: '.wrapper',
+    el: '.main-content',
     events: {
       "click .tab__nav" : "showTab",
       "click #sendMsg" : "sendMessage"
     },
     template : _.template(roomTemplate),
     initialize: function(){
-        window.cardsCollection = new CardsCollection();
-        window.chatCollection = new ChatCollection();
         this.render();
     },
     render: function(){
@@ -43,21 +39,21 @@ define('views/room', [
       currentTabPanelBodyItem.toggleClass('content--active');
       currentTabPanelBodyItem.fadeIn();
     },
-    sendMessage: function(){
-      let player = window.playerModel.get('player');
-
+    sendMessage: function(){  
       let playerObject = {
-        avatar: player.avatar,
-        name: player.name
+        avatar: window.headerModel.get('avatar'),
+        name: window.headerModel.get('name')
       };
+
       let text = $('.textarea').val();
+      
       $('.textarea').val('');
 
       let model = new ChatModel({
         contributor: playerObject,
         text: text,
         date: new Date()
-      })
+      });
 
       io.sendMessage(model);
     }

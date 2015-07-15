@@ -35,11 +35,12 @@ define('views/card', [
 		removeCardFromCollection: function(e){
 			let value = $($($(e.target).closest(".card")).find(".card__rate")).attr("data");
 			let content = $($($(e.target).closest(".card")).find(".card__rate")).text();
-			let player = window.playerModel.get('player');
+			
 			let playerObject = {
-				avatar: player.avatar,
-				name: player.name
+        		avatar: window.headerModel.get('avatar'),
+        		name: window.headerModel.get('name')
 			};
+			
 			let model = new CardModel({ 
 				contributor: playerObject, 
 				card: { 
