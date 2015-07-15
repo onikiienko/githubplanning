@@ -1,11 +1,10 @@
 /*jshint globalstrict: true*/
 define('views/create', [
   'text!templates/create.html',
-  'io/main',
   'backbone',
   'jquery',
   'underscore'
-], function(createTemplate, io, Backbone, $, _) {
+], function(createTemplate, Backbone, $, _) {
   let Create = Backbone.View.extend({
     el: '.main-content',
     events: {
@@ -31,7 +30,6 @@ define('views/create', [
       
       let roomName = $.trim($('.select__title').html()).replace('/', ';)');
       let roomUrl = '#room/' + roomName;
-      io.enterRoom(roomName);
 
       this.router.navigate(roomUrl, {trigger: true});
     },
