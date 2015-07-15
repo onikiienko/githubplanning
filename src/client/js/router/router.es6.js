@@ -48,8 +48,9 @@ define([
             if(_.isEmpty(data.playerModel.toJSON())){
                 provider.signInAndFillData();
                 provider.getIssues(roomName.replace(';)', '/'));
-                setTimeout(function(){io.enterRoom(roomName)}, 1000);
             }
+            
+            setTimeout(function(){io.enterRoom(roomName)}, 1000);
 
 
             let roomView = new RoomView({roomName: roomName});
