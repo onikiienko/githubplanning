@@ -5,20 +5,22 @@
             <div class="select">
                 <div class="select__title">Select a Project</div>
                 <ul class="select__items">
-                    <% _.each(listOfProjects, function(project) { %>
-                    <li class="select__item">
-                    <span class="item__tasks">
-                        <%= project.numberOfOpenIssues %>
-                              <% if (project.numberOfOpenIssues !== 1) { %>
-                            Tasks
-                        <% }else{ %>
-                            Task
-                        <% } %>
-                    </span>
-                        <div class="item__name"><%= project.owner %>/<%= project.name %></div>
-                        <div class="item__desc"><%= project.description %></div>
-                    </li>
-                    <% }); %>
+                    <%if(typeof listOfProjects !== "undefined"){%>
+                        <% _.each(listOfProjects, function(project) { %>
+                        <li class="select__item">
+                        <span class="item__tasks">
+                            <%= project.numberOfOpenIssues %>
+                                  <% if (project.numberOfOpenIssues !== 1) { %>
+                                Tasks
+                            <% }else{ %>
+                                Task
+                            <% } %>
+                        </span>
+                            <div class="item__name"><%= project.owner %>/<%= project.name %></div>
+                            <div class="item__desc"><%= project.description %></div>
+                        </li>
+                        <% }); %>
+                    <%}%>
                 </ul><!-- /.select__items -->
             </div><!-- /.select -->
         </div>

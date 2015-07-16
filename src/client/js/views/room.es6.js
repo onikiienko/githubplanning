@@ -1,25 +1,30 @@
 /*jshint globalstrict: true*/
 define('views/room', [
-    'text!templates/roomTemplates/room.html',
-    'models/chat',
-    'io/main',
-    'backbone',
-    'underscore',
-    'data/service'
+  'text!templates/roomTemplates/room.html',
+  'models/chat',
+  'io/main',
+  'backbone',
+  'underscore',
+  'data/service'
 ], function(roomTemplate, ChatModel, io, Backbone, _, appData) {
   let RoomView = Backbone.View.extend({
     el: '.main-content',
+    
     events: {
       "click .tab__nav" : "showTab",
       "click #sendMsg" : "sendMessage"
     },
+    
     template : _.template(roomTemplate),
+    
     initialize: function(){
         this.render();
     },
+    
     render: function(){
       $(this.el).html(this.template());
     },
+    
     showTab: function(e){
       let target = $(e.target);
       let bind = target.attr('bind');
@@ -40,6 +45,7 @@ define('views/room', [
       currentTabPanelBodyItem.toggleClass('content--active');
       currentTabPanelBodyItem.fadeIn();
     },
+    
     sendMessage: function(){  
       let playerObject = {
         avatar: appData.headerModel.get('avatar'),

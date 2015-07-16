@@ -42,7 +42,7 @@ define('login/github', [
 							description: project.description
 						});
 					});
-					appData.playerModel.set('listOfProjects', projectList);
+					appData.projectsModel.set({listOfProjects: projectList});
 				});
 			},
 

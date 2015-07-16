@@ -14,11 +14,11 @@ define([
     'login/github',
     'io/main',
     'data/service'
-], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, github, io, data){
+], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, github, io, appData){
     
     let provider = github;
 
-    let headerView = new HeaderView({model: data.headerModel});
+    let headerView = new HeaderView({model: appData.headerModel});
     
     let Router = Backbone.Router.extend({
         routes: {
@@ -30,14 +30,16 @@ define([
 
         loadStartPage: function(){
             this.navigate("#", {trigger: true});
+
             let startView = new StartView({provider: provider, router: router});
         },
         loadCreatePage: function(){
-            if(_.isEmpty(data.playerModel.toJSON()) || _.isEmpty(data.headerModel.toJSON())){ 
+            let createView = new CreateView({model: appData.projectsModel, provider: provider, router: router});
+
+            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){ 
                 provider.signInAndFillData();
             }
 
-            let createView = new CreateView({model: data.playerModel, provider: provider, router: router});
         },
         loadRoomPage: function(roomName){
             if(!OAuth.create('github')){
@@ -45,20 +47,23 @@ define([
                 return;
             }
 
-            if(_.isEmpty(data.playerModel.toJSON())){
+            setTimeout(function(){
+                appData.headerModel.set('projectName', roomName.replace(';)', '/'));
+                io.enterRoom(roomName);
+            }, 500);
+
+            let roomView = new RoomView();
+            let contributorView = new ContributorView({collection: appData.contributorsCollection});
+            let selectCardView = new SelectCardView({collection: appData.selectCardsCollection});
+            let cardView = new CardView({collection: appData.cardsCollection});
+            let chatView = new ChatView({collection: appData.chatCollection});
+            let taskView = new TaskView({collection: appData.tasksCollection});
+
+            provider.getIssues(roomName.replace(';)', '/'));
+
+            if(_.isEmpty(appData.headerModel.toJSON())){   
                 provider.signInAndFillData();
-                provider.getIssues(roomName.replace(';)', '/'));
             }
-            
-            setTimeout(function(){io.enterRoom(roomName)}, 1000);
-
-
-            let roomView = new RoomView({roomName: roomName});
-            let contributorView = new ContributorView({collection: data.contributorsCollection});
-            let selectCardView = new SelectCardView({collection: data.selectCardsCollection});
-            let cardView = new CardView({collection: data.cardsCollection});
-            let chatView = new ChatView({collection: data.chatCollection});
-            let taskView = new TaskView({collection: data.tasksCollection});
         },
     });
 
