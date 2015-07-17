@@ -79,5 +79,5 @@ Tests are running on Travis-CI.
 Mongo
 ==============
 ```shell 
-mongod --dbpath=./datagithubplanning --port 2700 &
+mongod --dbpath=../datagithubplanning --port 2700 &
 ```
