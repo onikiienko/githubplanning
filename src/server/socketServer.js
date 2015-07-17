@@ -53,9 +53,6 @@ exports.create = function(http){
 	var io = require('socket.io')(http);
 
 	io.on('connection', function(socket){
-		
-		readFromDB(socket);
-		
 		socket.on('enter', function(data){
 			if(!socket.server.nsps[data.name]){
 				var roomSocket = io.of(data.name);
