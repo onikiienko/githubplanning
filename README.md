@@ -75,3 +75,9 @@ Start tests
 grunt test
 ```
 Tests are running on Travis-CI.
+
+Mongo
+==============
+```shell 
+mongod --dbpath=../datagithubplanning --port 2700 &
+```
