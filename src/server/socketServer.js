@@ -2,8 +2,16 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var currencies = require('./currencies');
 
+var connection = require('./db');
+var db;
 
-
+var writeInDB = function(data, socket){
+	db = (db) ? db : connection.db;
+	connection.setRoom(db, data);
+	connection.getAllRooms(db, function(result, err){
+		socket.emit('allRooms', result);
+	});
+}
 
 var Cards = Backbone.Collection.extend({
 	addCard: function(model){
@@ -65,6 +73,9 @@ exports.create = function(http){
 				});
 
 				roomSocket.on('connection', function(socket){
+					
+					writeInDB(data, socket);
+					
 					roomSocket.emit('ready');
 
 					if(cardsCollection.toJSON().length){

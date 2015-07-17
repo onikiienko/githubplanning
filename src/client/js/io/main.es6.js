@@ -53,8 +53,8 @@ define('io/main', [
 				socket.on('message', function(model){
 					appData.chatCollection.addMessage(model);
 				});
-
-				socket.on('gameData', function(model){
+				
+				socket.on('allRooms', function(model){
 					console.log(model);
 				});
 			},
