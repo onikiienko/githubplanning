@@ -1,6 +1,10 @@
 <div class="user">
     <div class="user__avatar">
-        <img src="<%= avatar %>">
+    	<%if(typeof avatar !== "undefined"){%>
+        	<img src="<%= avatar %>">
+        <%}%>
     </div><!-- /.user__avatar -->
-    <div class="user__name user__name--team"><%= name %></div>
+    <%if(typeof name !== "undefined"){%>
+    	<div class="user__name user__name--team"><%= name %></div>
+    <%}%>
 </div>
