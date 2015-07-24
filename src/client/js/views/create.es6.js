@@ -1,10 +1,11 @@
 /*jshint globalstrict: true*/
 define('views/create', [
+  'data/service',
   'text!templates/create.html',
   'backbone',
   'jquery',
   'underscore'
-], function(createTemplate, Backbone, $, _) {
+], function(appData, createTemplate, Backbone, $, _) {
   let Create = Backbone.View.extend({
     el: '.main-content',
     
@@ -31,6 +32,8 @@ define('views/create', [
       let roomName = $.trim($('.select__title').html()).replace('/', ';)');
       let roomUrl = '#room/' + roomName;
 
+      appData.headerModel.set('currencyType', $('input:checked').attr('data'));
+ 
       this.router.navigate(roomUrl, {trigger: true});
     },
     

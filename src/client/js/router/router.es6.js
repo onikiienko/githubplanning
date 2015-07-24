@@ -49,7 +49,7 @@ define([
 
             setTimeout(function(){
                 appData.headerModel.set('projectName', roomName.replace(';)', '/'));
-                io.enterRoom(roomName);
+                io.enterRoom(roomName, appData.headerModel.get('currencyType'));
             }, 500);
 
             let roomView = new RoomView();

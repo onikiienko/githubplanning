@@ -17,14 +17,15 @@ define('views/selectCard', [
     	},
 		
 		initialize: function(){
-			this.render();
+			var self = this;
+			this.collection.bind('add', function(model){
+				self.model = model;
+				self.render();
+			});
 		},
 		
 		render: function(){
-			let self = this;
-			_.each(this.collection.toJSON(), function(card){
-				$(self.el).append(self.template({card: card}));
-			});
+			$(this.el).append(this.template({card: this.model.toJSON()}));
 		},
 		
 		clickInCard: function(e){

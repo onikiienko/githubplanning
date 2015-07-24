@@ -3,5 +3,5 @@ var tShirt = [{'XS': 0}, {'S' : 1}, {'M' : 2}, {'L' : 3}, {'XL' : 4}, {'2XL' : 5
 var fibonacci = [{'0': 0}, {'1' : 1}, {'2' : 2}, {'3' : 3}, {'5' : 4}, {'8' : 5}, {'13' : 6}, {'21' : 7}, {'34' : 8}, {'infinity' : 11}, {'?' : 12}, {'coffee' : 13}];
 
 exports.setCurrency = function(typeOfCards){
-	return (typeOfCards === 'standardCurrency')?standard:(typeOfCards === 'tShirtCurrency')?tShirt:fibonacci;
+	return (typeOfCards === 'Standard')?standard:(typeOfCards === 'T-shirt')?tShirt:fibonacci;
 };

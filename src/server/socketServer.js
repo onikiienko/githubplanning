@@ -33,7 +33,7 @@ var Cards = Backbone.Collection.extend({
 
 var Contributors = Backbone.Collection.extend({
 	addContributor: function(model){
-		if(!this.findWhere(model)){
+		if(!this.findWhere({login: model.login})){
 			this.add(model);
 		}
 	},
@@ -59,6 +59,7 @@ exports.create = function(http){
 				var cardsCollection = new Cards();
 				var contributorsCollection = new Contributors();
 				var chatCollection = new Chat();
+				var cards = currencies.setCurrency(data.currency);
 
 				cardsCollection.on('add', function(model, collection, options){
   					roomSocket.emit('selectCard', model);
@@ -67,7 +68,7 @@ exports.create = function(http){
   					roomSocket.emit('removeCard', model);
 				});
 				contributorsCollection.on('add', function(model, collection, options){
-  					roomSocket.emit('addContributor', model);
+  					roomSocket.emit('addContributor', model, model.cid);
 				});
 				contributorsCollection.on('remove', function(model, collection, options){
   					roomSocket.emit('removeContributor', model);
@@ -81,7 +82,7 @@ exports.create = function(http){
 					writeInDB(data, socket);
 					readFromDB(socket);
 					
-					roomSocket.emit('ready');
+					roomSocket.emit('ready', cards);
 
 					if(cardsCollection.toJSON().length){
 						roomSocket.emit('oldCardsCollection', cardsCollection);
