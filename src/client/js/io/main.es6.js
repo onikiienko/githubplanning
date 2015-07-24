@@ -1,20 +1,26 @@
 /*jshint globalstrict: true*/
 define('io/main', [
 	'socketIO',
-	'data/service'
+	'data/service',
+	'underscore'
 ],
-	function(io, appData){
+	function(io, appData, _){
 		let socket = io();
 
 		return {
-			enterRoom: function(roomName){
+			enterRoom: function(roomName, currency){
 				roomName = '/' + roomName;
 				
-				socket.emit('enter', {name : roomName});
+				socket.emit('enter', {name : roomName, currency: currency});
 				
 				socket = io(roomName);
 				
-				socket.on('ready', function(model){
+				socket.on('ready', function(cards){
+					if(!appData.selectCardsCollection.toJSON().length){
+						_.each(cards, function(card){
+							appData.selectCardsCollection.add(card);
+						});
+					}
 					socket.emit('me', appData.headerModel);
 				});
 
