@@ -1,15 +1,32 @@
-<div class="card">
-    <div class="card__user">
-        <div class="user">
+<div class="flip-container">
+  <div class="flipper">
+    <div class="front">
+      <div class="card card-bg">
+        <div class="card__user">
+          <div class="user">
             <div class="user__avatar">
-                <img src="<%= model.contributor.avatar %>">
+              <img src="<%= model.contributor.avatar %>">
             </div><!-- /.user__avatar -->
+          </div>
         </div>
+      </div><!-- /.card -->
     </div>
-    <div class="card__rate" data="<%= model.card.value %>"><%= model.card.content %></div>
-    <%if(model.contributor.name !== headerModel.get('name')){%>
-        <div class="card__user-name"><%= model.contributor.name %></div>
-    <%}else{%>
-        <button class="card__btn"><i class="fa fa-times-circle"></i></button>
-    <%}%> 
-</div><!-- /.card -->
+    <div class="back">
+    <div class="card">
+        <div class="card__user">
+            <div class="user">
+                <div class="user__avatar">
+                    <img src="<%= model.contributor.avatar %>">
+                </div><!-- /.user__avatar -->
+            </div>
+        </div>
+        <div class="card__rate" data="<%= model.card.value %>"><%= model.card.content %></div>
+        <%if(model.contributor.name !== headerModel.get('name')){%>
+            <div class="card__user-name"><%= model.contributor.name %></div>
+        <%}else{%>
+            <button class="card__btn"><i class="fa fa-times-circle"></i></button>
+        <%}%>
+    </div><!-- /.card -->
+    </div>
+  </div>
+</div>
