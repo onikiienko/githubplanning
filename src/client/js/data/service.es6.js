@@ -17,6 +17,7 @@ define('data/service', [
 		let headerModel = new HeaderModel();
 		let projectsModel = new ProjectsModel();
 
+
 		return {
 			contributorsCollection: contributorsCollection,
 			cardsCollection: cardsCollection,

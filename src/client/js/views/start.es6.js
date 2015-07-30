@@ -7,23 +7,23 @@ define('views/start', [
 ], function(startTemplate, io, Backbone, _) {
 	let StartView = Backbone.View.extend({
 		el: '.main-content',
-		
+
 		events: {
 			"click .signIn" : "singInAndGetData"
 		},
-		
+
 		template : _.template(startTemplate),
-		
+
 		initialize: function(options){
 			this.router = options.router;
 			this.provider = options.provider;
 			this.render();
 		},
-		
+
 		render: function(){
 			$(this.el).html(this.template());
 		},
-		
+
 		singInAndGetData: function(){
 			this.router.navigate('#create', {trigger: true});
 			this.provider.signInAndFillData();

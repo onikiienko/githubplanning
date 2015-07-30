@@ -12,14 +12,15 @@ define([
     'views/task',
     'views/selectCard',
     'login/github',
+    'login/trello',
     'io/main',
     'data/service'
-], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, github, io, appData){
-    
-    let provider = github;
+], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, github, trello, io, appData){
+
+    let provider = trello;
 
     let headerView = new HeaderView({model: appData.headerModel});
-    
+
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
@@ -36,13 +37,13 @@ define([
         loadCreatePage: function(){
             let createView = new CreateView({model: appData.projectsModel, provider: provider, router: router});
 
-            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){ 
+            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
                 provider.signInAndFillData();
             }
 
         },
         loadRoomPage: function(roomName){
-            if(!OAuth.create('github')){
+            if(!OAuth.create('trello')){
                 this.navigate("#", {trigger: true});
                 return;
             }
@@ -59,15 +60,15 @@ define([
             let chatView = new ChatView({collection: appData.chatCollection});
             let taskView = new TaskView({collection: appData.tasksCollection});
 
-            provider.getIssues(roomName.replace(';)', '/'));
+            // provider.getIssues(roomName.replace(';)', '/'));
 
-            if(_.isEmpty(appData.headerModel.toJSON())){   
+            if(_.isEmpty(appData.headerModel.toJSON())){
                 provider.signInAndFillData();
             }
         },
     });
 
     let router = new Router();
-    
+
     Backbone.history.start();
 });
