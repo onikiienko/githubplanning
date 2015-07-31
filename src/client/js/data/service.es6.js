@@ -30,6 +30,11 @@ define('data/service', [
       providerGithub = data;
     });
 
+    let providerBitbucket = {};
+    require(["login/bitbucket"], function(data){
+      providerBitbucket = data;
+    });
+
 
      let changeProvider = function (newProvider) {
        switch(newProvider) {
@@ -38,6 +43,9 @@ define('data/service', [
                break;
            case 'github':
                this.provider = providerGithub;
+               break;
+           case 'bitbucket':
+               this.provider = providerBitbucket;
        }
      };
 
