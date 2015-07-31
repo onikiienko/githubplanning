@@ -1,35 +1,35 @@
 /*jshint globalstrict: true*/
 define('views/start', [
-	'text!templates/start.html',
-	'io/main',
-	'backbone',
-	'underscore'
+  'text!templates/start.html',
+  'io/main',
+  'backbone',
+  'underscore'
 ], function(startTemplate, io, Backbone, _) {
-	let StartView = Backbone.View.extend({
-		el: '.main-content',
+  let StartView = Backbone.View.extend({
+    el: '.main-content',
 
-		events: {
-			"click .signIn" : "singInAndGetData"
-		},
+    events: {
+      "click .signIn" : "gotoCreatePage"
+    },
 
-		template : _.template(startTemplate),
+    template : _.template(startTemplate),
 
-		initialize: function(options){
-			this.router = options.router;
-			this.provider = options.provider;
-			this.render();
-		},
+    initialize: function(options){
+      this.router = options.router;
+      this.render();
+    },
 
-		render: function(){
-			$(this.el).html(this.template());
-		},
+    render: function(){
+      $(this.el).html(this.template());
+    },
 
-		singInAndGetData: function(){
-			this.router.navigate('#create', {trigger: true});
-			this.provider.signInAndFillData();
-		}
-	});
+    gotoCreatePage: function(e){
+      let providerName =  $(e.target).attr('data-login');
+      localStorage.setItem('providerName', providerName);
+      this.router.navigate('#create', {trigger: true});
+    }
+  });
 
-	return StartView;
+  return StartView;
 
 });

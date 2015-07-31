@@ -11,13 +11,10 @@ define([
     'views/chat',
     'views/task',
     'views/selectCard',
-    'login/github',
-    'login/trello',
     'io/main',
     'data/service'
-], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, github, trello, io, appData){
+], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, io, appData){
 
-    let provider = trello;
 
     let headerView = new HeaderView({model: appData.headerModel});
 
@@ -32,12 +29,14 @@ define([
         loadStartPage: function(){
             this.navigate("#", {trigger: true});
 
-            let startView = new StartView({provider: provider, router: router});
+            let startView = new StartView({ router: router });
         },
         loadCreatePage: function(){
-            let createView = new CreateView({model: appData.projectsModel, provider: provider, router: router});
+            let createView = new CreateView({model: appData.projectsModel, router: router});
 
             if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
+                appData.changeProvider(localStorage.getItem('providerName'));
+                let provider = appData.provider;
                 provider.signInAndFillData();
             }
 
@@ -62,9 +61,9 @@ define([
 
             // provider.getIssues(roomName.replace(';)', '/'));
 
-            if(_.isEmpty(appData.headerModel.toJSON())){
-                provider.signInAndFillData();
-            }
+            //if(_.isEmpty(appData.headerModel.toJSON())){
+            //    provider.signInAndFillData();
+            //}
         },
     });
 
