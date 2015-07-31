@@ -1,5 +1,5 @@
 /*jshint globalstrict: true*/
-
+//http://restbrowser.bitbucket.org/
 define('login/bitbucket', [
     'backbone',
     'underscore',
@@ -28,7 +28,6 @@ define('login/bitbucket', [
 
         return OAuth.create('bitbucket').get('/api/1.0/user/repositories/')
           .then(function(projects){
-            console.log(projects);
             _.each(projects, function(project){
               projectList.push({
                 name: project.name,
@@ -45,14 +44,41 @@ define('login/bitbucket', [
 
         OAuth.create('bitbucket').get('/api/1.0/user/')
           .then(function(data){
-            console.log(data);
             appData.headerModel.set({
               login: data.user.username,
               name: data.user.display_name,
               avatar: data.user.avatar
             });
           });
+      },
+
+      getIssues: function(project){
+        let listOfProjects = appData.projectsModel.get('listOfProjects');
+        let projectName = project.substr(project.indexOf('/') + 1);
+        let projectId = _.findWhere(listOfProjects, {name: projectName}).id;
+
+        OAuth.create('bitbucket').get('api/1.0/repositories/' + project + '/issues')
+        .then(function(issues){
+          _.each(issues, function(issue){
+            if (!_.isEmpty(issue)){
+              issue = issue[0];
+              let issueBodyMD = issue.content;
+              let md = window.markdownit();
+              let body = md.render(issueBodyMD);
+              appData.tasksCollection.add({
+                title: issue.title,
+                body: body,
+                date: issue.created_on,
+                contributor: {
+                  name: issue.reported_by.display_name,
+                  avatar: issue.reported_by.avatar
+                }
+              });
+            }
+          });
+        });
       }
+      //
     }
   }
 );
