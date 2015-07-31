@@ -32,15 +32,15 @@ define('login/trello', [
 					let admins = [];
 
 					_.each(projects, function(project){
+						let adminId = _.findWhere(project.memberships, {memberType: 'admin'}).idMember;
+						admins.push(OAuth.create('trello').get('/1/members/' + adminId + '/username'));
+						
 						projectsNames.push(project.name);
 						projectsIds.push(project.board_id);
-
-						let adminId = _.findWhere(project.memberships, {memberType: 'admin'}).idMember;
-
-						admins.push(OAuth.create('trello').get('/1/members/' + adminId + '/username'));
 					});
 					
-					$.when.apply($, admins).done(function(){
+					$.when.apply($, admins)
+					.done(function(){
 						let projectList = [];
 						let adminLogins = [];
 						
@@ -54,10 +54,10 @@ define('login/trello', [
 								owner: adminLogins[i],
 								id: projectsIds[i]
 							})
-						})
+						});
 
 						appData.projectsModel.set({listOfProjects: projectList});
-					})
+					});
 				});
 			},
 
