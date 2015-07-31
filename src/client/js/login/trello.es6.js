@@ -9,19 +9,14 @@ define('login/trello', [
 
 		return{
 			signInAndFillData: function(){
-							let that = this;
+				let that = this;
 
-							// if(OAuth.create('trello')){
-							// 	this.getRepos();
-							// 	this.getUserData();
-							// }else{
-								this.signIn()
-								.then(function(){
-									that.getRepos();
-									that.getUserData();
-								})
-							// }
-						},
+				this.signIn()
+				.then(function(){
+					that.getRepos();
+					that.getUserData();
+				});
+			},
 
 			signIn: function(){
 				OAuth.initialize(publicKey);
@@ -29,16 +24,40 @@ define('login/trello', [
 			},
 
 			getRepos: function(){
-				let projectList = [];
 
 				return OAuth.create('trello').get('/1/members/my/boards')
 				.then(function(projects){
+					let projectsNames = [];
+					let projectsIds = [];
+					let admins = [];
+
 					_.each(projects, function(project){
-						projectList.push({
-							name: project.name
-						});
+						projectsNames.push(project.name);
+						projectsIds.push(project.board_id);
+
+						let adminId = _.findWhere(project.memberships, {memberType: 'admin'}).idMember;
+
+						admins.push(OAuth.create('trello').get('/1/members/' + adminId + '/username'));
 					});
-					appData.projectsModel.set({listOfProjects: projectList});
+					
+					$.when.apply($, admins).done(function(){
+						let projectList = [];
+						let adminLogins = [];
+						
+						_.each([].slice.call(arguments), function(admin){
+							adminLogins.push(admin[0]._value);
+						});
+						
+						_.map(projectsNames, function(item, i){
+							projectList.push({
+								name: projectsNames[i],
+								owner: adminLogins[i],
+								id: projectsIds[i]
+							})
+						})
+
+						appData.projectsModel.set({listOfProjects: projectList});
+					})
 				});
 			},
 

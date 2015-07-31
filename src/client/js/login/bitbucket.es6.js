@@ -11,16 +11,11 @@ define('login/bitbucket', [
       signInAndFillData: function(){
         let that = this;
 
-        // if(OAuth.create('trello')){
-        // 	this.getRepos();
-        // 	this.getUserData();
-        // }else{
         this.signIn()
           .then(function(){
             that.getRepos();
             that.getUserData();
           })
-        // }
       },
 
       signIn: function(){
