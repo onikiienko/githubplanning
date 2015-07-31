@@ -36,7 +36,7 @@ define([
             provider.signInAndFillData();
         },
 
-        getTasks: function(roomName){
+        getIssues: function(roomName){
             let provider = appData.provider;
             
             provider.getIssues(roomName.replace(';)', '/'));
@@ -67,7 +67,7 @@ define([
                 this.signIn();
             }
 
-            // this.getTasks(roomName);
+            this.getIssues(roomName);
 
             setTimeout(function(){
                 appData.headerModel.set('projectName', roomName.replace(';)', '/'));

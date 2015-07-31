@@ -1,5 +1,7 @@
 <div class="task">
-    <span class="task__to">to: <%= contributor.name %></span>
+	<%if(typeof contributor !== "undefined"){%>
+    	<span class="task__to">to: <%= contributor.name %></span>
+    <% } %>
     <h2 class="task__title"><%= title %></h2>
     <p class="task__content"><%= body %></p>
 </div><!-- /.task -->

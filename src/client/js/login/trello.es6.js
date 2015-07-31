@@ -36,7 +36,7 @@ define('login/trello', [
 						admins.push(OAuth.create('trello').get('/1/members/' + adminId + '/username'));
 						
 						projectsNames.push(project.name);
-						projectsIds.push(project.board_id);
+						projectsIds.push(project.id);
 					});
 					
 					$.when.apply($, admins)
@@ -72,7 +72,27 @@ define('login/trello', [
 						avatar: 'https://trello-avatars.s3.amazonaws.com/' + data.avatarHash + '/50.png'
 					});
 				});
-			}
+			},
+
+			getIssues: function(project){
+				let listOfProjects = appData.projectsModel.get('listOfProjects');
+				let projectName = project.substr(project.indexOf('/') + 1);
+				let projectId = _.findWhere(listOfProjects, {name: projectName}).id;
+
+				OAuth.create('trello').get('/1/boards/' + projectId + '/cards')
+				.then(function(issues){
+					_.each(issues, function(issue){
+						let issueBodyMD = issue.desc;
+						let md = window.markdownit();
+    					let body = md.render(issueBodyMD);
+						appData.tasksCollection.add({
+							title: issue.name,
+							body: body,
+							date: issue.dateLastActivity
+						});
+					});
+				});
+			} 
 		}
 	}
 );
