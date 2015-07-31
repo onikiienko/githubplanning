@@ -1,6 +1,6 @@
 /*jshint globalstrict: true*/
 define('data/service', [
-	'backbone',
+    'backbone',
     'collections/contributors',
     'collections/tasks',
     'collections/cards',
@@ -8,22 +8,56 @@ define('data/service', [
     'collections/selectCards',
     'models/projects',
     'models/header'
-	], function(Backbone, ContributorsCollection, TasksCollection, CardsCollection, ChatCollection, SelectCardsCollection, ProjectsModel, HeaderModel){
-		let contributorsCollection = new ContributorsCollection();
-		let selectCardsCollection = new SelectCardsCollection();
-		let cardsCollection = new CardsCollection();
-		let chatCollection = new ChatCollection();
-		let tasksCollection = new TasksCollection();
-		let headerModel = new HeaderModel();
-		let projectsModel = new ProjectsModel();
+  ], function(Backbone, ContributorsCollection, TasksCollection, CardsCollection, ChatCollection, SelectCardsCollection, ProjectsModel, HeaderModel){
+    let contributorsCollection = new ContributorsCollection();
+    let selectCardsCollection = new SelectCardsCollection();
+    let cardsCollection = new CardsCollection();
+    let chatCollection = new ChatCollection();
+    let tasksCollection = new TasksCollection();
+    let headerModel = new HeaderModel();
+    let projectsModel = new ProjectsModel();
 
-		return {
-			contributorsCollection: contributorsCollection,
-			cardsCollection: cardsCollection,
-			chatCollection: chatCollection,
-			tasksCollection: tasksCollection,
-			selectCardsCollection: selectCardsCollection,
-			projectsModel: projectsModel,
-			headerModel: headerModel
-		};
-	});
+
+    let provider = {};
+
+    let providerTrello = {};
+    require(["login/trello"], function(data){
+      providerTrello = data;
+    });
+
+    let providerGithub = {};
+    require(["login/github"], function(data){
+      providerGithub = data;
+    });
+
+    let providerBitbucket = {};
+    require(["login/bitbucket"], function(data){
+      providerBitbucket = data;
+    });
+
+
+     let changeProvider = function (newProvider) {
+       switch(newProvider) {
+           case 'trello':
+               this.provider = providerTrello;
+               break;
+           case 'github':
+               this.provider = providerGithub;
+               break;
+           case 'bitbucket':
+               this.provider = providerBitbucket;
+       }
+     };
+
+    return {
+      contributorsCollection: contributorsCollection,
+      cardsCollection: cardsCollection,
+      chatCollection: chatCollection,
+      tasksCollection: tasksCollection,
+      selectCardsCollection: selectCardsCollection,
+      projectsModel: projectsModel,
+      headerModel: headerModel,
+      provider: provider,
+      changeProvider: changeProvider
+    };
+  });

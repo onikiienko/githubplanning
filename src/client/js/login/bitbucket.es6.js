@@ -1,46 +1,63 @@
 /*jshint globalstrict: true*/
-define('login/bitbucket', ['underscore'],
-	function(_){
-		let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
-		let iplayer = {};
-		return{
-			//http://restbrowser.bitbucket.org/
-			signIn: function(){
-				OAuth.initialize(publicKey);
-				return OAuth.popup('bitbucket');
-			},
-			getRepos: function(api){
-				return api.get('/api/1.0/user/repositories/');
-			},
-			getUserData: function(api){
-				return api.get('/api/1.0/user/');
-			},
-			getIssues: function(api, project){
-				console.log('/1.0/repositories/' + project.owner + '/' + project.name);
-				return api.get('/api/1.0/repositories/' + project.owner + '/' + project.name);
-			},
-			prepareObjectForTemplate: function(player){
-				player = window.player.toJSON();
-				console.log(player);
-				let avatar = player.player.user.avatar;
-				let playerName = player.player.user.display_name;
-				let firstProjectName = _.first(player.listOfProjects).owner + '/' + _.first(player.listOfProjects).name;
-				let listProjects =  (function(player){
-					let listProjects = {};
-					_.each(player.listOfProjects, function(project){
-						listProjects.name = project.owner + '/' + project.name;
-						listProjects.description = project.description;
-					})
-					return listProjects;
-				})(player);
-				window.app_router.navigate("#create_or_join", {trigger: true});
-				return {
-					avatar: avatar,
-					playerName: playerName,
-					firstProjectName: firstProjectName,
-					listProjects: listProjects
-				}
-			}
-		}
-	}
+
+define('login/bitbucket', [
+    'backbone',
+    'underscore',
+    'data/service'
+  ], function(Backbone, _, appData){
+    let publicKey = 'DR4zizVjOy_1ZXdtlmn0GBLoTcA';
+
+    return{
+      signInAndFillData: function(){
+        let that = this;
+
+        // if(OAuth.create('trello')){
+        // 	this.getRepos();
+        // 	this.getUserData();
+        // }else{
+        this.signIn()
+          .then(function(){
+            that.getRepos();
+            that.getUserData();
+          })
+        // }
+      },
+
+      signIn: function(){
+        OAuth.initialize(publicKey);
+        return OAuth.popup('bitbucket', {cache: true});
+      },
+
+      getRepos: function(){
+        let projectList = [];
+
+        return OAuth.create('bitbucket').get('/api/1.0/user/repositories/')
+          .then(function(projects){
+            console.log(projects);
+            _.each(projects, function(project){
+              projectList.push({
+                name: project.name,
+                owner: project.owner,
+                description: project.description
+              });
+            });
+            appData.projectsModel.set({listOfProjects: projectList});
+          });
+      },
+
+      getUserData: function(){
+        let user = {};
+
+        OAuth.create('bitbucket').get('/api/1.0/user/')
+          .then(function(data){
+            console.log(data);
+            appData.headerModel.set({
+              login: data.user.username,
+              name: data.user.display_name,
+              avatar: data.user.avatar
+            });
+          });
+      }
+    }
+  }
 );

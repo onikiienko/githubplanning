@@ -11,15 +11,13 @@ define([
     'views/chat',
     'views/task',
     'views/selectCard',
-    'login/github',
     'io/main',
     'data/service'
-], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, github, io, appData){
-    
-    let provider = github;
+], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, io, appData){
+
 
     let headerView = new HeaderView({model: appData.headerModel});
-    
+
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
@@ -31,18 +29,20 @@ define([
         loadStartPage: function(){
             this.navigate("#", {trigger: true});
 
-            let startView = new StartView({provider: provider, router: router});
+            let startView = new StartView({ router: router });
         },
         loadCreatePage: function(){
-            let createView = new CreateView({model: appData.projectsModel, provider: provider, router: router});
+            let createView = new CreateView({model: appData.projectsModel, router: router});
 
-            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){ 
+            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
+                appData.changeProvider(localStorage.getItem('providerName'));
+                let provider = appData.provider;
                 provider.signInAndFillData();
             }
 
         },
         loadRoomPage: function(roomName){
-            if(!OAuth.create('github')){
+            if(!OAuth.create('trello')){
                 this.navigate("#", {trigger: true});
                 return;
             }
@@ -59,15 +59,15 @@ define([
             let chatView = new ChatView({collection: appData.chatCollection});
             let taskView = new TaskView({collection: appData.tasksCollection});
 
-            provider.getIssues(roomName.replace(';)', '/'));
+            // provider.getIssues(roomName.replace(';)', '/'));
 
-            if(_.isEmpty(appData.headerModel.toJSON())){   
-                provider.signInAndFillData();
-            }
+            //if(_.isEmpty(appData.headerModel.toJSON())){
+            //    provider.signInAndFillData();
+            //}
         },
     });
 
     let router = new Router();
-    
+
     Backbone.history.start();
 });
