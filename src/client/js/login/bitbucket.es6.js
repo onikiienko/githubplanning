@@ -65,8 +65,10 @@ define('login/bitbucket', [
               let issueBodyMD = issue.content;
               let md = window.markdownit();
               let body = md.render(issueBodyMD);
+              let title_url = "https://bitbucket.org" + issue.resource_uri.slice(17);
               appData.tasksCollection.add({
                 title: issue.title,
+                title_url: title_url,
                 body: body,
                 date: issue.created_on,
                 contributor: {

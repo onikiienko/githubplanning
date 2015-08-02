@@ -34,20 +34,20 @@ define('login/trello', [
 					_.each(projects, function(project){
 						let adminId = _.findWhere(project.memberships, {memberType: 'admin'}).idMember;
 						admins.push(OAuth.create('trello').get('/1/members/' + adminId + '/username'));
-						
+
 						projectsNames.push(project.name);
 						projectsIds.push(project.id);
 					});
-					
+
 					$.when.apply($, admins)
 					.done(function(){
 						let projectList = [];
 						let adminLogins = [];
-						
+
 						_.each([].slice.call(arguments), function(admin){
 							adminLogins.push(admin[0]._value);
 						});
-						
+
 						_.map(projectsNames, function(item, i){
 							projectList.push({
 								name: projectsNames[i],
@@ -87,12 +87,13 @@ define('login/trello', [
     					let body = md.render(issueBodyMD);
 						appData.tasksCollection.add({
 							title: issue.name,
+							title_url: issue.url,
 							body: body,
 							date: issue.dateLastActivity
 						});
 					});
 				});
-			} 
+			}
 		}
 	}
 );

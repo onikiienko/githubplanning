@@ -11,13 +11,13 @@ define('login/github', [
 			signInAndFillData: function(){
 				let that = this;
 				let playerAPI = {};
-				
+
 				if(OAuth.create('github')){
 					this.getRepos();
 					this.getUserData();
 				}else{
 					this.signIn()
-					.then(function(){					
+					.then(function(){
 						that.getRepos();
 						that.getUserData();
 					})
@@ -69,6 +69,7 @@ define('login/github', [
     					let body = md.render(issueBodyMD);
 						appData.tasksCollection.add({
 							title: issue.title,
+							title_url: issue.html_url,
 							body: body,
 							date: issue.created_at,
 							contributor: {

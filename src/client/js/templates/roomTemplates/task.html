@@ -2,6 +2,7 @@
 	<%if(typeof contributor !== "undefined"){%>
     	<span class="task__to">to: <%= contributor.name %></span>
     <% } %>
-    <h2 class="task__title"><%= title %></h2>
+    <h2 class="task__title">
+    <a href="<%= title_url %>" target="_blank"><%= title %></a></h2>
     <p class="task__content"><%= body %></p>
 </div><!-- /.task -->

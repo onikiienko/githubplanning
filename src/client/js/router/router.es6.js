@@ -28,17 +28,17 @@ define([
 
         signIn: function(){
             let providerName = localStorage.getItem('providerName');
-            
+
             appData.changeProvider(providerName);
-            
+
             let provider = appData.provider;
-            
+
             provider.signInAndFillData();
         },
 
         getIssues: function(roomName){
             let provider = appData.provider;
-            
+
             provider.getIssues(roomName.replace(';)', '/'));
         },
 
