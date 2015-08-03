@@ -30,16 +30,7 @@ define([
             let providerName = localStorage.getItem('providerName');
 
             appData.changeProvider(providerName);
-
-            let provider = appData.provider;
-
-            provider.signInAndFillData();
-        },
-
-        getIssues: function(roomName){
-            let provider = appData.provider;
-
-            provider.getIssues(roomName.replace(';)', '/'));
+            appData.provider.signInAndFillData();
         },
 
         loadStartPage: function(){
@@ -67,7 +58,7 @@ define([
                 this.signIn();
             }
 
-            this.getIssues(roomName);
+            appData.provider.getIssues(roomName.replace(';)', '/'));
 
             setTimeout(function(){
                 io.enterRoom(roomName.replace(';)', '/'), appData.headerModel.get('currencyType'));
