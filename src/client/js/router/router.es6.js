@@ -40,12 +40,11 @@ define([
         },
 
         loadCreatePage: function(){
-            let createView = new CreateView({model: appData.projectsModel, router: router});
-
             if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
                 this.signIn();
             }
-
+            
+            let createView = new CreateView({model: appData.projectsModel, router: router});
         },
 
         loadRoomPage: function(roomName){
@@ -53,25 +52,22 @@ define([
                 this.navigate("#", {trigger: true});
                 return;
             }
-
+            
             if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
                 this.signIn();
             }
-
+            
             appData.provider.getIssues(roomName.replace(';)', '/'));
-
-            setTimeout(function(){
-                io.enterRoom(roomName.replace(';)', '/'), appData.headerModel.get('currencyType'));
-            }, 500);
-
-
+            
+            io.enterRoom(roomName.replace(';)', '/'), appData.headerModel.get('currencyType'));
+            
             let roomView = new RoomView();
             let contributorView = new ContributorView({collection: appData.contributorsCollection});
             let selectCardView = new SelectCardView({collection: appData.selectCardsCollection});
             let cardView = new CardView({collection: appData.cardsCollection});
             let chatView = new ChatView({collection: appData.chatCollection});
             let taskView = new TaskView({collection: appData.tasksCollection});
-        },
+        }
     });
 
     let router = new Router();
