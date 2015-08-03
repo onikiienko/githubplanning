@@ -70,7 +70,6 @@ define([
             this.getIssues(roomName);
 
             setTimeout(function(){
-                appData.headerModel.set('projectName', roomName.replace(';)', '/'));
                 io.enterRoom(roomName.replace(';)', '/'), appData.headerModel.get('currencyType'));
             }, 500);
 

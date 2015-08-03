@@ -32,6 +32,19 @@ define('views/create', [
       let roomName = $.trim($('.select__title').html()).replace('/', ';)');
       let roomUrl = '#room/' + roomName;
 
+      let fullRoomName = $.trim($('.select__title').html());
+      let slashIndex = fullRoomName.indexOf('/');
+
+      let roomLabel = fullRoomName.substring(slashIndex + 1);
+      let roomOwner = fullRoomName.substring(0, slashIndex);
+
+      let projectsList = appData.projectsModel.get('listOfProjects');
+      let currentProject = _.findWhere(projectsList, {name: roomLabel, owner: roomOwner});
+      let projectUrl = currentProject.url;
+
+      appData.headerModel.set('projectName', roomName.replace(';)', '/'));
+      appData.headerModel.set('projectUrl', projectUrl);
+
       appData.headerModel.set('currencyType', $('input:checked').attr('data'));
  
       this.router.navigate(roomUrl, {trigger: true});
@@ -50,6 +63,7 @@ define('views/create', [
 
       $('.select__title').html(choosenProject);
       $('.select__items').hide();
+
     }
   });
 

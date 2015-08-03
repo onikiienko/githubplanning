@@ -4,8 +4,8 @@
             <a href="/"><img src="/images/logo.svg"></a> <!--//todo - paste plain svg -->
         </div><!-- /.logo -->
     </div><!-- /.main-header__logo -->
-    <%if(typeof projectName !== "undefined"){%>
-        <div class="main-header__project"><%=projectName%></div><!-- /.main-header__project -->
+    <%if(typeof projectName !== "undefined" && typeof projectUrl !== "undefined"){%>
+        <div class="main-header__project"><a href="<%=projectUrl%>" target="_blank"><%=projectName%></a></div><!-- /.main-header__project -->
     <%}%>
     <div class="main-header__user">
         <div class="user">

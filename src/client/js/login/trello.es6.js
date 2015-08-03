@@ -30,6 +30,7 @@ define('login/trello', [
 					let projectsNames = [];
 					let projectsIds = [];
 					let admins = [];
+					let projectsUrls =[];
 
 					_.each(projects, function(project){
 						let adminId = _.findWhere(project.memberships, {memberType: 'admin'}).idMember;
@@ -37,6 +38,7 @@ define('login/trello', [
 
 						projectsNames.push(project.name);
 						projectsIds.push(project.id);
+						projectsUrls.push(project.shortUrl);
 					});
 
 					$.when.apply($, admins)
@@ -52,7 +54,8 @@ define('login/trello', [
 							projectList.push({
 								name: projectsNames[i],
 								owner: adminLogins[i],
-								id: projectsIds[i]
+								id: projectsIds[i],
+								url: projectsUrls[i]
 							})
 						});
 

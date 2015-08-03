@@ -29,8 +29,10 @@ define('login/bitbucket', [
         return OAuth.create('bitbucket').get('/api/1.0/user/repositories/')
           .then(function(projects){
             _.each(projects, function(project){
+              let url = "https://bitbucket.org" + project.resource_uri.slice(17);
               projectList.push({
                 name: project.name,
+                url: url,
                 owner: project.owner,
                 description: project.description
               });
