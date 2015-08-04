@@ -29,7 +29,7 @@ define('login/bitbucket', [
         return OAuth.create('bitbucket').get('/api/1.0/user/repositories/')
           .then(function(projects){
             _.each(projects, function(project){
-              let url = "https://bitbucket.org" + project.resource_uri.slice(17);
+              let url = "https://bitbucket.org" + project.resource_uri.replace(/(\/\d.\d\/\w+\/)/, '');
               projectList.push({
                 name: project.name,
                 url: url,
@@ -64,14 +64,10 @@ define('login/bitbucket', [
           _.each(issues, function(issue){
             if (!_.isEmpty(issue)){
               issue = issue[0];
-              let issueBodyMD = issue.content;
-              let md = window.markdownit();
-              let body = md.render(issueBodyMD);
-              let title_url = "https://bitbucket.org" + issue.resource_uri.slice(17);
+              let title_url = "https://bitbucket.org" + issue.resource_uri.replace(/(\/\d.\d\/\w+\/)/, '');
               appData.tasksCollection.add({
                 title: issue.title,
                 title_url: title_url,
-                body: body,
                 date: issue.created_on,
                 contributor: {
                   name: issue.reported_by.display_name,
@@ -82,7 +78,6 @@ define('login/bitbucket', [
           });
         });
       }
-      //
     }
   }
 );

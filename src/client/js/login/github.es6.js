@@ -65,13 +65,9 @@ define('login/github', [
         .get('/repos/' + project + '/issues')
         .then(function(data){
           _.each(data, function(issue){
-            let issueBodyMD = issue.body;
-            let md = window.markdownit();
-              let body = md.render(issueBodyMD);
             appData.tasksCollection.add({
               title: issue.title,
               title_url: issue.html_url,
-              body: body,
               date: issue.created_at,
               contributor: {
                 name: issue.user.login,

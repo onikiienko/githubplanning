@@ -85,13 +85,9 @@ define('login/trello', [
 				OAuth.create('trello').get('/1/boards/' + projectId + '/cards')
 				.then(function(issues){
 					_.each(issues, function(issue){
-						let issueBodyMD = issue.desc;
-						let md = window.markdownit();
-    					let body = md.render(issueBodyMD);
 						appData.tasksCollection.add({
 							title: issue.name,
 							title_url: issue.url,
-							body: body,
 							date: issue.dateLastActivity
 						});
 					});
