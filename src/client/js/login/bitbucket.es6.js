@@ -18,6 +18,22 @@ define('login/bitbucket', [
           })
       },
 
+      getIssues: function(){
+        let that = this;
+        let playerAPI = {};
+
+        if(OAuth.create('bitbucket')){
+          this.getIssuesForCurrentProject();
+          this.getUserData();
+        }else{
+          this.signIn()
+          .then(function(){
+            that.getIssuesForCurrentProject();
+            that.getUserData();
+          })
+        }
+      },
+
       signIn: function(){
         OAuth.initialize(publicKey);
         return OAuth.popup('bitbucket', {cache: true});
@@ -54,7 +70,7 @@ define('login/bitbucket', [
           });
       },
 
-      getIssues: function(project){
+      getIssuesForCurrentProject: function(project){
         let listOfProjects = appData.projectsModel.get('listOfProjects');
         let projectName = project.substr(project.indexOf('/') + 1);
         let projectId = _.findWhere(listOfProjects, {name: projectName}).id;

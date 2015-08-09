@@ -18,6 +18,22 @@ define('login/trello', [
 				});
 			},
 
+			getIssues: function(){
+				let that = this;
+				let playerAPI = {};
+
+				if(OAuth.create('bitbucket')){
+					this.getIssuesForCurrentProject();
+					this.getUserData();
+				}else{
+					this.signIn()
+					.then(function(){
+						that.getIssuesForCurrentProject();
+						that.getUserData();
+					});
+				}
+			},
+
 			signIn: function(){
 				OAuth.initialize(publicKey);
 				return OAuth.popup('trello', {cache: true});

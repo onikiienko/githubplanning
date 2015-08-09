@@ -20,35 +20,6 @@ define('data/service', [
 
     let provider = {};
 
-    let providerTrello = {};
-    require(["login/trello"], function(data){
-      providerTrello = data;
-    });
-
-    let providerGithub = {};
-    require(["login/github"], function(data){
-      providerGithub = data;
-    });
-
-    let providerBitbucket = {};
-    require(["login/bitbucket"], function(data){
-      providerBitbucket = data;
-    });
-
-
-     let changeProvider = function (newProvider) {
-       switch(newProvider) {
-           case 'trello':
-               this.provider = providerTrello;
-               break;
-           case 'github':
-               this.provider = providerGithub;
-               break;
-           case 'bitbucket':
-               this.provider = providerBitbucket;
-       }
-     };
-
     return {
       contributorsCollection: contributorsCollection,
       cardsCollection: cardsCollection,
@@ -57,7 +28,6 @@ define('data/service', [
       selectCardsCollection: selectCardsCollection,
       projectsModel: projectsModel,
       headerModel: headerModel,
-      provider: provider,
-      changeProvider: changeProvider
+      provider: provider
     };
   });

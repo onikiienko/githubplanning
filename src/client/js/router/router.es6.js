@@ -12,9 +12,11 @@ define([
     'views/task',
     'views/selectCard',
     'io/main',
-    'data/service'
-], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, io, appData){
-
+    'data/service',
+    'login/trello',
+    'login/github',
+    'login/bitbucket'
+], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, io, appData, providerTrello, providerGithub, providerBitbucket){
 
     let headerView = new HeaderView({model: appData.headerModel});
 
@@ -27,37 +29,62 @@ define([
         },
 
         signIn: function(){
+            this.setProvider();
+            return appData.provider.signInAndFillData();
+        },
+
+        setProvider: function () {
             let providerName = localStorage.getItem('providerName');
 
-            appData.changeProvider(providerName);
-            appData.provider.signInAndFillData();
+            switch(providerName) {
+                case 'trello':
+                    appData.provider = providerTrello;
+                    break;
+                case 'github':
+                    appData.provider = providerGithub;
+                    break;
+                case 'bitbucket':
+                    appData.provider = providerBitbucket;
+            }
         },
 
         loadStartPage: function(){
-            this.navigate("#", {trigger: true});
+            if (localStorage.getItem('providerName')) {
+                this.navigate("#create", {trigger: true});
+                return;
+            }
 
             let startView = new StartView({ router: router });
         },
 
         loadCreatePage: function(){
-            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
-                this.signIn();
+            if (!localStorage.getItem('providerName')) {
+                this.navigate("#", {trigger: true});
+                return;
             }
-            
+
+            if (localStorage.getItem('roomName')) {
+                this.navigate('#room/' + localStorage.getItem('roomName'), {trigger: true});
+                return;
+            }
+
+            this.signIn();
             let createView = new CreateView({model: appData.projectsModel, router: router});
         },
 
         loadRoomPage: function(roomName){
-            if(!OAuth.create(localStorage.getItem('providerName'))){
+            if (!localStorage.getItem('providerName')) {
                 this.navigate("#", {trigger: true});
                 return;
             }
-            
-            if(_.isEmpty(appData.projectsModel.toJSON()) || _.isEmpty(appData.headerModel.toJSON())){
+
+            if (_.isEmpty(appData.provider)){
+                localStorage.setItem('roomName', roomName);
                 this.signIn();
             }
             
             appData.provider.getIssues(roomName.replace(';)', '/'));
+            
             
             io.enterRoom(roomName.replace(';)', '/'), appData.headerModel.get('currencyType'));
             

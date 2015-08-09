@@ -24,6 +24,22 @@ define('login/github', [
         }
       },
 
+      getIssues: function(project){
+        let that = this;
+        let playerAPI = {};
+
+        if(OAuth.create('github')){
+          this.getIssuesForCurrentProject(project);
+          this.getUserData();
+        }else{
+          this.signIn()
+          .then(function(){
+            that.getIssuesForCurrentProject(project);
+            that.getUserData();
+          })
+        }
+      },
+
       signIn: function(){
         OAuth.initialize(publicKey);
         return OAuth.popup('github', {cache: true});
@@ -60,7 +76,7 @@ define('login/github', [
         });
       },
 
-      getIssues: function(project){
+      getIssuesForCurrentProject: function(project){
         OAuth.create('github')
         .get('/repos/' + project + '/issues')
         .then(function(data){
