@@ -18,17 +18,17 @@ define('login/trello', [
 				});
 			},
 
-			getIssues: function(){
+			getIssues: function(project){
 				let that = this;
 				let playerAPI = {};
 
 				if(OAuth.create('bitbucket')){
-					this.getIssuesForCurrentProject();
+					this.getIssuesForCurrentProject(project);
 					this.getUserData();
 				}else{
 					this.signIn()
 					.then(function(){
-						that.getIssuesForCurrentProject();
+						that.getIssuesForCurrentProject(project);
 						that.getUserData();
 					});
 				}
@@ -93,7 +93,7 @@ define('login/trello', [
 				});
 			},
 
-			getIssues: function(project){
+			getIssuesForCurrentProject: function(project){
 				let listOfProjects = appData.projectsModel.get('listOfProjects');
 				let projectName = project.substr(project.indexOf('/') + 1);
 				let projectId = _.findWhere(listOfProjects, {name: projectName}).id;

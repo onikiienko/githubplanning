@@ -18,17 +18,17 @@ define('login/bitbucket', [
           })
       },
 
-      getIssues: function(){
+      getIssues: function(project){
         let that = this;
         let playerAPI = {};
 
         if(OAuth.create('bitbucket')){
-          this.getIssuesForCurrentProject();
+          this.getIssuesForCurrentProject(project);
           this.getUserData();
         }else{
           this.signIn()
           .then(function(){
-            that.getIssuesForCurrentProject();
+            that.getIssuesForCurrentProject(project);
             that.getUserData();
           })
         }
