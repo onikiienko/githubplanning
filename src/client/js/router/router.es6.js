@@ -79,6 +79,7 @@ define([
             }
 
             if (_.isEmpty(appData.provider)){
+                appData.headerModel.set('projectName', roomName.replace(';)', '/'));
                 localStorage.setItem('roomName', roomName);
                 this.signIn();
             }
