@@ -12,14 +12,14 @@ exports.setRoom = function(db, data) {
 
 	collection.find(data).toArray(function(err, docs) {
 		if (!docs.length) {
-			collection.save(data);	
+			collection.save(data);
 		}
 	});
 }
 
 exports.getAllRooms = function(db, callback) {
 	var collection = db.collection('roomCollection');
-	
+
 	collection.find({}).toArray(function(err, docs) {
 		callback(docs, err);
 	});
@@ -27,6 +27,6 @@ exports.getAllRooms = function(db, callback) {
 
 exports.clearCollection = function(db) {
 	var collection = db.collection('roomCollection');
-	
+
 	collection.remove();
 }
