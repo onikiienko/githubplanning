@@ -7,6 +7,10 @@ define('views/header', [
 	let Header = Backbone.View.extend({
 		el: '.content__header',
 
+		events: {
+			'click .main-header__logo' : 'changeRoom'
+		},
+
 		template : _.template(headerTemplate),
 
 		initialize: function(){
@@ -17,6 +21,10 @@ define('views/header', [
 
 		render: function(){
         	$(this.el).html(this.template(this.model.toJSON()));
+		},
+
+		changeRoom: function(){
+			localStorage.removeItem('roomName');
 		}
 	});
 
