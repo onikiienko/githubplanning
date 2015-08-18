@@ -47,22 +47,21 @@ define('views/room', [
     },
     
     sendMessage: function(){  
-      let playerObject = {
-        avatar: appData.headerModel.get('avatar'),
-        name: appData.headerModel.get('name')
-      };
-
-      let text = $('.textarea').val();
+      let text = $('.textarea').val(),
+        playerObject = {
+          avatar: appData.headerModel.get('avatar'),
+          name: appData.headerModel.get('name')
+        },
+        message = new ChatModel({
+          contributor: playerObject,
+          text: text,
+          date: new Date()
+        });
       
       $('.textarea').val('');
 
-      let model = new ChatModel({
-        contributor: playerObject,
-        text: text,
-        date: new Date()
-      });
-
-      io.sendMessage(model);
+      io.sendMessage(message);
+      
     }
   });
 

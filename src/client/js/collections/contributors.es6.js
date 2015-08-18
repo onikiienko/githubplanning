@@ -2,8 +2,7 @@
 define('collections/contributors', [
 	'backbone',
 	'underscore'
-	],
-	function(Backbone, _){
+	], function(Backbone, _){
 		var Contributors = Backbone.Collection.extend({
 			addContributor: function(model){
 				this.add(model);

@@ -1,6 +1,10 @@
 <div class="user-comment">
     <div class="user-comment__avatar">
-        <img src="<%= contributor.avatar %>">
+    	<%if(typeof contributor.avatar !== "undefined"){%>
+        	<img src="<%= contributor.avatar %>">
+        <%}else{%>
+        	<img src="http://rocketdock.com/images/screenshots/Poker-Chip.png">
+        <%}%>
     </div>
     <div class="user-comment__name"><%= contributor.name %></div>
     <span class="user-comment__time"><%= time %></span>
