@@ -2,21 +2,6 @@ var _ = require('underscore');
 var Backbone = require('backbone');
 var currencies = require('./currencies');
 
-var connection = require('./db');
-var db;
-
-var writeInDB = function(data, socket){
-	db = (db) ? db : connection.db;
-	connection.setRoom(db, data);
-}
-
-var readFromDB = function(socket){
-	db = (db) ? db : connection.db;
-	connection.getAllRooms(db, function(result, err){
-		socket.emit('allRooms', result);
-	});
-};
-
 var Cards = Backbone.Collection.extend({
 	addCard: function(model){
 		if(this.filter(function (nextCard) { return _.isEqual(nextCard.get("contributor"), model.contributor);})){
@@ -78,10 +63,6 @@ exports.create = function(http){
 				});
 
 				roomSocket.on('connection', function(socket){
-					
-					writeInDB(data, socket);
-					readFromDB(socket);
-					
 					roomSocket.emit('ready', cards);
 
 					if(cardsCollection.toJSON().length){
@@ -119,9 +100,7 @@ exports.create = function(http){
 						cardsCollection.removeCard(card);
 						
 						contributorsCollection.removeContributor(contributor);
-						
-
-					})
+					});
 
 					socket.on('disconnect', function(){
 						var contributor = contributorsCollection.findWhere({socketId: socket.id});
@@ -131,7 +110,7 @@ exports.create = function(http){
 						var card = {contributor: { avatar: contributor.get('avatar'), name: contributor.get('name')}}
 
 						cardsCollection.removeCard(card);
-					})
+					});
 				});
 
 			}
