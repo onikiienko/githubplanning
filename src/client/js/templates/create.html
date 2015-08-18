@@ -9,11 +9,13 @@
                         <% _.each(listOfProjects, function(project) { %>
                         <li class="select__item">
                         <span class="item__tasks">
-                            <%= project.numberOfOpenIssues %>
-                                  <% if (project.numberOfOpenIssues !== 1) { %>
-                                Tasks
-                            <% }else{ %>
-                                Task
+                            <%if(typeof project.numberOfOpenIssues !== "undefined"){%>
+                                <%= project.numberOfOpenIssues %>
+                                      <% if (project.numberOfOpenIssues !== 1) { %>
+                                    Tasks
+                                <% }else{ %>
+                                    Task
+                                <% } %>
                             <% } %>
                         </span>
                             <div class="item__name"><%= project.owner %>/<%= project.name %></div>
