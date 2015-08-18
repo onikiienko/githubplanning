@@ -42,18 +42,66 @@ define('io/main', [
 
         socket.on('addContributor', function(model){
           appData.contributorsCollection.addContributor(model);
+          
+          let playerObject = {
+            name: 'Poker'
+          },
+          text = model.name + ' enter room',
+          message = {
+            contributor: playerObject,
+            text: text,
+            date: new Date()
+          };
+
+          socket.emit('message', message);
         });
 
         socket.on('removeContributor', function(model){
           appData.contributorsCollection.removeContributor(model);
+
+          let playerObject = {
+            name: 'Poker'
+          },
+          text = model.name + ' left room',
+          message = {
+            contributor: playerObject,
+            text: text,
+            date: new Date()
+          };
+
+          socket.emit('message', message);
         });
 
         socket.on('selectCard', function(model){
           appData.cardsCollection.addCard(model);
+
+          let playerObject = {
+            name: 'Poker'
+          },
+          text = model.contributor.name + ' add card',
+          message = {
+            contributor: playerObject,
+            text: text,
+            date: new Date()
+          };
+
+          socket.emit('message', message);
         });
 
         socket.on('removeCard', function(model){
           appData.cardsCollection.removeCard(model);
+
+          let playerObject = {
+            name: 'Poker'
+          },
+          text = model.contributor.name + ' removed card',
+          message = {
+            contributor: playerObject,
+            text: text,
+            date: new Date()
+          };
+
+          socket.emit('message', message);
         });
 
         socket.on('message', function(model){
