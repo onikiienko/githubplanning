@@ -111,6 +111,18 @@ exports.create = function(http){
 						chatCollection.addMessage(model);
 					});
 
+					socket.on('leave', function(socketId){
+						var contributor = contributorsCollection.findWhere({socketId: socketId});
+						
+						var card = {contributor: { avatar: contributor.get('avatar'), name: contributor.get('name')}}
+						
+						cardsCollection.removeCard(card);
+						
+						contributorsCollection.removeContributor(contributor);
+						
+
+					})
+
 					socket.on('disconnect', function(){
 						var contributor = contributorsCollection.findWhere({socketId: socket.id});
 						

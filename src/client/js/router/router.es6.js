@@ -18,8 +18,6 @@ define([
     'login/bitbucket'
 ], function(Backbone, _, StartView, CreateView, RoomView, HeaderView, ContributorView, CardView, ChatView, TaskView, SelectCardView, io, appData, providerTrello, providerGithub, providerBitbucket){
 
-    let headerView = new HeaderView({model: appData.headerModel});
-
     let Router = Backbone.Router.extend({
         routes: {
             "#": "loadStartPage",
@@ -97,8 +95,9 @@ define([
             let taskView = new TaskView({collection: appData.tasksCollection});
         }
     });
-
     let router = new Router();
 
     Backbone.history.start();
+    
+    let headerView = new HeaderView({model: appData.headerModel, router: router});
 });

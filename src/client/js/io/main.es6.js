@@ -112,6 +112,9 @@ define('io/main', [
           window.rooms = model;
         });
       },
+      leaveRoom: function(socketId){
+        socket.emit('leave', socketId);
+      },
       sendMessage: function(model){
         socket.emit('message', model);
       },

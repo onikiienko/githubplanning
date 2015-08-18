@@ -3,8 +3,9 @@ define('views/header', [
 		'text!templates/roomTemplates/header.html',
 		'backbone',
 		'underscore',
-    'data/service'
-], function(headerTemplate, Backbone, _, appData) {
+    	'data/service',
+    	'io/main'
+], function(headerTemplate, Backbone, _, appData, io) {
 	let Header = Backbone.View.extend({
 		el: '.content__header',
 
@@ -15,7 +16,8 @@ define('views/header', [
 
 		template : _.template(headerTemplate),
 
-		initialize: function(){
+		initialize: function(options){
+			this.router = options.router;
 			_.bindAll(this, 'render');
         	this.model.bind('change', this.render);
 			this.render();
@@ -29,12 +31,25 @@ define('views/header', [
 			localStorage.removeItem('roomName');
 		},
 
-    userMenu: function () {
-      localStorage.removeItem('provider');
-      localStorage.removeItem('providerName');
-      appData.headerModel.clear();
-      Backbone.history.navigate('/', {trigger: true});
-    }
+		userMenu: function () {
+			localStorage.removeItem('provider');
+			localStorage.removeItem('providerName');
+
+			let contributorObject = {
+				avatar: this.model.get('avatar'), 
+				name: this.model.get('name')
+			};
+			let contributor = appData.contributorsCollection.findWhere(contributorObject);
+			let contributorId = contributor.get('socketId');
+			
+			if (this.model.get('projectName')){ 
+				io.leaveRoom(contributorId);
+			}
+			
+			appData.headerModel.clear();
+			
+			this.router.navigate('/', {trigger: true});
+		}
 	});
 
 	return Header;
