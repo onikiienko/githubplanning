@@ -11,7 +11,7 @@ define('views/header', [
 
 		events: {
 			'click .main-header__logo' : 'changeRoom',
-			'click .main-header__user' : 'userMenu'
+			'click #logOut' : 'logOut'
 		},
 
 		template : _.template(headerTemplate),
@@ -31,23 +31,23 @@ define('views/header', [
 			localStorage.removeItem('roomName');
 		},
 
-		userMenu: function () {
+		logOut: function () {
 			localStorage.removeItem('provider');
 			localStorage.removeItem('providerName');
 
 			let contributorObject = {
-				avatar: this.model.get('avatar'), 
+				avatar: this.model.get('avatar'),
 				name: this.model.get('name')
 			};
 			let contributor = appData.contributorsCollection.findWhere(contributorObject);
 			let contributorId = contributor.get('socketId');
-			
-			if (this.model.get('projectName')){ 
+
+			if (this.model.get('projectName')){
 				io.leaveRoom(contributorId);
 			}
-			
+
 			appData.headerModel.clear();
-			
+
 			this.router.navigate('/', {trigger: true});
 		}
 	});
