@@ -39,6 +39,17 @@ exports.create = function(http){
 
 	io.on('connection', function(socket){
 		socket.on('enter', function(data){
+
+			function removeHelper(socketId) {
+				var contributor = contributorsCollection.findWhere({socketId: socketId});
+
+				var card = {contributor: { avatar: contributor.get('avatar'), name: contributor.get('name')}}
+
+				cardsCollection.removeCard(card);
+
+				contributorsCollection.removeContributor(contributor);
+			}
+
 			if(!socket.server.nsps[data.name]){
 				var roomSocket = io.of(data.name);
 				var cardsCollection = new Cards();
@@ -93,23 +104,11 @@ exports.create = function(http){
 					});
 
 					socket.on('leave', function(socketId){
-						var contributor = contributorsCollection.findWhere({socketId: socketId});
-						
-						var card = {contributor: { avatar: contributor.get('avatar'), name: contributor.get('name')}}
-						
-						cardsCollection.removeCard(card);
-						
-						contributorsCollection.removeContributor(contributor);
+						removeHelper(socketId);
 					});
 
 					socket.on('disconnect', function(){
-						var contributor = contributorsCollection.findWhere({socketId: socket.id});
-						
-						contributorsCollection.removeContributor(contributor);
-
-						var card = {contributor: { avatar: contributor.get('avatar'), name: contributor.get('name')}}
-
-						cardsCollection.removeCard(card);
+						removeHelper(socket.id);
 					});
 				});
 
